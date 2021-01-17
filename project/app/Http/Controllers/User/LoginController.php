@@ -31,7 +31,7 @@ class LoginController extends Controller
                 ];
 
         $validator = Validator::make($request->all(), $rules);
-        
+
         if ($validator->fails()) {
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
@@ -45,13 +45,13 @@ class LoginController extends Controller
           if(Auth::guard('web')->user()->email_verified == 'No')
           {
             Auth::guard('web')->logout();
-            return response()->json(array('errors' => [ 0 => 'Your Email is not Verified!' ]));   
+            return response()->json(array('errors' => [ 0 => 'Your Email is not Verified!' ]));
           }
 
           if(Auth::guard('web')->user()->ban == 1)
           {
             Auth::guard('web')->logout();
-            return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));   
+            return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));
           }
 
           // Login Via Modal
@@ -69,14 +69,14 @@ class LoginController extends Controller
                 }
             }
           // Login as User
-          return response()->json(1);          
+          return response()->json(1);
           }
           // Login as User
           return response()->json(route('user-dashboard'));
       }
 
       // if unsuccessful, then redirect back to the login with the form data
-          return response()->json(array('errors' => [ 0 => 'Credentials Doesn\'t Match !' ]));     
+          return response()->json(array('errors' => [ 0 => 'Credentials Doesn\'t Match !' ]));
     }
 
     public function logout()
@@ -121,5 +121,5 @@ class LoginController extends Controller
         session(['captcha_string' => $word]);
         imagepng($image, $actual_path."assets/images/capcha_code.png");
     }
-    
+
 }
