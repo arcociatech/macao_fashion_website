@@ -8,6 +8,7 @@ use App\Models\SendData;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class GetDataController extends Controller
 {
@@ -78,10 +79,23 @@ class GetDataController extends Controller
                     }
                 }
             DB::commit();
-            dd("Categories: ".$categories.", Sub Categories: ".$sub_categories." Created");
+            //--- Redirect Section
+            Session::flash('success', '"Categories: "'.$categories.'", Sub Categories: "'.$sub_categories.'". Imported Successfully!"');
+            return redirect()->back();
+      //--- Redirect Section Ends
         } catch (\Exception $ex) {
             DB::rollback();
-            dd($ex->getMessage());
+            // dd($ex->getMessage());
+            Session::flash('error', 'Error Occured. '. $ex->getMessage());
+            return redirect()->back();
         }
+    }
+    /**
+     * Get Products
+     *
+     **/
+    public function getProducts()
+    {
+
     }
 }

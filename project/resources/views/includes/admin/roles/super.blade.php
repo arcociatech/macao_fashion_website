@@ -373,3 +373,13 @@
                 <li><a href="{{route('admin-generate-backup')}}"> {{ __('Generate Backup') }}</a></li>
             </ul>
         </li>
+        <li>
+            <a href="#getData" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+                <i class="fas fa-desktop"></i>{{ __('Get Data') }}
+            </a>
+            <ul class="collapse list-unstyled" id="getData" data-parent="#accordion">
+                <li>
+                    <a href="{{ url('admin/getdata/categories') }}"><span>{{ __('Get Categories') }}</span></a>
+                </li>
+            </ul>
+        </li>
