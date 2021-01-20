@@ -2,6 +2,7 @@
 
 // ************************************ ADMIN SECTION **********************************************
 
+
 Route::prefix('admin')->group(function() {
 
   //------------ ADMIN LOGIN SECTION ------------
@@ -645,6 +646,12 @@ Route::prefix('admin')->group(function() {
   Route::get('/general-settings/faq/{status}', 'Admin\GeneralSettingController@isfaq')->name('admin-gs-isfaq');
   Route::get('/page-settings/contact', 'Admin\PageSettingController@contact')->name('admin-ps-contact');
   Route::post('/page-settings/update/all', 'Admin\PageSettingController@update')->name('admin-ps-update');
+
+  //------------ ADMIN GET DATA FROM POS START ------------
+  Route::group(['prefix' => 'getdata'], function () {
+    Route::get('categories', 'POS\GetDataController@getCategories');
+  });
+  //------------ ADMIN GET DATA FROM POS END ------------
 
 });
 

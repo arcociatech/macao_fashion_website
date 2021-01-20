@@ -68,7 +68,7 @@ class CategoryController extends Controller
             'photo.mimes' => 'Icon Type is Invalid.',
             'slug.unique' => 'This slug has already been taken.',
             'slug.regex' => 'Slug Must Not Have Any Special Characters.'
-                   ];
+        ];
         $validator = Validator::make($request->all(), $rules, $customs);
 
         if ($validator->fails()) {
