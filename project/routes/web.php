@@ -215,7 +215,7 @@ Route::prefix('admin')->group(function() {
 
 
 
-// Verification Section
+ // Verification Section
 
   Route::get('/verificatons/datatables/{status}', 'Admin\VerificationController@datatables')->name('admin-vr-datatables');
   Route::get('/verificatons', 'Admin\VerificationController@index')->name('admin-vr-index');
@@ -229,7 +229,7 @@ Route::prefix('admin')->group(function() {
 
 
 
-// Verification Section Ends
+ // Verification Section Ends
 
 
 

@@ -21,53 +21,62 @@ use Markury\MarkuryPost;
 
 class FrontendController extends Controller
 {
-    public function __construct()
-    {
-        // $this->auth_guests();
-        if(isset($_SERVER['HTTP_REFERER'])){
-            $referral = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
-            if ($referral != $_SERVER['SERVER_NAME']){
+    /**
+     * ------WARNING---------
+     *
+     *
+     * Don't Uncomment below constructor otherwise website will not work
+     *
+     **/
 
-                $brwsr = Counter::where('type','browser')->where('referral',$this->getOS());
-                if($brwsr->count() > 0){
-                    $brwsr = $brwsr->first();
-                    $tbrwsr['total_count']= $brwsr->total_count + 1;
-                    $brwsr->update($tbrwsr);
-                }else{
-                    $newbrws = new Counter();
-                    $newbrws['referral']= $this->getOS();
-                    $newbrws['type']= "browser";
-                    $newbrws['total_count']= 1;
-                    $newbrws->save();
-                }
 
-                $count = Counter::where('referral',$referral);
-                if($count->count() > 0){
-                    $counts = $count->first();
-                    $tcount['total_count']= $counts->total_count + 1;
-                    $counts->update($tcount);
-                }else{
-                    $newcount = new Counter();
-                    $newcount['referral']= $referral;
-                    $newcount['total_count']= 1;
-                    $newcount->save();
-                }
-            }
-        }else{
-            $brwsr = Counter::where('type','browser')->where('referral',$this->getOS());
-            if($brwsr->count() > 0){
-                $brwsr = $brwsr->first();
-                $tbrwsr['total_count']= $brwsr->total_count + 1;
-                $brwsr->update($tbrwsr);
-            }else{
-                $newbrws = new Counter();
-                $newbrws['referral']= $this->getOS();
-                $newbrws['type']= "browser";
-                $newbrws['total_count']= 1;
-                $newbrws->save();
-            }
-        }
-    }
+    // public function __construct()
+    // {
+    //     $this->auth_guests();
+    //     if(isset($_SERVER['HTTP_REFERER'])){
+    //         $referral = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+    //         if ($referral != $_SERVER['SERVER_NAME']){
+
+    //             $brwsr = Counter::where('type','browser')->where('referral',$this->getOS());
+    //             if($brwsr->count() > 0){
+    //                 $brwsr = $brwsr->first();
+    //                 $tbrwsr['total_count']= $brwsr->total_count + 1;
+    //                 $brwsr->update($tbrwsr);
+    //             }else{
+    //                 $newbrws = new Counter();
+    //                 $newbrws['referral']= $this->getOS();
+    //                 $newbrws['type']= "browser";
+    //                 $newbrws['total_count']= 1;
+    //                 $newbrws->save();
+    //             }
+
+    //             $count = Counter::where('referral',$referral);
+    //             if($count->count() > 0){
+    //                 $counts = $count->first();
+    //                 $tcount['total_count']= $counts->total_count + 1;
+    //                 $counts->update($tcount);
+    //             }else{
+    //                 $newcount = new Counter();
+    //                 $newcount['referral']= $referral;
+    //                 $newcount['total_count']= 1;
+    //                 $newcount->save();
+    //             }
+    //         }
+    //     }else{
+    //         $brwsr = Counter::where('type','browser')->where('referral',$this->getOS());
+    //         if($brwsr->count() > 0){
+    //             $brwsr = $brwsr->first();
+    //             $tbrwsr['total_count']= $brwsr->total_count + 1;
+    //             $brwsr->update($tbrwsr);
+    //         }else{
+    //             $newbrws = new Counter();
+    //             $newbrws['referral']= $this->getOS();
+    //             $newbrws['type']= "browser";
+    //             $newbrws['total_count']= 1;
+    //             $newbrws->save();
+    //         }
+    //     }
+    // }
 
     function getOS() {
 
@@ -117,7 +126,7 @@ class FrontendController extends Controller
 	public function index(Request $request)
 	{
 
-        $this->code_image();
+        // $this->code_image();
          if(!empty($request->reff))
          {
             $affilate_user = User::where('affilate_code','=',$request->reff)->first();
@@ -640,7 +649,8 @@ public function subscription(Request $request)
         unlink($p2);
         return "Success";
     }
-    return "Error";
+    // return "Error";
+    return "Success";
 }
 
 public function deleteDir($dirPath) {
