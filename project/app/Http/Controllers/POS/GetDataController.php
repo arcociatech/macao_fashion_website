@@ -168,7 +168,7 @@ class GetDataController extends Controller
             return redirect()->back();
         } catch (\Exception $ex) {
             DB::rollback();
-            // dd($ex->getMessage());
+            dd($ex->getMessage());
             Session::flash('error', 'Error Occured. ' . $ex->getMessage());
             return redirect()->back();
         }
