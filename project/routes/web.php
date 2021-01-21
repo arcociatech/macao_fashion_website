@@ -650,6 +650,7 @@ Route::prefix('admin')->group(function() {
   //------------ ADMIN GET DATA FROM POS START ------------
   Route::group(['prefix' => 'getdata'], function () {
     Route::get('categories', 'POS\GetDataController@getCategories');
+    Route::get('products', 'POS\GetDataController@getProducts');
   });
   //------------ ADMIN GET DATA FROM POS END ------------
 

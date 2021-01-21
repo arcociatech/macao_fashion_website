@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\POS;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Childcategory;
+use App\Models\Product;
 use App\Models\SendData;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,37 +25,37 @@ class GetDataController extends Controller
      **/
     public function getCategories()
     {
-        $all_categories = [];
-        $connection = DB::connection('pos_macaofashion');
-
-        $categories = $connection->table('categories')->where('parent_id', 0)
-            ->orderBy('name', 'asc')
-            ->get()->toArray();
-
-        $sub_categories = $connection->table('categories')->where('parent_id', '!=', 0)
-            ->orderBy('name', 'asc')
-            ->get()->toArray();
-
-        $sub_cat_by_parent = [];
-
-        if (!empty($sub_categories)) {
-            foreach ($sub_categories as $sub_category) {
-                if (empty($sub_cat_by_parent[$sub_category->parent_id])) {
-                    $sub_cat_by_parent[$sub_category->parent_id] = [];
-                }
-
-                $sub_cat_by_parent[$sub_category->parent_id][] = (array)$sub_category;
-            }
-        }
-        $i=0;
-        foreach ($categories as $key => $value) {
-            if (!empty($sub_cat_by_parent[$value->id])) {
-                $all_categories[$i] = (array)$value;
-                $all_categories[$i]['sub_categories'] = $sub_cat_by_parent[$value->id];
-                $i++;
-            }
-        }
         try {
+            $all_categories = [];
+            $connection = DB::connection('pos_macaofashion');
+
+            $categories = $connection->table('categories')->where('parent_id', 0)
+                ->orderBy('name', 'asc')
+                ->get()->toArray();
+
+            $sub_categories = $connection->table('categories')->where('parent_id', '!=', 0)
+                ->orderBy('name', 'asc')
+                ->get()->toArray();
+
+            $sub_cat_by_parent = [];
+
+            if (!empty($sub_categories)) {
+                foreach ($sub_categories as $sub_category) {
+                    if (empty($sub_cat_by_parent[$sub_category->parent_id])) {
+                        $sub_cat_by_parent[$sub_category->parent_id] = [];
+                    }
+
+                    $sub_cat_by_parent[$sub_category->parent_id][] = (array)$sub_category;
+                }
+            }
+            $i=0;
+            foreach ($categories as $key => $value) {
+                if (!empty($sub_cat_by_parent[$value->id])) {
+                    $all_categories[$i] = (array)$value;
+                    $all_categories[$i]['sub_categories'] = $sub_cat_by_parent[$value->id];
+                    $i++;
+                }
+            }
             DB::beginTransaction();
             $categories = 0;
             $sub_categories = 0;
@@ -96,6 +98,79 @@ class GetDataController extends Controller
      **/
     public function getProducts()
     {
-
+        try {
+            $connection = DB::connection('pos_macaofashion');
+            $products = $connection->table('website_products')
+                                    ->join('products as p', 'p.refference', '=', 'website_products.refference')
+                                    ->join('variations as v', 'p.id', '=', 'v.product_id')
+                                    ->join('sizes as s', 'p.sub_size_id', '=', 's.id')
+                                    ->join('colors as c', 'c.id', '=', 'p.color_id')
+                                    ->join('categories as cat', 'cat.id', '=', 'p.category_id')
+                                    ->join('categories as sub_cat', 'sub_cat.id', '=', 'p.sub_category_id')
+                                    ->get([
+                                        'p.name as name',
+                                        'p.sku as sku',
+                                        'cat.name as category_name',
+                                        'sub_cat.name as sub_category_name',
+                                        'c.name as color',
+                                        's.name as size',
+                                        'website_products.quantity as quantity',
+                                        'v.sell_price_inc_tax as price'
+                                    ])
+                                    ->groupBy('name')
+                                    ->toArray();
+            // $total = $connection->table('website_products')->count('id');
+            // dd($products);
+            DB::beginTransaction();
+            $qurrey_count = 0;
+            $all_product = 0;
+            $product = 0;
+            foreach ($products as $key => $value) {
+                // for ($i=0; $i < count($products); $i++) {
+                    $qurrey_count++;
+                    $current_product = $value;
+                    $sub_category = Subcategory::where('name', $current_product[0]->category_name)->first();
+                    $subcat_id = $sub_category->id;
+                    $cat_id = $sub_category->category_id;
+                    $child_id = Childcategory::where('name', $current_product[0]->sub_category_name)->first()->id;
+                    $size = '';
+                    $color = '';
+                    $quantity = '';
+                    for ($j=0; $j < count($current_product); $j++) {
+                        $size .= $current_product[$j]->size.',';
+                        $color .= $current_product[$j]->color.',';
+                        $quantity .= $current_product[$j]->quantity.',';
+                        $all_product++;
+                    }
+                    // Create Product here
+                    if (!Product::where('name', $current_product[0]->name)->first()) {
+                        Product::create([
+                            'name' => $current_product[0]->name,
+                            'slug' => strtolower($current_product[0]->name),
+                            'sku' => $current_product[0]->sku,
+                            'price' => (double)$current_product[0]->price,
+                            //Euro to dollor
+                            // 'price' => $current_product[0]->price*1.21,
+                            'quantity' => $quantity,
+                            'color' => $color,
+                            'size' => $size,
+                            'category_id' => $cat_id,
+                            'subcategory_id' => $subcat_id,
+                            'childcategory_id' => $child_id,
+                            'photo'=> 'images/noimage.png',
+                            'thumbnail'=> 'images/noimage.png'
+                        ]);
+                        $product++;
+                    }
+                }
+            DB::commit();
+            Session::flash('success', $all_product.' of '.$qurrey_count.' products are merged into '.$product.' successfully');
+            return redirect()->back();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            // dd($ex->getMessage());
+            Session::flash('error', 'Error Occured. ' . $ex->getMessage());
+            return redirect()->back();
+        }
     }
 }

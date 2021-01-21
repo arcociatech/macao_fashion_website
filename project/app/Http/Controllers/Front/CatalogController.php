@@ -46,7 +46,7 @@ class CatalogController extends Controller
 
     public function category(Request $request, $slug=null, $slug1=null, $slug2=null)
     {
-      if (Session::has('currency')) 
+      if (Session::has('currency'))
       {
         $curr = Currency::find(Session::get('currency'));
       }
@@ -234,7 +234,7 @@ class CatalogController extends Controller
         $this->code_image();
         $productt = Product::where('slug','=',$slug)->firstOrFail();
         if($productt->status == 0){
-          return response()->view('errors.404')->setStatusCode(404); 
+          return response()->view('errors.404')->setStatusCode(404);
         }
         $productt->views+=1;
         $productt->update();
@@ -277,7 +277,6 @@ class CatalogController extends Controller
         {
             imagesetpixel($image,rand()%200,rand()%50,$pixel);
         }
-
         $font = $actual_path.'assets/front/fonts/NotoSans-Bold.ttf';
         $allowed_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $length = strlen($allowed_letters);

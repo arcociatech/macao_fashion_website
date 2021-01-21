@@ -381,5 +381,8 @@
                 <li>
                     <a href="{{ url('admin/getdata/categories') }}"><span>{{ __('Get Categories') }}</span></a>
                 </li>
+                <li>
+                    <a href="{{ url('admin/getdata/products') }}"><span>{{ __('Get Products') }}</span></a>
+                </li>
             </ul>
         </li>
