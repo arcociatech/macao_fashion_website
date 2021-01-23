@@ -139,10 +139,10 @@ class GetDataController extends Controller
                 $price = [];
                 for ($j=0; $j < count($current_product); $j++) {
                     $size[$j] =  $current_product[$j]->size;
-                    if ($j != 0 && $color[$j] != $color[$j-1]) {
+                    if(($j > 0 ) && (isset($color[($j - 1)]) && ($color[($j-1)] != $current_product[$j]->color))) {
                         $color[$j] = $current_product[$j]->color;
                     }elseif($j == 0){
-                        $color[$j] = $current_product[$j]->color;
+                        $color[0] = $current_product[$j]->color;
                     }
                     $quantity[$j] = $current_product[$j]->quantity;
                     $price[$j] = (float)$current_product[0]->price;
@@ -192,7 +192,7 @@ class GetDataController extends Controller
             return redirect()->back();
         } catch (\Exception $ex) {
             DB::rollback();
-            dd($ex->getMessage());
+            dd($ex->getMessage().' on Line: '.$ex->getLine().' in file: '.$ex->getFile());
             Session::flash('error', 'Error Occured. ' . $ex->getMessage());
             return redirect()->back();
         }
