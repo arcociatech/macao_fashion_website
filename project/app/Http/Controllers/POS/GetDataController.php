@@ -101,24 +101,24 @@ class GetDataController extends Controller
         try {
             $connection = DB::connection('pos_macaofashion');
             $products = $connection->table('website_products')
-                                    ->join('products as p', 'p.refference', '=', 'website_products.refference')
-                                    ->join('variations as v', 'p.id', '=', 'v.product_id')
-                                    ->join('sizes as s', 'p.sub_size_id', '=', 's.id')
-                                    ->join('colors as c', 'c.id', '=', 'p.color_id')
-                                    ->join('categories as cat', 'cat.id', '=', 'p.category_id')
-                                    ->join('categories as sub_cat', 'sub_cat.id', '=', 'p.sub_category_id')
-                                    ->get([
-                                        'p.name as name',
-                                        'p.sku as sku',
-                                        'cat.name as category_name',
-                                        'sub_cat.name as sub_category_name',
-                                        'c.name as color',
-                                        's.name as size',
-                                        'website_products.quantity as quantity',
-                                        'v.sell_price_inc_tax as price'
-                                    ])
-                                    ->groupBy('name')
-                                    ->toArray();
+                        ->join('products as p', 'p.refference', '=', 'website_products.refference')
+                        ->join('variations as v', 'p.id', '=', 'v.product_id')
+                        ->join('sizes as s', 'p.sub_size_id', '=', 's.id')
+                        ->join('colors as c', 'c.id', '=', 'p.color_id')
+                        ->join('categories as cat', 'cat.id', '=', 'p.category_id')
+                        ->join('categories as sub_cat', 'sub_cat.id', '=', 'p.sub_category_id')
+                        ->get([
+                            'p.name as name',
+                            'p.sku as sku',
+                            'cat.name as category_name',
+                            'sub_cat.name as sub_category_name',
+                            'c.name as color',
+                            's.name as size',
+                            'website_products.quantity as quantity',
+                            'v.sell_price_inc_tax as price'
+                        ])
+                        ->groupBy('name')
+                        ->toArray();
             // $total = $connection->table('website_products')->count('id');
             // dd($products);
             DB::beginTransaction();
@@ -127,48 +127,67 @@ class GetDataController extends Controller
             $product = 0;
             foreach ($products as $key => $value) {
                 // for ($i=0; $i < count($products); $i++) {
-                    $qurrey_count++;
-                    $current_product = $value;
-                    $sub_category = Subcategory::where('name', $current_product[0]->category_name)->first();
-                    $subcat_id = $sub_category->id;
-                    $cat_id = $sub_category->category_id;
-                    $child_id = Childcategory::where('name', $current_product[0]->sub_category_name)->first()->id;
-                    $size = '';
-                    $color = '';
-                    $quantity = '';
-                    for ($j=0; $j < count($current_product); $j++) {
-                        $size .= $current_product[$j]->size.',';
-                        $color .= $current_product[$j]->color.',';
-                        $quantity .= $current_product[$j]->quantity.',';
-                        $all_product++;
-                    }
-                    // Create Product here
-                    if (!Product::where('name', $current_product[0]->name)->first()) {
-                        Product::create([
-                            'name' => $current_product[0]->name,
-                            'slug' => strtolower($current_product[0]->name),
-                            'sku' => $current_product[0]->sku,
-                            'price' => (double)$current_product[0]->price,
-                            //Euro to dollor
-                            // 'price' => $current_product[0]->price*1.21,
-                            'quantity' => $quantity,
-                            'color' => $color,
-                            'size' => $size,
-                            'category_id' => $cat_id,
-                            'subcategory_id' => $subcat_id,
-                            'childcategory_id' => $child_id,
-                            'photo'=> 'images/noimage.png',
-                            'thumbnail'=> 'images/noimage.png'
-                        ]);
-                        $product++;
-                    }
+                $qurrey_count++;
+                $current_product = $value;
+                $sub_category = Subcategory::where('name', $current_product[0]->category_name)->first();
+                $subcat_id = $sub_category->id;
+                $cat_id = $sub_category->category_id;
+                $child_id = Childcategory::where('name', $current_product[0]->sub_category_name)->first()->id;
+                $size = [];
+                $color = [];
+                $quantity =[];
+                $price = [];
+                for ($j=0; $j < count($current_product); $j++) {
+                    $size[$j] =  $current_product[$j]->size;
+                    $color[$j] = $current_product[$j]->color;
+                    $quantity[$j] = $current_product[$j]->quantity;
+                    $price[$j] = (float)$current_product[0]->price;
+                    $all_product++;
                 }
+                // Create Product here
+                if (!Product::where('name', $current_product[0]->name)->first()) {
+                    $data = new Product;
+                    $input = [];
+                    $input['name'] = $current_product[0]->name;
+                    $input['slug'] = strtolower($current_product[0]->name);
+                    $input['sku'] = $current_product[0]->sku;
+                    $input['price'] = implode(",", $price);
+                    $input['quantity'] = implode(",", $quantity);
+                    $input['color'] = implode(",", $color);
+                    $input['size'] = implode(",", $size);
+                    $input['category_id'] = $cat_id;
+                    $input['subcategory_id'] = $subcat_id;
+                    $input['childcategory_id'] = $child_id;
+                    $input['photo'] = 'images/noimage.png';
+                    $input['thumbnail'] = 'images/noimage.png';
+                    $data->fill($input)->save(); //save product
+                    // $products = Product::create([
+                    //     'name' => $current_product[0]->name,
+                    //     'slug' => strtolower($current_product[0]->name),
+                    //     'sku' => $current_product[0]->sku,
+                    //     'price' => implode(",", $price),
+                    //     //Euro to dollor
+                    //     // 'price' => $current_product[0]->price*1.21,
+                    //     'quantity' => implode(",", $quantity),
+                    //     'color' => implode(",", $color),
+                    //     'size' => implode(",", $size),
+                    //     'category_id' => $cat_id,
+                    //     'subcategory_id' => $subcat_id,
+                    //     'childcategory_id' => $child_id,
+                    //     'photo'=> 'images/noimage.png',
+                    //     'thumbnail'=> 'images/noimage.png'
+                    // ]);
+                    // dd($products);
+                    $product++;
+                }
+                // dd("Hello");
+            }
             DB::commit();
             Session::flash('success', $all_product.' of '.$qurrey_count.' products are merged into '.$product.' successfully');
             return redirect()->back();
         } catch (\Exception $ex) {
             DB::rollback();
-            dd($ex->getMessage());
+            // dd($ex->getMessage());
             Session::flash('error', 'Error Occured. ' . $ex->getMessage());
             return redirect()->back();
         }

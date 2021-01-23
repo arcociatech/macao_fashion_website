@@ -36,7 +36,7 @@
 
 							<div class="row">
 								<div class="col-lg-8">
-											
+
 							<div class="add-product-content">
 								<div class="row">
 									<div class="col-lg-12">
@@ -44,7 +44,7 @@
 											<div class="body-area">
 
 					                      <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
-					        
+
 
 
                         @include('includes.admin.form-both')
@@ -459,7 +459,7 @@
 																								{{ __('(Number of quantity of this size)') }}
 																							</span>
 																						</label>
-																					<input type="number" name="size_qty[]" class="input-field" placeholder="Size Qty" min="1" value="{{ $data->size_qty[$key] }}">
+					{{ dd($data) }}														<input type="number" name="size_qty[]" class="input-field" placeholder="Size Qty" min="1" value="{{ $data->size_qty[$key] }}">
 																				</div>
 																				<div class="col-md-4 col-sm-6">
 																						<label>
@@ -662,7 +662,7 @@
 												</div>
 											</div>
 
-										
+
 												<div class="{{ !empty($data->size) ? "showbox":"" }}" id="stckprod">
 												<div class="row">
 													<div class="col-lg-12">
@@ -798,14 +798,14 @@
 							</div>
 								</div>
 								<div class="col-lg-4">
-											
+
 							<div class="add-product-content">
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="product-description">
 											<div class="body-area">
 
-												
+
 
 							                     <div class="row">
 							                        <div class="col-lg-12">
@@ -814,7 +814,7 @@
 							                          </div>
 							                        </div>
 							                        <div class="col-lg-12">
-	
+
 													<div class="panel panel-body">
 														<div class="span4 cropme text-center" id="landscape" style="width: 100%; height: 285px; border: 1px dashed #ddd; background: #f1f1f1;">
 															<a href="javascript:;" id="crop-image" class="d-inline-block mybtn1">
@@ -823,7 +823,7 @@
 														</div>
 														</div>
 
-			
+
 
 
 							                        </div>
@@ -975,10 +975,10 @@
 							</div>
 						</div>
 							</div>
-							
+
 						</form>
 						</div>
-					
+
 		<div class="modal fade" id="setgallery" tabindex="-1" role="dialog" aria-labelledby="setgallery" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
 				<div class="modal-content">
@@ -1158,7 +1158,7 @@ $('.cropme').simpleCropper();
   $('.ok').on('click', function () {
 
  setTimeout(
-	 
+
     function() {
 
   	var img = $('#feature_photo').val();
