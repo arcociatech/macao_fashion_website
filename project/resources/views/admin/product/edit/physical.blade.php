@@ -458,8 +458,7 @@
 																							<span>
 																								{{ __('(Number of quantity of this size)') }}
 																							</span>
-																						</label>
-					{{ dd($data) }}														<input type="number" name="size_qty[]" class="input-field" placeholder="Size Qty" min="1" value="{{ $data->size_qty[$key] }}">
+																						</label>												<input type="number" name="size_qty[]" class="input-field" placeholder="Size Qty" min="1" value="{{ $data->size_qty[$key] }}">
 																				</div>
 																				<div class="col-md-4 col-sm-6">
 																						<label>

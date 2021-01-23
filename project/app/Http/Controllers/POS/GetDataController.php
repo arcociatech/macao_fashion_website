@@ -151,10 +151,11 @@ class GetDataController extends Controller
                     $input['name'] = $current_product[0]->name;
                     $input['slug'] = strtolower($current_product[0]->name);
                     $input['sku'] = $current_product[0]->sku;
-                    $input['price'] = implode(",", $price);
-                    $input['quantity'] = implode(",", $quantity);
-                    $input['color'] = implode(",", $color);
                     $input['size'] = implode(",", $size);
+                    $input['size_price'] = implode(",", $price);
+                    $input['size_qty'] = implode(",", $quantity);
+                    $input['color'] = implode(",", $color);
+                    $input['price'] = (float)$current_product[0]->price;
                     $input['category_id'] = $cat_id;
                     $input['subcategory_id'] = $subcat_id;
                     $input['childcategory_id'] = $child_id;
@@ -187,7 +188,7 @@ class GetDataController extends Controller
             return redirect()->back();
         } catch (\Exception $ex) {
             DB::rollback();
-            // dd($ex->getMessage());
+            dd($ex->getMessage());
             Session::flash('error', 'Error Occured. ' . $ex->getMessage());
             return redirect()->back();
         }
