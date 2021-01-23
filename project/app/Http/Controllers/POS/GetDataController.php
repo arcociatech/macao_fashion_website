@@ -139,7 +139,11 @@ class GetDataController extends Controller
                 $price = [];
                 for ($j=0; $j < count($current_product); $j++) {
                     $size[$j] =  $current_product[$j]->size;
-                    $color[$j] = $current_product[$j]->color;
+                    if ($j != 0 && $color[$j] != $color[$j-1]) {
+                        $color[$j] = $current_product[$j]->color;
+                    }elseif($j == 0){
+                        $color[$j] = $current_product[$j]->color;
+                    }
                     $quantity[$j] = $current_product[$j]->quantity;
                     $price[$j] = (float)$current_product[0]->price;
                     $all_product++;
