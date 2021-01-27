@@ -148,6 +148,7 @@ class GetDataController extends Controller
                     $price[$j] = (float)$current_product[0]->price;
                     $all_product++;
                 }
+                // dd($current_product, (float)$current_product[0]->price);
                 // Create Product here
                 if (!Product::where('name', $current_product[0]->name)->first()) {
                     $data = new Product;

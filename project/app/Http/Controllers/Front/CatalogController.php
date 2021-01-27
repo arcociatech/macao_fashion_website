@@ -73,8 +73,33 @@ class CatalogController extends Controller
         $data['subcat'] = $subcat;
       }
       if (!empty($slug2)) {
-        $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
-        $data['childcat'] = $childcat;
+          if ($slug2 == 'veste') {
+              $groupCat = Childcategory::where('slug', 'veste')
+                                        ->orWhere('slug','gillet')
+                                        ->orWhere('slug','blazer')
+                                        ->orWhere('slug','veste-long')
+                                        ->pluck('id');
+          }elseif($slug2 == 'top'){
+            $groupCat = Childcategory::where('slug', 'top')
+                                        ->orWhere('slug', 'blouse')
+                                        ->orWhere('slug', 'chemise')
+                                        ->orWhere('slug', 'pull')
+                                        ->orWhere('slug', 't-shrt')
+                                        ->pluck('id');
+          } elseif ($slug2 == 'bas') {
+                $groupCat = Childcategory::where('slug', 'bas')
+                                        ->orWhere('slug', 'pantalon')
+                                        ->orWhere('slug', 'denim-jeans')
+                                        ->orWhere('slug', 'short')
+                                        ->orWhere('slug', 'trousure')
+                                        ->orWhere('slug', 'combipantalon')
+                                        ->orWhere('slug', 'combishort')
+                                        ->orWhere('slug', 'bass-collant')
+                                        ->pluck('id');
+            }else{
+              $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
+              $data['childcat'] = $childcat;
+          }
       }
 
       $prods = Product::when($cat, function ($query, $cat) {
@@ -85,8 +110,13 @@ class CatalogController extends Controller
                                   })
                                   ->when($childcat, function ($query, $childcat) {
                                       return $query->where('childcategory_id', $childcat->id);
-                                  })
-                                  ->when($search, function ($query, $search) {
+                                  });
+                                  if (isset($groupCat)) {
+                                      $prods->when($groupCat, function ($query, $groupCat) {
+                                          return $query->whereIn('childcategory_id',$groupCat);
+                                      });
+                                  }
+                                  $prods->when($search, function ($query, $search) {
                                       return $query->whereRaw('MATCH (name) AGAINST (? IN BOOLEAN MODE)' , array($search));
                                   })
                                   ->when($minprice, function($query, $minprice) {

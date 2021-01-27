@@ -36,7 +36,7 @@ class ProductController extends Controller
          return Datatables::of($datas)
                             ->editColumn('name', function(Product $data) {
                                 $name =  mb_strlen($data->name,'UTF-8') > 50 ? mb_substr($data->name,0,50,'UTF-8').'...' : $data->name;
-             
+
                                 $id = '<small>'.__("ID").': <a href="'.route('front.product', $data->slug).'" target="_blank">'.sprintf("%'.08d",$data->id).'</a></small>';
 
                                 $id3 = $data->type == 'Physical' ?'<small class="ml-2"> '.__("SKU").': <a href="'.route('front.product', $data->slug).'" target="_blank">'.$data->sku.'</a>' : '';
@@ -81,7 +81,7 @@ class ProductController extends Controller
          return Datatables::of($datas)
                             ->editColumn('name', function(Product $data) {
                                 $name =  mb_strlen($data->name,'UTF-8') > 50 ? mb_substr($data->name,0,50,'UTF-8').'...' : $data->name;
-             
+
                                 $id = '<small>'.__("ID").': <a href="'.route('front.product', $data->slug).'" target="_blank">'.sprintf("%'.08d",$data->id).'</a></small>';
 
                                 $id3 = $data->type == 'Physical' ?'<small class="ml-2"> '.__("SKU").': <a href="'.route('front.product', $data->slug).'" target="_blank">'.$data->sku.'</a>' : '';
@@ -367,7 +367,7 @@ class ProductController extends Controller
                     foreach($size_prices as $key => $sPrice){
                         $s_price[$key] = $sPrice / $sign->value;
                     }
-                    
+
                     $input['size_price'] = implode(',', $s_price);
                 }
             }
@@ -666,16 +666,16 @@ class ProductController extends Controller
                 $input['slug'] = Str::slug($input['name'],'-').'-'.strtolower($input['sku']);
 
                 $image_url = $line[5];
-                
+
                   $ch = curl_init();
                   curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
                   curl_setopt ($ch, CURLOPT_URL, $image_url);
                   curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 20);
                   curl_setopt ($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
                   curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, true);
-                  curl_setopt($ch, CURLOPT_HEADER, true); 
+                  curl_setopt($ch, CURLOPT_HEADER, true);
                   curl_setopt($ch, CURLOPT_NOBODY, true);
-                
+
                   $content = curl_exec ($ch);
                   $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 
@@ -688,13 +688,13 @@ class ProductController extends Controller
                         $input['photo']  = $fphoto;
                         $thumb_url = $line[5];
                     }else{
-                        $fimg = Image::make(public_path().'/assets/images/noimage.png')->resize(800, 800); 
+                        $fimg = Image::make(public_path().'/assets/images/noimage.png')->resize(800, 800);
                         $fphoto = Str::random(10).'.jpg';
                         $fimg->save(public_path().'/assets/images/products/'.$fphoto);
                         $input['photo']  = $fphoto;
                         $thumb_url = public_path().'/assets/images/noimage.png';
                     }
-                
+
 
                 $timg = Image::make($thumb_url)->resize(285, 285);
                 $thumbnail = Str::random(10).'.jpg';
@@ -841,7 +841,7 @@ class ProductController extends Controller
                                     foreach($size_prices as $key => $sPrice){
                                         $s_price[$key] = $sPrice / $sign->value;
                                     }
-                                    
+
                                     $input['size_price'] = implode(',', $s_price);
                                 }
                         }
@@ -1040,7 +1040,7 @@ class ProductController extends Controller
 
         // Set SLug
         $prod->slug = Str::slug($data->name,'-').'-'.strtolower($data->sku);
-         
+
         $prod->update();
 
 
