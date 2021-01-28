@@ -46,47 +46,43 @@ class CatalogController extends Controller
 
     public function category(Request $request, $slug=null, $slug1=null, $slug2=null)
     {
-      if (Session::has('currency'))
-      {
-        $curr = Currency::find(Session::get('currency'));
-      }
-      else
-      {
-          $curr = Currency::where('is_default','=',1)->first();
-      }
-      $cat = null;
-      $subcat = null;
-      $childcat = null;
-      $minprice = $request->min;
-      $maxprice = $request->max;
-      $sort = $request->sort;
-      $search = $request->search;
-      $minprice = round(($minprice / $curr->value),2);
-      $maxprice = round(($maxprice / $curr->value),2);
-
-      if (!empty($slug)) {
-        $cat = Category::where('slug', $slug)->firstOrFail();
-        $data['cat'] = $cat;
-      }
-      if (!empty($slug1)) {
-        $subcat = Subcategory::where('slug', $slug1)->firstOrFail();
-        $data['subcat'] = $subcat;
-      }
-      if (!empty($slug2)) {
-          if ($slug2 == 'veste') {
-              $groupCat = Childcategory::where('slug', 'veste')
+        if (Session::has('currency')){
+            $curr = Currency::find(Session::get('currency'));
+        }else{
+            $curr = Currency::where('is_default','=',1)->first();
+        }
+        $cat = null;
+        $subcat = null;
+        $childcat = null;
+        $minprice = $request->min;
+        $maxprice = $request->max;
+        $sort = $request->sort;
+        $search = $request->search;
+        $minprice = round(($minprice / $curr->value),2);
+        $maxprice = round(($maxprice / $curr->value),2);
+        if (!empty($slug)) {
+            $cat = Category::where('slug', $slug)->firstOrFail();
+            $data['cat'] = $cat;
+        }
+        if (!empty($slug1)) {
+            $subcat = Subcategory::where('slug', $slug1)->firstOrFail();
+            $data['subcat'] = $subcat;
+        }
+        if (!empty($slug2)) {
+            if ($slug2 == 'veste') {
+                $groupCat = Childcategory::where('slug', 'veste')
                                         ->orWhere('slug','gillet')
                                         ->orWhere('slug','blazer')
                                         ->orWhere('slug','veste-long')
                                         ->pluck('id');
-          }elseif($slug2 == 'top'){
+            }elseif($slug2 == 'top'){
             $groupCat = Childcategory::where('slug', 'top')
                                         ->orWhere('slug', 'blouse')
                                         ->orWhere('slug', 'chemise')
                                         ->orWhere('slug', 'pull')
                                         ->orWhere('slug', 't-shrt')
                                         ->pluck('id');
-          } elseif ($slug2 == 'bas') {
+            } elseif ($slug2 == 'bas') {
                 $groupCat = Childcategory::where('slug', 'bas')
                                         ->orWhere('slug', 'pantalon')
                                         ->orWhere('slug', 'denim-jeans')
@@ -97,12 +93,12 @@ class CatalogController extends Controller
                                         ->orWhere('slug', 'bass-collant')
                                         ->pluck('id');
             }else{
-              $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
-              $data['childcat'] = $childcat;
-          }
-      }
+                $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
+                $data['childcat'] = $childcat;
+            }
+        }
 
-      $prods = Product::when($cat, function ($query, $cat) {
+        $prods = Product::when($cat, function ($query, $cat) {
                                       return $query->where('category_id', $cat->id);
                                   })
                                   ->when($subcat, function ($query, $subcat) {
@@ -204,20 +200,18 @@ class CatalogController extends Controller
                                                 }
                                               }
                                           });
+        $prods = $prods->where('status', 1)->get();
+        $prods = (new Collection(Product::filterProducts($prods)))->paginate(12);
 
+        $data['prods'] = $prods;
 
-                                  $prods = $prods->where('status', 1)->get();
-      $prods = (new Collection(Product::filterProducts($prods)))->paginate(12);
+        if($request->ajax()) {
 
-      $data['prods'] = $prods;
+            $data['ajax_check'] = 1;
 
-      if($request->ajax()) {
-
-      $data['ajax_check'] = 1;
-
-        return view('includes.product.filtered-products', $data);
-      }
-      return view('front.category', $data);
+            return view('includes.product.filtered-products', $data);
+        }
+        return view('front.category', $data);
     }
 
 

@@ -100,7 +100,7 @@ class Product extends Model
         return $this->user_id != 0 ? '<small class="ml-2"> '.__("VENDOR").': <a href="'.route('admin-vendor-show',$this->user_id).'" target="_blank">'.$this->user->shop_name.'</a></small>' : '';
     }
 
-    
+
     public function vendorPrice() {
         $gs = cache()->remember('generalsettings', now()->addDay(), function () {
             return DB::table('generalsettings')->first();
@@ -152,11 +152,11 @@ class Product extends Model
     }
 
 
-    public  function setCurrency() {
+    public function setCurrency() {
         $gs = cache()->remember('generalsettings', now()->addDay(), function () {
             return DB::table('generalsettings')->first();
         });
-        $price = $this->price;
+        $price = $this->getOriginal('price');
         if (Session::has('currency'))
         {
             $curr = cache()->remember('session_currency', now()->addDay(), function () {
@@ -229,7 +229,7 @@ class Product extends Model
             return DB::table('currencies')->where('is_default','=',1)->first();
         });
     }
- 
+
 
 
         $price = round(($price) * $curr->value,2);
@@ -379,7 +379,7 @@ class Product extends Model
     public function emptyStock() {
         $stck = (string)$this->stock;
         if($stck == "0"){
-            return true;            
+            return true;
         }
     }
 
