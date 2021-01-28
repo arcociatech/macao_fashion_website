@@ -54,6 +54,9 @@
     @endif
 
     <style>
+        nav .menu > li.dropdown > a::before{
+            content: none;
+        }
         .screen-overlay {
             height: 100%;
             z-index: 30;
@@ -251,13 +254,16 @@
                                         @endif
                                     </li>
                                     @else
-                                    <li>
+                                    <li class="hidden">
                                         <a href="javascript:;" data-toggle="modal" data-target="#vendor-login"
                                             class="sell-btn">{{ $langg->lang220 }}</a>
                                     </li>
                                     @endif
                                     @endif
-
+                                    <li>
+                                        <a href="javascript:;" data-toggle="modal" data-target="#track-order-modal"
+                                            class="sell-btn">{{ $langg->lang16 }}</a>
+                                    </li>
 
                                 </ul>
                             </div>
@@ -540,25 +546,87 @@
                             @if($gs->is_home == 1)
                             <li><a href="{{ route('front.index') }}">{{ $langg->lang17 }}</a></li>
                             @endif
-                            <li>
+                            {{-- <li>
                                 <a data-trigger="#my_offcanvas1" href="#">
                                     Main Categories
                                 </a>
+                            </li> --}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Women
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'veste']) }}">
+                                            Vestes
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'top']) }}">
+                                            Tops
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'ensamble']) }}">
+                                            Ensambles
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'robe']) }}">
+                                            Robe
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-secondary"
+                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'bas']) }}">
+                                            Bas
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="active"><a href="{{ route('front.blog') }}">{{ $langg->lang18 }}</a></li>
-                            @if($gs->is_faq == 1)
-                            <li><a href="{{ route('front.faq') }}">{{ $langg->lang19 }}</a></li>
-                            @endif
+                            <li>
+                                <a
+                                    href="{{ route('front.subcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'chaussure']) }}">
+                                    Chaussure
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('front.subcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'accessoire']) }}">
+                                    Accessories
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('front.subcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'soldes']) }}">
+                                    Soldes
+                                </a>
+                            </li>
+                            {{--
+                                <li class="active">
+                                    <a href="{{ route('front.blog') }}">
+                                        {{ $langg->lang18 }}
+                                    </a>
+                                </li>
+                                @if($gs->is_faq == 1)
+                                <li><a href="{{ route('front.faq') }}">{{ $langg->lang19 }}</a></li>
+                                @endif
+                            --}}
                             @foreach(DB::table('pages')->where('header','=',1)->get() as $data)
                             <li><a href="{{ route('front.page',$data->slug) }}">{{ $data->title }}</a></li>
                             @endforeach
                             @if($gs->is_contact == 1)
                             <li><a href="{{ route('front.contact') }}">{{ $langg->lang20 }}</a></li>
                             @endif
-                            <li>
+                            {{-- <li>
                                 <a href="javascript:;" data-toggle="modal" data-target="#track-order-modal"
                                     class="track-btn">{{ $langg->lang16 }}</a>
-                            </li>
+                            </li> --}}
                         </ul>
 
                     </nav>
