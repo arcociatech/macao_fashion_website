@@ -115,7 +115,8 @@ class GetDataController extends Controller
                             'c.name as color',
                             's.name as size',
                             'website_products.quantity as quantity',
-                            'v.sell_price_inc_tax as price'
+                            'v.sell_price_inc_tax as price',
+                            'p.image'
                         ])
                         ->groupBy('name')
                         ->toArray();
@@ -148,7 +149,7 @@ class GetDataController extends Controller
                     $price[$j] = (float)$current_product[0]->price;
                     $all_product++;
                 }
-                // dd($current_product, (float)$current_product[0]->price);
+                // dd($current_product);
                 // Create Product here
                 if (!Product::where('name', $current_product[0]->name)->first()) {
                     $data = new Product;
@@ -156,6 +157,8 @@ class GetDataController extends Controller
                     $input['name'] = $current_product[0]->name;
                     $input['slug'] = strtolower($current_product[0]->name);
                     $input['sku'] = $current_product[0]->sku;
+                    $input['photo'] = $current_product[0]->image;
+                    $input['thumbnail'] = $current_product[0]->image;
                     $input['size'] = implode(",", $size);
                     $input['size_price'] = implode(",", $price);
                     $input['size_qty'] = implode(",", $quantity);
@@ -164,8 +167,6 @@ class GetDataController extends Controller
                     $input['category_id'] = $cat_id;
                     $input['subcategory_id'] = $subcat_id;
                     $input['childcategory_id'] = $child_id;
-                    $input['photo'] = 'images/noimage.png';
-                    $input['thumbnail'] = 'images/noimage.png';
                     $data->fill($input)->save(); //save product
                     // $products = Product::create([
                     //     'name' => $current_product[0]->name,
