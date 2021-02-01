@@ -34,6 +34,14 @@ class ProductController extends Controller
 
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
+                            ->editColumn('photo', function (Product $data) {
+                                if ($data->thumbnail) {
+                                    $image = asset('assets/images/thumbnails/' . $data->thumbnail);
+                                }else{
+                                    $image = asset('assets/images/noimage.png');
+                                }
+                                return  '<img src="' .$image . '" class="img-thumbnail">';
+                            })
                             ->editColumn('name', function(Product $data) {
                                 $name =  mb_strlen($data->name,'UTF-8') > 50 ? mb_substr($data->name,0,50,'UTF-8').'...' : $data->name;
 
@@ -68,7 +76,7 @@ class ProductController extends Controller
                                 $catalog = $data->type == 'Physical' ? ($data->is_catalog == 1 ? '<a href="javascript:;" data-href="' . route('admin-prod-catalog',['id1' => $data->id, 'id2' => 0]) . '" data-toggle="modal" data-target="#catalog-modal" class="delete"><i class="fas fa-trash-alt"></i> Remove Catalog</a>' : '<a href="javascript:;" data-href="'. route('admin-prod-catalog',['id1' => $data->id, 'id2' => 1]) .'" data-toggle="modal" data-target="#catalog-modal"> <i class="fas fa-plus"></i> Add To Catalog</a>') : '';
                                 return '<div class="godropdown"><button class="go-dropdown-toggle"> Actions<i class="fas fa-chevron-down"></i></button><div class="action-list"><a href="' . route('admin-prod-edit',$data->id) . '"> <i class="fas fa-edit"></i> Edit</a><a href="javascript" class="set-gallery" data-toggle="modal" data-target="#setgallery"><input type="hidden" value="'.$data->id.'"><i class="fas fa-eye"></i> View Gallery</a>'.$catalog.'<a data-href="' . route('admin-prod-feature',$data->id) . '" class="feature" data-toggle="modal" data-target="#modal2"> <i class="fas fa-star"></i> Highlight</a><a href="javascript:;" data-href="' . route('admin-prod-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i> Delete</a></div></div>';
                             })
-                            ->rawColumns(['name', 'status', 'action'])
+                            ->rawColumns(['photo','name', 'status', 'action'])
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 
@@ -79,6 +87,14 @@ class ProductController extends Controller
 
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
+                            ->editColumn('photo', function (Product $data) {
+                                if ($data->thumbnail) {
+                                    $image = asset('assets/images/thumbnails/' . $data->thumbnail);
+                                } else {
+                                    $image = asset('assets/images/noimage.png');
+                                }
+                                return  '<img src="' . $image . '" class="img-thumbnail">';
+                            })
                             ->editColumn('name', function(Product $data) {
                                 $name =  mb_strlen($data->name,'UTF-8') > 50 ? mb_substr($data->name,0,50,'UTF-8').'...' : $data->name;
 
@@ -113,7 +129,7 @@ class ProductController extends Controller
                                 $catalog = $data->type == 'Physical' ? ($data->is_catalog == 1 ? '<a href="javascript:;" data-href="' . route('admin-prod-catalog',['id1' => $data->id, 'id2' => 0]) . '" data-toggle="modal" data-target="#catalog-modal" class="delete"><i class="fas fa-trash-alt"></i> Remove Catalog</a>' : '<a href="javascript:;" data-href="'. route('admin-prod-catalog',['id1' => $data->id, 'id2' => 1]) .'" data-toggle="modal" data-target="#catalog-modal"> <i class="fas fa-plus"></i> Add To Catalog</a>') : '';
                                 return '<div class="godropdown"><button class="go-dropdown-toggle"> Actions<i class="fas fa-chevron-down"></i></button><div class="action-list"><a href="' . route('admin-prod-edit',$data->id) . '"> <i class="fas fa-edit"></i> Edit</a><a href="javascript" class="set-gallery" data-toggle="modal" data-target="#setgallery"><input type="hidden" value="'.$data->id.'"><i class="fas fa-eye"></i> View Gallery</a>'.$catalog.'<a data-href="' . route('admin-prod-feature',$data->id) . '" class="feature" data-toggle="modal" data-target="#modal2"> <i class="fas fa-star"></i> Highlight</a><a href="javascript:;" data-href="' . route('admin-prod-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i> Delete</a></div></div>';
                             })
-                            ->rawColumns(['name', 'status', 'action'])
+                            ->rawColumns(['photo','name', 'status', 'action'])
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 
@@ -125,6 +141,14 @@ class ProductController extends Controller
 
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
+                            ->editColumn('photo', function (Product $data) {
+                                if ($data->thumbnail) {
+                                    $image = asset('assets/images/thumbnails/' . $data->thumbnail);
+                                } else {
+                                    $image = asset('assets/images/noimage.png');
+                                }
+                                return  '<img src="' . $image . '" class="img-thumbnail">';
+                            })
                             ->editColumn('name', function(Product $data) {
                                 $name = mb_strlen(strip_tags($data->name),'utf-8') > 50 ? mb_substr(strip_tags($data->name),0,50,'utf-8').'...' : strip_tags($data->name);
                                 $id = '<small>ID: <a href="'.route('front.product', $data->slug).'" target="_blank">'.sprintf("%'.08d",$data->id).'</a></small>';
@@ -157,7 +181,7 @@ class ProductController extends Controller
                             ->addColumn('action', function(Product $data) {
                                 return '<div class="godropdown"><button class="go-dropdown-toggle"> Actions<i class="fas fa-chevron-down"></i></button><div class="action-list"><a href="' . route('admin-prod-edit',$data->id) . '"> <i class="fas fa-edit"></i> Edit</a><a href="javascript" class="set-gallery" data-toggle="modal" data-target="#setgallery"><input type="hidden" value="'.$data->id.'"><i class="fas fa-eye"></i> View Gallery</a><a data-href="' . route('admin-prod-feature',$data->id) . '" class="feature" data-toggle="modal" data-target="#modal2"> <i class="fas fa-star"></i> Highlight</a><a href="javascript:;" data-href="' . route('admin-prod-catalog',['id1' => $data->id, 'id2' => 0]) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i> Remove Catalog</a></div></div>';
                             })
-                            ->rawColumns(['name', 'status', 'action'])
+                            ->rawColumns(['photo','name', 'status', 'action'])
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 

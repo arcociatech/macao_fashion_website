@@ -1,4 +1,103 @@
 
+	@if($women)
+		<!-- Phone and Accessories Area Start -->
+		<section class="phone-and-accessories categori-item">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 remove-padding">
+						<div class="section-top">
+							<h2 class="section-title">
+								Women
+							</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-9">
+						<div class="row">
+							@foreach($women as $prod)
+								@include('includes.product.home-product')
+							@endforeach
+						</div>
+					</div>
+					<div class="col-lg-3 remove-padding d-none d-lg-block">
+						<div class="aside">
+							<div class="banner-effect mb-10" >
+								<img src="{{asset('assets/images/'.$ps->best_seller_banner)}}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Phone and Accessories Area start-->
+	@endif
+	@if($chaussure)
+		<!-- Phone and Accessories Area Start -->
+		<section class="phone-and-accessories categori-item">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 remove-padding">
+						<div class="section-top">
+							<h2 class="section-title">
+								Chaussure
+							</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-9">
+						<div class="row">
+							@foreach($chaussure as $prod)
+								@include('includes.product.home-product')
+							@endforeach
+						</div>
+					</div>
+					<div class="col-lg-3 remove-padding d-none d-lg-block">
+						<div class="aside">
+							<div class="banner-effect mb-10">
+								<img src="{{asset('assets/images/'.$ps->best_seller_banner)}}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Phone and Accessories Area start-->
+	@endif
+	@if($accessories)
+		<!-- Phone and Accessories Area Start -->
+		<section class="phone-and-accessories categori-item">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 remove-padding">
+						<div class="section-top">
+							<h2 class="section-title">
+								Accessories
+							</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-9">
+						<div class="row">
+							@foreach($accessories as $prod)
+								@include('includes.product.home-product')
+							@endforeach
+						</div>
+					</div>
+					<div class="col-lg-3 remove-padding d-none d-lg-block">
+						<div class="aside">
+							<div class="banner-effect mb-10">
+								<img src="{{asset('assets/images/'.$ps->best_seller_banner)}}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Phone and Accessories Area start-->
+	@endif
 	@if($ps->best == 1)
 		<!-- Phone and Accessories Area Start -->
 		<section class="phone-and-accessories categori-item">
@@ -397,15 +496,14 @@
 	@endif
 
 	@if($ps->service == 1)
-
-	{{-- Info Area Start --}}
-	<section class="info-area">
+        {{-- Info Area Start --}}
+        <section class="info-area">
 			<div class="container">
 
 					@foreach($services->chunk(4) as $chunk)
-	
+
 						<div class="row">
-	
+
 							<div class="col-lg-12 p-0">
 								<div class="info-big-box">
 									<div class="row">
@@ -429,16 +527,15 @@
 									</div>
 								</div>
 							</div>
-	
+
 						</div>
-	
+
 					@endforeach
-	
+
 			</div>
 		</section>
 		{{-- Info Area End  --}}
-
-		@endif		
+	@endif
 
 	<!-- main -->
 	<script src="{{asset('assets/front/js/mainextra.js')}}"></script>

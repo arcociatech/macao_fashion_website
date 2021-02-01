@@ -1,6 +1,6 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 
-@section('content')  
+@section('content')
 					<input type="hidden" id="headerdata" value="{{ __("PRODUCT") }}">
 					<div class="content-area">
 						<div class="mr-breadcrumb">
@@ -26,13 +26,14 @@
 								<div class="col-lg-12">
 									<div class="mr-table allproduct">
 
-                        @include('includes.admin.form-success')  
+                        @include('includes.admin.form-success')
 
 										<div class="table-responsiv">
 												<table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
 													<thead>
 														<tr>
-									                        <th>{{ __("Name") }}</th>
+                                                            <th>{{ __("Name") }}</th>
+                                                            <th>{{ __("Photo") }}</th>
 									                        <th>{{ __("Type") }}</th>
 									                        <th>{{ __("Stock") }}</th>
 									                        <th>{{ __("Price") }}</th>
@@ -53,8 +54,8 @@
 {{-- HIGHLIGHT MODAL --}}
 
 										<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2" aria-hidden="true">
-										
-										
+
+
 										<div class="modal-dialog highlight" role="document">
 										<div class="modal-content">
 												<div class="submit-loader">
@@ -189,7 +190,7 @@
 
 {{-- GALLERY MODAL ENDS --}}
 
-@endsection    
+@endsection
 
 
 
@@ -207,6 +208,7 @@
                ajax: '{{ route('admin-prod-datatables') }}',
                columns: [
                         { data: 'name', name: 'name' },
+                        { data: 'photo', name: 'photo', orderable:false,searchable:false },
                         { data: 'type', name: 'type' },
                         { data: 'stock', name: 'stock' },
                         { data: 'price', name: 'price' },
@@ -218,7 +220,7 @@
                 	processing: '<img src="{{asset('assets/images/'.$gs->admin_loader)}}">'
                 },
 				drawCallback : function( settings ) {
-	    				$('.select').niceSelect();	
+	    				$('.select').niceSelect();
 				}
             });
 
@@ -228,8 +230,8 @@
           '<i class="fas fa-plus"></i> <span class="remove-mobile">{{ __("Add New Product") }}<span>'+
           '</a>'+
           '</div>');
-      });											
-									
+      });
+
 
 
 {{-- DATA TABLE ENDS--}}
@@ -239,7 +241,7 @@
 
 
 <script type="text/javascript">
-	
+
 
 // Gallery Section Update
 
@@ -259,7 +261,7 @@
      				  }
                       else {
 	                    $('.selected-image .row').removeClass('justify-content-center');
-	      				$('.selected-image .row h3').remove();      
+	      				$('.selected-image .row h3').remove();
                           var arr = $.map(data[1], function(el) {
                           return el });
 
@@ -275,9 +277,9 @@
                                             '</a>'+
                                         '</div>'+
                                   	'</div>');
-                          }                         
+                          }
                        }
- 
+
                     }
                   });
       });
@@ -296,10 +298,10 @@
   $(document).on('click', '#prod_gallery' ,function() {
     $('#uploadgallery').click();
   });
-                                        
-                                
+
+
   $("#uploadgallery").change(function(){
-    $("#form-gallery").submit();  
+    $("#form-gallery").submit();
   });
 
   $(document).on('submit', '#form-gallery' ,function() {
@@ -316,7 +318,7 @@
 		    if(data != 0)
 		    {
 	                    $('.selected-image .row').removeClass('justify-content-center');
-	      				$('.selected-image .row h3').remove();   
+	      				$('.selected-image .row h3').remove();
 		        var arr = $.map(data, function(el) {
 		        return el });
 		        for(var k in arr)
@@ -331,17 +333,17 @@
                                             '</a>'+
                                         '</div>'+
                                   	'</div>');
-		            }          
+		            }
 		    }
-		                     
+
 		                       }
 
 		  });
 		  return false;
- }); 
+ });
 
 
-// Gallery Section Update Ends	
+// Gallery Section Update Ends
 
 
 </script>
@@ -349,4 +351,4 @@
 
 
 
-@endsection   
+@endsection

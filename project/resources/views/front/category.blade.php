@@ -2,7 +2,7 @@
 @section('content')
 <!-- Breadcrumb Area Start -->
 <div class="breadcrumb-area">
-   <div class="container">
+   <div class="container-fluid">
       <div class="row">
          <div class="col-lg-12">
             <ul class="pages">
@@ -38,7 +38,7 @@
 <!-- Breadcrumb Area End -->
 <!-- SubCategori Area Start -->
 <section class="sub-categori">
-   <div class="container">
+   <div class="container-fluid">
       <div class="row">
          @include('includes.catalog')
          <div class="col-lg-9 order-first order-lg-last ajax-loader-parent">

@@ -53,12 +53,12 @@
 		<!-- Hero Area End -->
 	@endif
 
-	
+
 	@if($ps->featured_category == 1)
 
 	{{-- Slider buttom Category Start --}}
 	<section class="slider-buttom-category d-none d-md-block">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
 				@foreach($categories->where('is_featured','=',1) as $cat)
 					<div class="col-xl-2 col-lg-3 col-md-4 sc-common-padding">

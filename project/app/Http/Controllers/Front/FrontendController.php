@@ -6,10 +6,13 @@ use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\Category;
+use App\Models\Childcategory;
 use App\Models\Counter;
 use App\Models\Generalsetting;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Subcategory;
 use App\Models\Subscriber;
 use App\Models\User;
 use Carbon\Carbon;
@@ -249,7 +252,43 @@ class FrontendController extends Controller
             return false;
 
           });
-        return view('front.extraindex',compact('ps','services','reviews','large_banners','bottom_small_banners','best_products','top_products','hot_products','latest_products','big_products','trending_products','sale_products','discount_products','partners'));
+        $women_category_id = Subcategory::where('slug','women')->first()->id;
+        $women_sub_category_id = Childcategory::where('subcategory_id',$women_category_id)->pluck('id');
+
+        $women =  Product::with('user')->where('subcategory_id',$women_category_id)->whereIn('childcategory_id',$women_sub_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+
+            if($item->user_id != 0){
+              if($item->user->is_vendor != 2){
+                return true;
+              }
+            }
+            return false;
+
+          });
+        $chaussure_category_id = Subcategory::where('slug', 'chaussure')->first()->id;
+        $chaussure =  Product::with('user')->where('subcategory_id', $chaussure_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+
+            if($item->user_id != 0){
+              if($item->user->is_vendor != 2){
+                return true;
+              }
+            }
+            return false;
+
+          });
+        $accessories_category_id = Subcategory::where('slug', 'accessoire')->first()->id;
+        $accessories_child_category_id = Childcategory::where('subcategory_id', $accessories_category_id)->pluck('id');
+        $accessories =  Product::with('user')->where('subcategory_id', $accessories_category_id)->whereIn('childcategory_id', $accessories_child_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+
+            if($item->user_id != 0){
+              if($item->user->is_vendor != 2){
+                return true;
+              }
+            }
+            return false;
+
+          });
+        return view('front.extraindex',compact('ps','services','reviews','large_banners','bottom_small_banners','best_products','top_products','hot_products','latest_products','big_products','trending_products','sale_products','discount_products','partners', 'women', 'chaussure', 'accessories'));
     }
 
 // -------------------------------- HOME PAGE SECTION ENDS ----------------------------------------
