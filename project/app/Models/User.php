@@ -141,7 +141,7 @@ class User extends Authenticatable
 
     public function checkVerification()
     {
-        return count($this->verifies) > 0 ? 
+        return count($this->verifies) > 0 ?
         (empty($this->verifies()->where('admin_warning','=','0')->orderBy('id','desc')->first()->status) ? false : ($this->verifies()->orderBy('id','desc')->first()->status == 'Pending' ? true : false)) : false;
     }
 
@@ -161,16 +161,17 @@ class User extends Authenticatable
     }
 
     public static function chekValidation(){
-        
+
         $settings = Generalsetting::findOrFail(1);
-        $lastchk = "";
-        if (file_exists(base_path().'/schedule.data')){
-            $lastchk = file_get_contents(base_path().'/schedule.data');
-        }
+        // $lastchk = "";
+        // if (file_exists(base_path().'/schedule.data')){
+        //     $lastchk = file_get_contents(base_path().'/schedule.data');
+        // }
+        $lastchk = Carbon::now()->format('Y-m-d');
         $today = Carbon::now()->format('Y-m-d');
         if ($lastchk < $today || $lastchk == ""){
             $newday = strtotime($today);
-        
+
             foreach (DB::table('users')->where('is_vendor','=',2)->get() as  $user) {
                 $lastday = $user->date;
                 $secs = strtotime($lastday)-$newday;
@@ -207,9 +208,9 @@ class User extends Authenticatable
                 }
             }
 
-            $handle = fopen(base_path().'/schedule.data','w+');
-            fwrite($handle,$today);
-            fclose($handle);
+            // $handle = fopen(base_path().'/schedule.data','w+');
+            // fwrite($handle,$today);
+            // fclose($handle);
 
         }
     }
