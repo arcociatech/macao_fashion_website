@@ -252,21 +252,10 @@ class FrontendController extends Controller
             return false;
 
           });
-        $women_category_id = Subcategory::where('slug','women')->first()->id;
-        $women_sub_category_id = Childcategory::where('subcategory_id',$women_category_id)->pluck('id');
+        $women_category_id = Category::where('slug','women')->first()->id;
+        $women_sub_category_id = Subcategory::where('category_id',$women_category_id)->pluck('id');
 
-        $women =  Product::with('user')->where('subcategory_id',$women_category_id)->whereIn('childcategory_id',$women_sub_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
-
-            if($item->user_id != 0){
-              if($item->user->is_vendor != 2){
-                return true;
-              }
-            }
-            return false;
-
-          });
-        $chaussure_category_id = Subcategory::where('slug', 'chaussure')->first()->id;
-        $chaussure =  Product::with('user')->where('subcategory_id', $chaussure_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+        $women =  Product::with('user')->where('category_id',$women_category_id)->whereIn('subcategory_id',$women_sub_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
 
             if($item->user_id != 0){
               if($item->user->is_vendor != 2){
@@ -276,9 +265,20 @@ class FrontendController extends Controller
             return false;
 
           });
-        $accessories_category_id = Subcategory::where('slug', 'accessoire')->first()->id;
-        $accessories_child_category_id = Childcategory::where('subcategory_id', $accessories_category_id)->pluck('id');
-        $accessories =  Product::with('user')->where('subcategory_id', $accessories_category_id)->whereIn('childcategory_id', $accessories_child_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+        $chaussure_category_id = Category::where('slug', 'chaussure')->first()->id;
+        $chaussure =  Product::with('user')->where('category_id', $chaussure_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+
+            if($item->user_id != 0){
+              if($item->user->is_vendor != 2){
+                return true;
+              }
+            }
+            return false;
+
+          });
+        $accessories_category_id = Category::where('slug', 'accessoire')->first()->id;
+        $accessories_child_category_id = Subcategory::where('category_id', $accessories_category_id)->pluck('id');
+        $accessories =  Product::with('user')->where('category_id', $accessories_category_id)->whereIn('subcategory_id', $accessories_child_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
 
             if($item->user_id != 0){
               if($item->user->is_vendor != 2){

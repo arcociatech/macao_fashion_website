@@ -30,15 +30,18 @@ class GetDataController extends Controller
             $connection = DB::connection('pos_macaofashion');
 
             $categories = $connection->table('categories')->where('parent_id', 0)
+                ->whereNotIn('name',['VESTE', 'GILLET', 'BLAZER','VESTE LONG', 'BLOUSE', 'CHEMISE', 'PULL', 'T-SHIRT','BAS', 'PANTALON', 'DENIM JEANS', 'SHORT', 'TROUSURE', 'COMBIPANTALON', 'COMBISHORT','BAS COLLANT','TOP'])
                 ->orderBy('name', 'asc')
-                ->get()->toArray();
+                ->get()
+                ->toArray();
 
             $sub_categories = $connection->table('categories')->where('parent_id', '!=', 0)
+                ->whereNotIn('name', ['VESTE', 'GILLET', 'BLAZER', 'VESTE LONG', 'BLOUSE', 'CHEMISE', 'PULL', 'T-SHIRT', 'BAS', 'PANTALON', 'DENIM JEANS', 'SHORT', 'TROUSURE', 'COMBIPANTALON', 'COMBISHORT', 'BAS COLLANT','TOP'])
                 ->orderBy('name', 'asc')
-                ->get()->toArray();
+                ->get()
+                ->toArray();
 
             $sub_cat_by_parent = [];
-
             if (!empty($sub_categories)) {
                 foreach ($sub_categories as $sub_category) {
                     if (empty($sub_cat_by_parent[$sub_category->parent_id])) {
@@ -57,29 +60,32 @@ class GetDataController extends Controller
                 }
             }
             DB::beginTransaction();
+
             $categories = 0;
             $sub_categories = 0;
-                for ($i = 0; $i < count($all_categories); $i++) {
-                    if(!Subcategory::where('name', $all_categories[$i]['name'])->first()) {
-                        $subcat = Subcategory::create([
-                            'name' => $all_categories[$i]['name'],
-                            'slug' => strtolower(trim(preg_replace('/[\s-]+/', ' ', preg_replace('/[^A-Za-z0-9-]+/', ' ', preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $all_categories[$i]['name']))))), ' ')),
-                            'category_id' => 5,
-                        ]);
-                        $categories++;
-                    }
-                    $subcategory = $all_categories[$i]['sub_categories'];
-                    for ($j = 0; $j < count($subcategory); $j++) {
-                        if(!Childcategory::where('name', $subcategory[$j]['name'])->first()) {
-                            Childcategory::create([
-                                'name' => $subcategory[$j]['name'],
-                                'slug' => strtolower(trim(preg_replace('/[\s-]+/', ' ', preg_replace('/[^A-Za-z0-9-]+/', ' ', preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $subcategory[$j]['name']))))), ' ')),
-                                'subcategory_id' => $subcat->id,
-                            ]);
-                            $sub_categories++;
-                        }
-                    }
+            for ($i = 0; $i < count($all_categories); $i++) {
+                if(!Category::where('name', $all_categories[$i]['name'])->first()) {
+                    $cat = Category::create([
+                        'name' => $all_categories[$i]['name'],
+                        'slug' => strtolower(trim(preg_replace('/[\s-]+/', ' ', preg_replace('/[^A-Za-z0-9-]+/', ' ', preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $all_categories[$i]['name']))))), ' ')),
+                    ]);
+                    $categories++;
                 }
+                $subcategory = $all_categories[$i]['sub_categories'];
+                for ($j = 0; $j < count($subcategory); $j++) {
+                    if(!Subcategory::where('name', $subcategory[$j]['name'])->first()) {
+                        Subcategory::create([
+                            'name' => $subcategory[$j]['name'],
+                            'slug' => strtolower(trim(preg_replace('/[\s-]+/', ' ', preg_replace('/[^A-Za-z0-9-]+/', ' ', preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $subcategory[$j]['name']))))), ' ')),
+                            'category_id' => $cat->id,
+                        ]);
+                        $sub_categories++;
+                    }
+                    $sub_categories++;
+                }
+            }
+            // Creating Custom categories
+            $this->custom_categories();
             DB::commit();
             //--- Redirect Section
             Session::flash('success', '"Categories: "'.$categories.'", Sub Categories: "'.$sub_categories.'". Imported Successfully!"');
@@ -87,9 +93,109 @@ class GetDataController extends Controller
       //--- Redirect Section Ends
         } catch (\Exception $ex) {
             DB::rollback();
-            // dd($ex->getMessage());
+            dd($ex->getMessage().' on line: '.$ex->getLine());
             Session::flash('error', 'Error Occured. '. $ex->getMessage());
             return redirect()->back();
+        }
+    }
+    /**
+     * CUSTOM CATEGORIES
+     *
+     **/
+    public function custom_categories()
+    {
+        $women = Category::where('slug', 'women')->first()->id;
+        if (!Subcategory::where('name', 'VESTE')->first()) {
+            $veste = Subcategory::create([
+                'name' => 'VESTE',
+                'slug' => 'veste',
+                'category_id' => $women
+            ]);
+            Childcategory::create([
+                'name' => 'GILLET',
+                'slug' => 'gillet',
+                'subcategory_id' => $veste->id
+            ]);
+            Childcategory::create([
+                'name' => 'BLAZER',
+                'slug' => 'blazer',
+                'subcategory_id' => $veste->id
+            ]);
+            Childcategory::create([
+                'name' => 'VESTE LONG',
+                'slug' => 'veste-long',
+                'subcategory_id' => $veste->id
+            ]);
+        }
+        if (!Subcategory::where('name', 'TOP')->first()) {
+            $top = Subcategory::create([
+                'name' => 'TOP',
+                'slug' => 'top',
+                'category_id' => $women
+            ]);
+
+            Childcategory::create([
+                'name' => 'BLOUSE',
+                'slug' => 'blouse',
+                'subcategory_id' => $top->id
+            ]);
+            Childcategory::create([
+                'name' => 'CHEMISE',
+                'slug' => 'chemise',
+                'subcategory_id' => $top->id
+            ]);
+            Childcategory::create([
+                'name' => 'PULL',
+                'slug' => 'pull',
+                'subcategory_id' => $top->id
+            ]);
+            Childcategory::create([
+                'name' => 'T-SHIRT',
+                'slug' => 't-shirt',
+                'subcategory_id' => $top->id
+            ]);
+        }
+        if (!Category::where('name', 'BAS')->first()) {
+            $bas = Subcategory::create([
+                'name' => 'BAS',
+                'slug' => 'bas',
+                'category_id' => $women
+            ]);
+            Childcategory::create([
+                'name' => 'PANTALON',
+                'slug' => 'pantalon',
+                'subcategory_id' => $bas->id
+            ]);
+            Childcategory::create([
+                'name' => 'DENIM JEANS',
+                'slug' => 'denim-jeans',
+                'subcategory_id' => $bas->id
+            ]);
+            Childcategory::create([
+                'name' => 'SHORT',
+                'slug' => 'short',
+                'subcategory_id' => $bas->id
+            ]);
+            Childcategory::create([
+                'name' => 'TROUSURE',
+                'slug' => 'trouser',
+                'subcategory_id' => $bas->id
+            ]);
+            Childcategory::create([
+                'name' =>'COMBIPANTALON',
+                'slug' => 'combipantalon',
+                'subcategory_id' => $bas->id
+            ]);
+            Childcategory::create([
+                'name' => 'COMBISHORT',
+                'slug' => 'combishort',
+                'subcategory_id' => $bas->id
+            ]);
+            Childcategory::create([
+                'name' => 'BAS COLLANT',
+                'slug' => 'bas-collant',
+                'subcategory_id' => $bas->id
+            ]);
         }
     }
     /**
@@ -130,10 +236,24 @@ class GetDataController extends Controller
                 // for ($i=0; $i < count($products); $i++) {
                 $qurrey_count++;
                 $current_product = $value;
-                $sub_category = Subcategory::where('name', $current_product[0]->category_name)->first();
-                $subcat_id = $sub_category->id;
-                $cat_id = $sub_category->category_id;
-                $child_id = Childcategory::where('name', $current_product[0]->sub_category_name)->first()->id;
+                $cat_id = NULL;
+                $subcat_id = NULL;
+                $child_id = NULL;
+                if (Category::where('name', $current_product[0]->category_name)->first()) {
+                    $cat_id = Category::where('name', $current_product[0]->category_name)->first()->id;
+                }
+                if (Subcategory::where('name', $current_product[0]->category_name)->first()) {
+                    $sub_category = Subcategory::where('name', $current_product[0]->category_name)->first();
+                    $subcat_id = $sub_category->id;
+                    $cat_id = $sub_category->category_id;
+                    ;
+                }
+                if (Childcategory::where('name', $current_product[0]->sub_category_name)->first()) {
+                    $child = Childcategory::where('name', $current_product[0]->sub_category_name)->first();
+                    $child_id = $child->id;
+                    $subcat_id = $child->subcategory_id;
+                    $cat_id = Subcategory::find($subcat_id)->category_id;
+                }
                 $size = [];
                 $color = [];
                 $quantity =[];
