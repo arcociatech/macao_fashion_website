@@ -33,28 +33,28 @@ class PaymentController extends Controller
             if(count($users) == 0) {
                 if ($request->personal_pass == $request->personal_confirm){
                     $user = new User;
-                    $user->name = $request->personal_name; 
-                    $user->email = $request->personal_email;   
+                    $user->name = $request->personal_name;
+                    $user->email = $request->personal_email;
                     $user->password = bcrypt($request->personal_pass);
                     $token = md5(time().$request->personal_name.$request->personal_email);
                     $user->verification_link = $token;
                     $user->affilate_code = md5($request->name.$request->email);
                     $user->email_verified = 'Yes';
                     $user->save();
-                    Auth::guard('web')->login($user);                     
+                    Auth::guard('web')->login($user);
                 }else{
-                    return redirect()->back()->with('unsuccess',"Confirm Password Doesn't Match.");     
+                    return redirect()->back()->with('unsuccess',"Confirm Password Doesn't Match.");
                 }
             }
             else {
-                return redirect()->back()->with('unsuccess',"This Email Already Exist.");  
+                return redirect()->back()->with('unsuccess',"This Email Already Exist.");
             }
         }
 
 
      $oldCart = Session::get('cart');
      $cart = new Cart($oldCart);
-            if (Session::has('currency')) 
+            if (Session::has('currency'))
             {
               $curr = Currency::find(Session::get('currency'));
             }
@@ -81,10 +81,10 @@ class PaymentController extends Controller
                         $license = $temp[$ttl];
                          $oldCart = Session::has('cart') ? Session::get('cart') : null;
                          $cart = new Cart($oldCart);
-                         $cart->updateLicense($prod['item']['id'],$license);  
+                         $cart->updateLicense($prod['item']['id'],$license);
                          Session::put('cart',$cart);
                         break;
-                    }                    
+                    }
                 }
         }
         }
@@ -160,7 +160,7 @@ class PaymentController extends Controller
         $order['vendor_shipping_id'] = $request->vendor_shipping_id;
         $order['vendor_packing_id'] = $request->vendor_packing_id;
 
-        if (Session::has('affilate')) 
+        if (Session::has('affilate'))
         {
             $val = $request->total / $curr->value;
             $val = $val / 100;
@@ -189,7 +189,7 @@ class PaymentController extends Controller
                 {
                             $product = Product::findOrFail($prod['item']['id']);
                             $product->stock =  $prod['stock'];
-                            $product->update();                
+                            $product->update();
                         }
                     }
         foreach($cart->items as $prod)
@@ -204,7 +204,7 @@ class PaymentController extends Controller
                 $temp[$prod['size_key']] = $x;
                 $temp1 = implode(',', $temp);
                 $product->size_qty =  $temp1;
-                $product->update();               
+                $product->update();
             }
         }
 
@@ -220,13 +220,13 @@ class PaymentController extends Controller
 
                 $product = Product::findOrFail($prod['item']['id']);
                 $product->stock =  $prod['stock'];
-                $product->update();  
+                $product->update();
                 if($product->stock <= 5)
                 {
                     $notification = new Notification;
                     $notification->product_id = $product->id;
-                    $notification->save();                    
-                }              
+                    $notification->save();
+                }
             }
         }
 
@@ -243,7 +243,7 @@ class PaymentController extends Controller
                 $notf[] = $prod['item']['user_id'];
                 $vorder->qty = $prod['qty'];
                 $vorder->price = $prod['price'];
-                $vorder->order_number = $order->order_number;             
+                $vorder->order_number = $order->order_number;
                 $vorder->save();
             }
 
@@ -256,7 +256,7 @@ class PaymentController extends Controller
                 $notification = new UserNotification;
                 $notification->user_id = $user;
                 $notification->order_number = $order->order_number;
-                $notification->save();    
+                $notification->save();
             }
         }
                     Session::put('temporder_id',$order->id);
@@ -272,12 +272,12 @@ class PaymentController extends Controller
 
 
      public function paycancle(){
-        $this->code_image();
+        //$this->code_image();
          return redirect()->route('front.checkout')->with('unsuccess','Payment Cancelled.');
      }
 
      public function payreturn(){
-        $this->code_image();
+        //$this->code_image();
         if(Session::has('temporder_id')){
             $order_id = Session::get('temporder_id');
             $order = Order::find($order_id);

@@ -16,7 +16,7 @@ class CartController extends Controller
 
     public function cart()
     {
-        $this->code_image();
+        //$this->code_image();
         if (!Session::has('cart')) {
             return view('front.cart');
         }
@@ -48,12 +48,12 @@ class CartController extends Controller
             $mainTotal = $totalPrice + $tax;
         }
 
-        return view('front.cart', compact('products','totalPrice','mainTotal','tx')); 
+        return view('front.cart', compact('products','totalPrice','mainTotal','tx'));
     }
 
     public function cartview()
     {
-        return view('load.cart'); 
+        return view('load.cart');
     }
 
    public function addtocart($id)
@@ -62,7 +62,7 @@ class CartController extends Controller
 
         // Set Attrubutes
 
-        if (Session::has('language')) 
+        if (Session::has('language'))
         {
             $data = \DB::table('languages')->find(Session::get('language'));
             $data_results = file_get_contents(public_path().'/assets/languages/'.$data->file);
@@ -73,7 +73,7 @@ class CartController extends Controller
             $data = \DB::table('languages')->where('is_default','=',1)->first();
             $data_results = file_get_contents(public_path().'/assets/languages/'.$data->file);
             $lang = json_decode($data_results);
-        }  
+        }
 
         $keys = '';
         $values = '';
@@ -90,11 +90,11 @@ class CartController extends Controller
                 {
                     $lcheck = 1;
                     break;
-                }                    
+                }
             }
                 if($lcheck == 0)
                 {
-                    return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);              
+                    return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);
                 }
         }
 
@@ -102,19 +102,19 @@ class CartController extends Controller
 
         $size = '';
         if(!empty($prod->size))
-        { 
+        {
         $size = trim($prod->size[0]);
-        }  
+        }
         $size = str_replace(' ','-',$size);
 
         // Set Color
 
         $color = '';
         if(!empty($prod->color))
-        { 
+        {
         $color = $prod->color[0];
         $color = str_replace('#','',$color);
-        }  
+        }
 
         if($prod->user_id != 0){
         $gs = Generalsetting::findOrFail(1);
@@ -130,7 +130,7 @@ class CartController extends Controller
 
                 $count = count($attrArr);
                 $i = 0;
-                $j = 0; 
+                $j = 0;
                       if (!empty($attrArr))
                       {
                           foreach ($attrArr as $attrKey => $attrVal)
@@ -146,12 +146,12 @@ class CartController extends Controller
 
                                 foreach($attrVal['values'] as $optionKey => $optionVal)
                                 {
-                                    
+
                                     $values .= $optionVal . ',';
 
                                     $prod->price += $attrVal['prices'][$optionKey];
                                     break;
-                                    
+
                                 }
                             }
                           }
@@ -173,13 +173,13 @@ class CartController extends Controller
         {
             return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);
         }
-        
+
         if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['size_qty'])
         {
             if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['qty'] > $cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['size_qty'])
             {
                 return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);
-            }           
+            }
         }
 
         $cart->totalPrice = 0;
@@ -187,7 +187,7 @@ class CartController extends Controller
         $cart->totalPrice += $data['price'];
         Session::put('cart',$cart);
          return redirect()->route('front.cart');
-    }  
+    }
 
    public function addcart($id)
     {
@@ -211,11 +211,11 @@ class CartController extends Controller
                 {
                     $lcheck = 1;
                     break;
-                }                    
+                }
             }
                 if($lcheck == 0)
                 {
-                    return 0;        
+                    return 0;
                 }
         }
 
@@ -223,19 +223,19 @@ class CartController extends Controller
 
         $size = '';
         if(!empty($prod->size))
-        { 
+        {
         $size = trim($prod->size[0]);
-        }  
+        }
         $size = str_replace(' ','-',$size);
 
         // Set Color
 
         $color = '';
         if(!empty($prod->color))
-        { 
+        {
         $color = $prod->color[0];
         $color = str_replace('#','',$color);
-        }  
+        }
 
         // Vendor Comission
 
@@ -253,7 +253,7 @@ class CartController extends Controller
 
                 $count = count($attrArr);
                 $i = 0;
-                $j = 0; 
+                $j = 0;
                       if (!empty($attrArr))
                       {
                           foreach ($attrArr as $attrKey => $attrVal)
@@ -269,13 +269,13 @@ class CartController extends Controller
 
                                 foreach($attrVal['values'] as $optionKey => $optionVal)
                                 {
-                                    
+
                                     $values .= $optionVal . ',';
 
                                     $prod->price += $attrVal['prices'][$optionKey];
                                     break;
-                                     
-                                    
+
+
                                 }
 
                             }
@@ -306,15 +306,15 @@ class CartController extends Controller
             if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['qty'] > $cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['size_qty'])
             {
                 return 0;
-            }           
+            }
         }
         $cart->totalPrice = 0;
         foreach($cart->items as $data)
         $cart->totalPrice += $data['price'];
         Session::put('cart',$cart);
-        $data[0] = count($cart->items);        
-        return response()->json($data);           
-    }  
+        $data[0] = count($cart->items);
+        return response()->json($data);
+    }
 
     public function addnumcart()
     {
@@ -351,7 +351,7 @@ class CartController extends Controller
          foreach($prices as $data){
             $prod->price += ($data / $curr->value);
         }
-            
+
         }
 
         if(!empty($prod->license_qty))
@@ -367,29 +367,29 @@ class CartController extends Controller
                 {
                     $lcheck = 1;
                     break;
-                }                    
+                }
             }
                 if($lcheck == 0)
                 {
-                    return 0;            
+                    return 0;
                 }
         }
         if(empty($size))
         {
             if(!empty($prod->size))
-            { 
+            {
             $size = trim($prod->size[0]);
-            }   
-            $size = str_replace(' ','-',$size);       
+            }
+            $size = str_replace(' ','-',$size);
         }
- 
+
         if(empty($color))
         {
             if(!empty($prod->color))
-            { 
+            {
             $color = $prod->color[0];
-                    
-            }          
+
+            }
         }
         $color = str_replace('#','',$color);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -409,16 +409,16 @@ class CartController extends Controller
             if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['qty'] > $cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['size_qty'])
             {
                 return 0;
-            }           
+            }
         }
 
         $cart->totalPrice = 0;
         foreach($cart->items as $data)
-        $cart->totalPrice += $data['price'];        
+        $cart->totalPrice += $data['price'];
         Session::put('cart',$cart);
-        $data[0] = count($cart->items);   
-        return response()->json($data);        
-    }  
+        $data[0] = count($cart->items);
+        return response()->json($data);
+    }
 
     public function addtonumcart()
     {
@@ -448,7 +448,7 @@ class CartController extends Controller
         $size_price = ($size_price / $curr->value);
         $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
 
-        if (Session::has('language')) 
+        if (Session::has('language'))
         {
             $data = \DB::table('languages')->find(Session::get('language'));
             $data_results = file_get_contents(public_path().'/assets/languages/'.$data->file);
@@ -461,7 +461,7 @@ class CartController extends Controller
             $data_results = file_get_contents(public_path().'/assets/languages/'.$data->file);
             $lang = json_decode($data_results);
 
-        }  
+        }
 
         if($prod->user_id != 0){
         $gs = Generalsetting::findOrFail(1);
@@ -489,29 +489,29 @@ class CartController extends Controller
                 {
                     $lcheck = 1;
                     break;
-                }                    
+                }
             }
                 if($lcheck == 0)
                 {
-                    return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);           
+                    return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);
                 }
         }
         if(empty($size))
         {
             if(!empty($prod->size))
-            { 
+            {
             $size = trim($prod->size[0]);
-            }          
+            }
             $size = str_replace(' ','-',$size);
         }
- 
+
         if(empty($color))
         {
             if(!empty($prod->color))
-            { 
+            {
             $color = $prod->color[0];
-                    
-            }          
+
+            }
         }
         $color = str_replace('#','',$color);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -519,27 +519,27 @@ class CartController extends Controller
         $cart->addnum($prod, $prod->id, $qty, $size,$color,$size_qty,$size_price,$size_key,$keys,$values);
         if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['dp'] == 1)
         {
-            return redirect()->route('front.cart')->with('unsuccess',$lang->already_cart);  
+            return redirect()->route('front.cart')->with('unsuccess',$lang->already_cart);
         }
         if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['stock'] < 0)
         {
-            return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock); 
+            return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);
         }
 
         if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['size_qty'])
         {
             if($cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['qty'] > $cart->items[$id.$size.$color.str_replace(str_split(' ,'),'',$values)]['size_qty'])
             {
-                return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock); 
-            }           
+                return redirect()->route('front.cart')->with('unsuccess',$lang->out_stock);
+            }
         }
 
         $cart->totalPrice = 0;
         foreach($cart->items as $data)
-        $cart->totalPrice += $data['price'];        
+        $cart->totalPrice += $data['price'];
         Session::put('cart',$cart);
-        return redirect()->route('front.cart');      
-    }  
+        return redirect()->route('front.cart');
+    }
 
     public function addbyone()
     {
@@ -547,7 +547,7 @@ class CartController extends Controller
             Session::forget('coupon');
         }
         $gs = Generalsetting::findOrFail(1);
-        if (Session::has('currency')) 
+        if (Session::has('currency'))
         {
             $curr = Currency::find(Session::get('currency'));
         }
@@ -571,7 +571,7 @@ class CartController extends Controller
             {
                 $attrArr = json_decode($prod->attributes, true);
                 $count = count($attrArr);
-                $j = 0; 
+                $j = 0;
                       if (!empty($attrArr))
                       {
                           foreach ($attrArr as $attrKey => $attrVal)
@@ -603,11 +603,11 @@ class CartController extends Controller
                 {
                     $lcheck = 1;
                     break;
-                }                    
+                }
             }
                 if($lcheck == 0)
                 {
-                    return 0;            
+                    return 0;
                 }
         }
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -622,11 +622,11 @@ class CartController extends Controller
             if($cart->items[$itemid]['qty'] > $cart->items[$itemid]['size_qty'])
             {
                 return 0;
-            }            
+            }
         }
         $cart->totalPrice = 0;
         foreach($cart->items as $data)
-        $cart->totalPrice += $data['price'];        
+        $cart->totalPrice += $data['price'];
         Session::put('cart',$cart);
         $data[0] = $cart->totalPrice;
 
@@ -636,9 +636,9 @@ class CartController extends Controller
         {
             $tax = ($data[0] / 100) * $tx;
             $data[3] = $data[0] + $tax;
-        }  
+        }
 
-        $data[1] = $cart->items[$itemid]['qty']; 
+        $data[1] = $cart->items[$itemid]['qty'];
         $data[2] = $cart->items[$itemid]['price'];
         $data[4] = $cart->items[$itemid]['item_price'];
         $data[0] = round($data[0] * $curr->value,2);
@@ -656,9 +656,9 @@ class CartController extends Controller
             $data[2] = $data[2].$curr->sign;
             $data[3] = $data[3].$curr->sign;
             $data[4] = $data[4].$curr->sign;
-        }     
-        return response()->json($data);          
-    }  
+        }
+        return response()->json($data);
+    }
 
     public function reducebyone()
     {
@@ -666,7 +666,7 @@ class CartController extends Controller
             Session::forget('coupon');
         }
         $gs = Generalsetting::findOrFail(1);
-        if (Session::has('currency')) 
+        if (Session::has('currency'))
         {
             $curr = Currency::find(Session::get('currency'));
         }
@@ -689,7 +689,7 @@ class CartController extends Controller
             {
                 $attrArr = json_decode($prod->attributes, true);
                 $count = count($attrArr);
-                $j = 0; 
+                $j = 0;
                       if (!empty($attrArr))
                       {
                           foreach ($attrArr as $attrKey => $attrVal)
@@ -721,11 +721,11 @@ class CartController extends Controller
                 {
                     $lcheck = 1;
                     break;
-                }                    
+                }
             }
             if($lcheck == 0)
             {
-                return 0;            
+                return 0;
             }
         }
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -733,8 +733,8 @@ class CartController extends Controller
         $cart->reducing($prod, $itemid,$size_qty,$size_price);
         $cart->totalPrice = 0;
         foreach($cart->items as $data)
-        $cart->totalPrice += $data['price'];    
-        
+        $cart->totalPrice += $data['price'];
+
         Session::put('cart',$cart);
         $data[0] = $cart->totalPrice;
 
@@ -744,9 +744,9 @@ class CartController extends Controller
         {
             $tax = ($data[0] / 100) * $tx;
             $data[3] = $data[0] + $tax;
-        }  
+        }
 
-        $data[1] = $cart->items[$itemid]['qty']; 
+        $data[1] = $cart->items[$itemid]['qty'];
         $data[2] = $cart->items[$itemid]['price'];
         $data[4] = $cart->items[$itemid]['item_price'];
         $data[0] = round($data[0] * $curr->value,2);
@@ -764,9 +764,9 @@ class CartController extends Controller
             $data[2] = $data[2].$curr->sign;
             $data[3] = $data[3].$curr->sign;
             $data[4] = $data[4].$curr->sign;
-        }       
-        return response()->json($data);        
-    }  
+        }
+        return response()->json($data);
+    }
 
     public function upcolor()
     {
@@ -775,15 +775,15 @@ class CartController extends Controller
         $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
          $oldCart = Session::has('cart') ? Session::get('cart') : null;
          $cart = new Cart($oldCart);
-         $cart->updateColor($prod,$id,$color);  
+         $cart->updateColor($prod,$id,$color);
          Session::put('cart',$cart);
-    } 
+    }
 
 
     public function removecart($id)
     {
         $gs = Generalsetting::findOrFail(1);
-        if (Session::has('currency')) 
+        if (Session::has('currency'))
         {
             $curr = Currency::find(Session::get('currency'));
         }
@@ -803,20 +803,20 @@ class CartController extends Controller
                     {
                         $tax = ($data[0] / 100) * $tx;
                         $data[3] = $data[0] + $tax;
-                    } 
+                    }
 
                 if($gs->currency_format == 0){
                     $data[0] = $curr->sign.round($data[0] * $curr->value,2);
                     $data[3] = $curr->sign.round($data[3] * $curr->value,2);
-            
+
                 }
                 else{
                     $data[0] = round($data[0] * $curr->value,2).$curr->sign;
                     $data[3] = round($data[3] * $curr->value,2).$curr->sign;
                 }
-            
-            $data[1] = count($cart->items); 
-            return response()->json($data);  
+
+            $data[1] = count($cart->items);
+            return response()->json($data);
         } else {
             Session::forget('cart');
             Session::forget('already');
@@ -826,9 +826,9 @@ class CartController extends Controller
             Session::forget('coupon_percentage');
 
             $data = 0;
-            return response()->json($data); 
-        }          
-    } 
+            return response()->json($data);
+        }
+    }
 
     public function coupon()
     {
@@ -837,7 +837,7 @@ class CartController extends Controller
         $total = (float)preg_replace('/[^0-9\.]/ui','',$_GET['total']);;
         $fnd = Coupon::where('code','=',$code)->get()->count();
         if($fnd < 1){
-        return response()->json(0);              
+        return response()->json(0);
         }
         else{
         $coupon = Coupon::where('code','=',$code)->first();
@@ -851,7 +851,7 @@ class CartController extends Controller
             {
                 if($coupon->times == "0")
                 {
-                    return response()->json(0);                
+                    return response()->json(0);
                 }
             }
         $today = date('Y-m-d');
@@ -865,7 +865,7 @@ class CartController extends Controller
                 $val = Session::has('already') ? Session::get('already') : null;
                 if($val == $code)
                 {
-                    return response()->json(2); 
+                    return response()->json(2);
                 }
                 $cart = new Cart($oldCart);
                 if($coupon->type == 0)
@@ -882,7 +882,7 @@ class CartController extends Controller
                     else{
                         $data[0] = $data[0].$curr->sign;
                     }
-                    $data[1] = $code;      
+                    $data[1] = $code;
                     $data[2] = round($sub, 2);
                     Session::put('coupon', $data[2]);
                     Session::put('coupon_code', $code);
@@ -894,7 +894,7 @@ class CartController extends Controller
 
                     Session::put('coupon_percentage', $data[4]);
 
-                    return response()->json($data);   
+                    return response()->json($data);
                 }
                 else{
                     Session::put('already', $code);
@@ -915,22 +915,22 @@ class CartController extends Controller
                     $data[4] = $data[2].$curr->sign;
                     $data[0] = $data[0].$curr->sign;
                 }
-                    
+
                     Session::put('coupon_percentage', 0);
 
                     $data[5] = 1;
-                    return response()->json($data);              
+                    return response()->json($data);
                 }
             }
             else{
-                return response()->json(0);   
-            }              
+                return response()->json(0);
+            }
         }
         else{
-        return response()->json(0);             
+        return response()->json(0);
         }
-        }         
-    } 
+        }
+    }
 
     public function couponcheck()
     {
@@ -940,11 +940,11 @@ class CartController extends Controller
         $fnd = Coupon::where('code','=',$code)->get()->count();
         if($fnd < 1)
         {
-        return response()->json(0);              
+        return response()->json(0);
         }
         else{
         $coupon = Coupon::where('code','=',$code)->first();
-            if (Session::has('currency')) 
+            if (Session::has('currency'))
             {
               $curr = Currency::find(Session::get('currency'));
             }
@@ -956,7 +956,7 @@ class CartController extends Controller
         {
             if($coupon->times == "0")
             {
-                return response()->json(0);                
+                return response()->json(0);
             }
         }
         $today = date('Y-m-d');
@@ -970,7 +970,7 @@ class CartController extends Controller
                 $val = Session::has('already') ? Session::get('already') : null;
                 if($val == $code)
                 {
-                    return response()->json(2); 
+                    return response()->json(2);
                 }
                 $cart = new Cart($oldCart);
                 if($coupon->type == 0)
@@ -988,7 +988,7 @@ class CartController extends Controller
                     $total = $total - $sub;
                     $total = $total + $_GET['shipping_cost'];
                     $data[0] = round($total,2);
-                    $data[1] = $code;      
+                    $data[1] = $code;
                     $data[2] = round($sub, 2);
                     if($gs->currency_format == 0){
                         $data[0] = $curr->sign.$data[0];
@@ -1002,7 +1002,7 @@ class CartController extends Controller
                     Session::put('coupon_total1', $data[0]);
                     Session::forget('coupon_total');
                     $data[0] = round($total,2);
-                    $data[1] = $code;      
+                    $data[1] = $code;
                     $data[2] = round($sub, 2);
                     $data[3] = $coupon->id;
                     $data[4] = $coupon->price."%";
@@ -1011,7 +1011,7 @@ class CartController extends Controller
                     Session::put('coupon_percentage', $data[4]);
 
 
-                    return response()->json($data);   
+                    return response()->json($data);
                 }
                 else{
                     Session::put('already', $code);
@@ -1036,23 +1036,23 @@ class CartController extends Controller
                     $data[0] = round($total,2);
                     $data[1] = $code;
                     $data[2] = round($coupon->price * $curr->value, 2);
-                    $data[3] = $coupon->id;                  
+                    $data[3] = $coupon->id;
                     $data[5] = 1;
 
                     Session::put('coupon_percentage', $data[4]);
 
-                    return response()->json($data);              
+                    return response()->json($data);
                 }
             }
             else{
-                    return response()->json(0);   
-            }              
+                    return response()->json(0);
+            }
         }
         else{
-        return response()->json(0);             
+        return response()->json(0);
         }
-        }         
-    } 
+        }
+    }
 
     // Capcha Code Image
     private function  code_image()

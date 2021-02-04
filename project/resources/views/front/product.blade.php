@@ -110,8 +110,16 @@
 
             <div class="product-price">
               <p class="title">{{ $langg->lang87 }} :</p>
-                    <p class="price"><span id="sizeprice">{{ $productt->showPrice() }}</span>
-                      <small><del>{{ $productt->showPreviousPrice() }}</del></small></p>
+                    <p class="price">
+                        <span id="sizeprice">
+                            {{ $productt->showPrice() }}
+                        </span>
+                        <small>
+                            <del>
+                              {{ $productt->showPreviousPrice() }}
+                            </del>
+                        </small>
+                    </p>
                       @if($productt->youtube != null)
                       <a href="{{ $productt->youtube }}" class="video-play-btn mfp-iframe">
                         <i class="fas fa-play"></i>
@@ -576,7 +584,7 @@
                 <a class="verify-link" href="javascript:;"  data-toggle="tooltip" data-placement="top" title="{{ $langg->lang783 }}">
                   {{--  {{ $langg->lang783 }}  --}}
                   <i class="fas fa-check-circle"></i>
-                
+
                 </a>
                 @endif
 

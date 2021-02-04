@@ -186,19 +186,17 @@ class Product extends Model
         $price = $this->price;
 
         if($this->user_id != 0){
-        $price = $this->price + $gs->fixed_commission + ($this->price/100) * $gs->percentage_commission ;
+            $price = $this->price + $gs->fixed_commission + ($this->price/100) * $gs->percentage_commission ;
         }
-
         if(!empty($this->size) && !empty($this->size_price)){
-            $price += $this->size_price[0];
+            $price = $this->size_price[0];
+            // $price += $this->size_price[0];
         }
     // Attribute Section
-
     $attributes = $this->attributes["attributes"];
       if(!empty($attributes)) {
           $attrArr = json_decode($attributes, true);
       }
-      // dd($attrArr);
       if (!empty($attrVal['values']) && is_array($attrVal['values'])) {
           foreach ($attrArr as $attrKey => $attrVal) {
             if (is_array($attrVal) && array_key_exists("details_status",$attrVal) && $attrVal['details_status'] == 1) {
@@ -212,7 +210,6 @@ class Product extends Model
             }
           }
       }
-
 
     // Attribute Section Ends
 
@@ -229,7 +226,6 @@ class Product extends Model
             return DB::table('currencies')->where('is_default','=',1)->first();
         });
     }
-
 
 
         $price = round(($price) * $curr->value,2);

@@ -397,27 +397,27 @@
                         <div class="card-body">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'veste']) }}">
+                                    <a class="nav-link" href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'veste']) }}">
                                         Vestes
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'top']) }}">
+                                    <a class="nav-link" href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'top']) }}">
                                         Tops
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'ensamble']) }}">
+                                    <a class="nav-link" href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'ensamble']) }}">
                                         Ensambles
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'robe']) }}">
+                                    <a class="nav-link" href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'robe']) }}">
                                         Robe
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'bas']) }}">
+                                    <a class="nav-link" href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'bas']) }}">
                                         Bas
                                     </a>
                                 </li>
@@ -559,31 +559,31 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'veste']) }}">
+                                            href="{{ route('front.subcat',[ 'slug1' => 'women', 'slug2' => 'veste']) }}">
                                             Vestes
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'top']) }}">
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'top']) }}">
                                             Tops
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'ensamble']) }}">
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'ensamble']) }}">
                                             Ensambles
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'robe']) }}">
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'robe']) }}">
                                             Robe
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-secondary"
-                                            href="{{ route('front.childcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'women', 'slug3' => 'bas']) }}">
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'bas']) }}">
                                             Bas
                                         </a>
                                     </li>
@@ -591,19 +591,19 @@
                             </li>
                             <li>
                                 <a
-                                    href="{{ route('front.subcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'chaussure']) }}">
+                                    href="{{ route('front.category',[ 'category' => 'chaussure']) }}">
                                     Chaussure
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="{{ route('front.subcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'accessoire']) }}">
+                                    href="{{ route('front.category',['category' => 'accessoire']) }}">
                                     Accessories
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="{{ route('front.subcat',['slug1' => 'fashion-and-Beauty', 'slug2' => 'soldes']) }}">
+                                    href="{{ route('front.category',['category' => 'soldes']) }}">
                                     Soldes
                                 </a>
                             </li>
