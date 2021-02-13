@@ -29,9 +29,17 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-    
+
     'genius' => [
         'ocean' => 'https://geniusocean.com/verify/'
+    ],
+    'viva' => [
+        'api_key' => env('VIVA_API_KEY'),
+        'merchant_id' => env('VIVA_MERCHANT_ID'),
+        'public_key' => env('VIVA_PUBLIC_KEY'),
+        'environment' => env('VIVA_ENVIRONMENT', 'production'),
+        'client_id' => env('VIVA_CLIENT_ID'),
+        'client_secret' => env('VIVA_CLIENT_SECRET'),
     ],
 
 ];
