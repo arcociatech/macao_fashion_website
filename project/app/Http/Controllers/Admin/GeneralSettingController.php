@@ -175,6 +175,7 @@ class GeneralSettingController extends Controller
         }
         $input['fixed_commission'] = $input['fixed_commission'] / $curr->value;
         $data->update($input);
+        dd($input,$data);
         cache()->forget('generalsettings');
 
         $this->setEnv('MOLLIE_KEY',$data->molly_key,$prev);
