@@ -712,5 +712,9 @@ public function deleteDir($dirPath) {
 
 
 // -------------------------------- PRINT SECTION ENDS ----------------------------------------
-
+    public function migrate()
+    {
+        Artisan::call('migrate');
+        dd("Migration Completed");
+    }
 }
