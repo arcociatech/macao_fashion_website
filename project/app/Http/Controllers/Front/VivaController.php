@@ -242,7 +242,7 @@ class VivaController extends Controller
 
         Session::forget('cart');
         try {
-            $viva_order = app(Sebdesign\VivaPayments\Order::class);
+            $viva_order = app(Order::class);
             $orderCode = $viva_order->create($order['pay_amount'], [
                 'fullName'      => $order['shipping_name'],
                 'email'         => $order['shipping_email'],
