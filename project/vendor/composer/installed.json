@@ -1180,7 +1180,8 @@
             "data",
             "faker",
             "fixtures"
-        ]
+        ],
+        "abandoned": true
     },
     {
         "name": "guzzlehttp/guzzle",
@@ -5077,6 +5078,72 @@
         "homepage": "https://github.com/sebastianbergmann/version"
     },
     {
+        "name": "sebdesign/laravel-viva-payments",
+        "version": "v5.1.2",
+        "version_normalized": "5.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebdesign/laravel-viva-payments.git",
+            "reference": "fbd45ef0087989dbbacc646e3dbc6079e36b5967"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebdesign/laravel-viva-payments/zipball/fbd45ef0087989dbbacc646e3dbc6079e36b5967",
+            "reference": "fbd45ef0087989dbbacc646e3dbc6079e36b5967",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "^6.0|^7.0",
+            "illuminate/config": "^5.5|^6.0|^7.0|^8.0",
+            "illuminate/routing": "^5.5|^6.0|^7.0|^8.0",
+            "illuminate/support": "^5.5|^6.0|^7.0|^8.0",
+            "php": ">=7.1"
+        },
+        "require-dev": {
+            "orchestra/testbench": "^3.5|^4.0|^5.0|^6.0",
+            "phpunit/phpunit": "^6.0|^7.0|^8.0|^9.3"
+        },
+        "time": "2020-12-10T01:50:30+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Sebdesign\\VivaPayments\\VivaPaymentsServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Sebdesign\\VivaPayments\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sébastien Nikolaou",
+                "email": "info@sebdesign.eu",
+                "homepage": "https://github.com/sebdesign",
+                "role": "Developer"
+            }
+        ],
+        "description": "A Laravel package for integrating the Viva Payments gateway",
+        "homepage": "https://github.com/sebdesign/laravel-viva-payments",
+        "keywords": [
+            "checkout",
+            "ecommerce",
+            "gateway",
+            "laravel",
+            "pay",
+            "payment",
+            "viva",
+            "webhooks"
+        ]
+    },
+    {
         "name": "swiftmailer/swiftmailer",
         "version": "v6.2.3",
         "version_normalized": "6.2.3.0",
@@ -7298,12 +7365,12 @@
         "version_normalized": "1.9.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/webmozart/assert.git",
+            "url": "https://github.com/webmozarts/assert.git",
             "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+            "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
             "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
             "shasum": ""
         },

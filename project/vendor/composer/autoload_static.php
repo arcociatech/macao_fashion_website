@@ -94,6 +94,7 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Svg\\' => 4,
+            'Sebdesign\\VivaPayments\\' => 23,
         ),
         'R' => 
         array (
@@ -341,6 +342,10 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
         'Svg\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'Sebdesign\\VivaPayments\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src',
         ),
         'Razorpay\\Tests\\' => 
         array (
@@ -668,6 +673,7 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
         'App\\Http\\Controllers\\Front\\RazorpayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/RazorpayController.php',
         'App\\Http\\Controllers\\Front\\StripeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/StripeController.php',
         'App\\Http\\Controllers\\Front\\VendorController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/VendorController.php',
+        'App\\Http\\Controllers\\POS\\GetDataController' => __DIR__ . '/../..' . '/app/Http/Controllers/POS/GetDataController.php',
         'App\\Http\\Controllers\\User\\ForgotController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/ForgotController.php',
         'App\\Http\\Controllers\\User\\InstamojoController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/InstamojoController.php',
         'App\\Http\\Controllers\\User\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/LoginController.php',
@@ -695,6 +701,7 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
         'App\\Http\\Controllers\\Vendor\\SliderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/SliderController.php',
         'App\\Http\\Controllers\\Vendor\\VendorController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/VendorController.php',
         'App\\Http\\Controllers\\Vendor\\WithdrawController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/WithdrawController.php',
+        'App\\Http\\Controllers\\VivaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/VivaController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -750,6 +757,7 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
         'App\\Models\\Report' => __DIR__ . '/../..' . '/app/Models/Report.php',
         'App\\Models\\Review' => __DIR__ . '/../..' . '/app/Models/Review.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
+        'App\\Models\\SendData' => __DIR__ . '/../..' . '/app/Models/SendData.php',
         'App\\Models\\Seotool' => __DIR__ . '/../..' . '/app/Models/Seotool.php',
         'App\\Models\\Service' => __DIR__ . '/../..' . '/app/Models/Service.php',
         'App\\Models\\Shipping' => __DIR__ . '/../..' . '/app/Models/Shipping.php',
@@ -3325,7 +3333,6 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
         'League\\OAuth1\\Client\\Signature\\RsaSha1Signature' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/RsaSha1Signature.php',
         'League\\OAuth1\\Client\\Signature\\Signature' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/Signature.php',
         'League\\OAuth1\\Client\\Signature\\SignatureInterface' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/SignatureInterface.php',
-        'Markury\\MarkuryPost' => __DIR__ . '/..' . '/markury/src/Adapter/MarkuryPost.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV5.php',
         'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV6' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV6.php',
@@ -5014,6 +5021,16 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Sebdesign\\VivaPayments\\Client' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/Client.php',
+        'Sebdesign\\VivaPayments\\NativeCheckout' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/NativeCheckout.php',
+        'Sebdesign\\VivaPayments\\OAuth' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/OAuth.php',
+        'Sebdesign\\VivaPayments\\Order' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/Order.php',
+        'Sebdesign\\VivaPayments\\Source' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/Source.php',
+        'Sebdesign\\VivaPayments\\Transaction' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/Transaction.php',
+        'Sebdesign\\VivaPayments\\VivaException' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/VivaException.php',
+        'Sebdesign\\VivaPayments\\VivaPaymentsServiceProvider' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/VivaPaymentsServiceProvider.php',
+        'Sebdesign\\VivaPayments\\Webhook' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/Webhook.php',
+        'Sebdesign\\VivaPayments\\WebhookController' => __DIR__ . '/..' . '/sebdesign/laravel-viva-payments/src/WebhookController.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Svg\\DefaultStyle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/DefaultStyle.php',
         'Svg\\Document' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Document.php',

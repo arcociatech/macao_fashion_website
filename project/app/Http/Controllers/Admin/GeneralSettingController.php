@@ -150,8 +150,8 @@ class GeneralSettingController extends Controller
         $input = $request->all();
         $curr = Currency::where('is_default','=',1)->first();
         $data = Generalsetting::findOrFail(1);
-        $prev = $data->molly_key;  
-        
+        $prev = $data->molly_key;
+
         if ($request->vendor_ship_info == ""){
             $input['vendor_ship_info'] = 0;
         }
@@ -252,7 +252,7 @@ class GeneralSettingController extends Controller
     {
         return view('admin.generalsetting.maintain');
     }
-    
+
     public function ispopup($status)
     {
 
@@ -346,6 +346,15 @@ class GeneralSettingController extends Controller
 
         $data = Generalsetting::findOrFail(1);
         $data->stripe_check = $status;
+        $data->update();
+        cache()->forget('generalsettings');
+    }
+
+    public function viva($status)
+    {
+
+        $data = Generalsetting::findOrFail(1);
+        $data->viva_check = $status;
         $data->update();
         cache()->forget('generalsettings');
     }

@@ -48,6 +48,121 @@
                             <div class="col-lg-3">
                               <div class="left-area">
                                 <h4 class="heading">
+                                    {{ __('Viva Payment') }}
+                                </h4>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="action-list">
+                                    <select class="process select droplinks {{ $gs->viva_check == 1 ? 'drop-success' : 'drop-danger' }}">
+                                      <option data-val="1" value="{{route('admin-gs-viva',1)}}" {{ $gs->viva_check == 1 ? 'selected' : '' }}>{{ __('Activated') }}</option>
+                                      <option data-val="0" value="{{route('admin-gs-viva',0)}}" {{ $gs->viva_check == 0 ? 'selected' : '' }}>{{ __('Deactivated') }}</option>
+                                    </select>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                                <div class="left-area">
+                                    <h4 class="heading">{{ __('Viva Key') }} *
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="input-field" placeholder="{{ __('Viva Key') }}" name="viva_key"
+                                    value="{{ $gs->viva_key }}" required="">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                                <div class="left-area">
+                                    <h4 class="heading">{{ __('Viva Environment') }} *
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <select name="viva_env">
+                                    <option value="live" {{ $gs->viva_env == 'live' ? 'selected' : '' }}>
+                                        Live
+                                    </option>
+                                    <option value="production" {{ $gs->viva_env == 'production' ? 'selected' : '' }}>
+                                        Production
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                                <div class="left-area">
+                                    <h4 class="heading">{{ __('Viva Merchant') }} *
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="input-field" placeholder="{{ __('Viva Merchant') }}" name="viva_merchant"
+                                    value="{{ $gs->viva_merchant }}" required="">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                                <div class="left-area">
+                                    <h4 class="heading">{{ __('Viva Public') }} *
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="input-field" placeholder="{{ __('Viva Public') }}" name="viva_public"
+                                    value="{{ $gs->viva_public }}" required="">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                                <div class="left-area">
+                                    <h4 class="heading">{{ __('Viva Cient') }} *
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="input-field" placeholder="{{ __('Viva Client') }}" name="viva_client"
+                                    value="{{ $gs->viva_client }}" required="">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                                <div class="left-area">
+                                    <h4 class="heading">{{ __('Viva Cient Secret') }} *
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="input-field" placeholder="{{ __('Viva Secret') }}" name="viva_client_secret"
+                                    value="{{ $gs->viva_client_secret }}" required="">
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                                <div class="left-area">
+                                    <h4 class="heading">{{ __('Viva Text') }} *</h4>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <textarea class="input-field" name="viva_text"
+                                    placeholder="{{ __('Viva Text') }}">{{ $gs->viva_text }}</textarea>
+
+                            </div>
+                        </div>
+
+
+                        <hr>
+                        {{-- Viva Payment ends here --}}
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3">
+                              <div class="left-area">
+                                <h4 class="heading">
                                     {{ __('Stripe') }}
                                 </h4>
                               </div>
@@ -60,7 +175,7 @@
                                     </select>
                                   </div>
                             </div>
-                          </div>
+                        </div>
 
 
                         <div class="row justify-content-center">
@@ -102,7 +217,7 @@
                         </div>
 
 
-<hr>
+                        <hr>
 
 
                         <div class="row justify-content-center">

@@ -691,6 +691,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/general-settings/paypal/{status}', 'Admin\GeneralSettingController@paypal')->name('admin-gs-paypal');
   Route::get('/general-settings/instamojo/{status}', 'Admin\GeneralSettingController@instamojo')->name('admin-gs-instamojo');
   Route::get('/general-settings/paystack/{status}', 'Admin\GeneralSettingController@paystack')->name('admin-gs-paystack');
+  Route::get('/general-settings/viva/{status}', 'Admin\GeneralSettingController@viva')->name('admin-gs-viva');
   Route::get('/general-settings/stripe/{status}', 'Admin\GeneralSettingController@stripe')->name('admin-gs-stripe');
   Route::get('/general-settings/cod/{status}', 'Admin\GeneralSettingController@cod')->name('admin-gs-cod');
   Route::get('/general-settings/paytm/{status}', 'Admin\GeneralSettingController@paytm')->name('admin-gs-paytm');
@@ -1324,6 +1325,7 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   Route::post('/instamojo/submit', 'Front\InstamojoController@store')->name('instamojo.submit');
   Route::post('/paypal-submit', 'Front\PaymentController@store')->name('paypal.submit');
   Route::post('/stripe-submit', 'Front\StripeController@store')->name('stripe.submit');
+  Route::post('/viva-submit', 'Front\VivaController@store')->name('viva.submit');
 
 
   // Molly Routes
@@ -1379,3 +1381,6 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
 
 
   });
+Route::get('/migrate', function() {
+    Artisan::call('migrate');
+});

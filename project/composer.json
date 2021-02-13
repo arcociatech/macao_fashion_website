@@ -21,6 +21,7 @@
         "laravel/tinker": "^2.0",
         "mollie/laravel-mollie": "^2.10",
         "razorpay/razorpay": "^2.5",
+        "sebdesign/laravel-viva-payments": "^5.1",
         "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables-oracle": "^9.10"
     },
