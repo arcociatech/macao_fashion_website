@@ -1381,6 +1381,7 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
 
 
   });
-Route::get('/migrate', function() {
-    Artisan::call('migrate');
+Route::get('migrate', function () {
+    \Artisan::call('migrate');
+    dd("Migration Completed");
 });
