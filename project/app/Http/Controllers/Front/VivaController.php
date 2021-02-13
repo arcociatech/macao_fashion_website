@@ -256,7 +256,7 @@ class VivaController extends Controller
             return back()->withErrors($e->getMessage());
         }
 
-        $checkoutUrl = $order->getCheckoutUrl($orderCode);
+        $checkoutUrl = $viva_order->getCheckoutUrl($orderCode);
 
         return redirect()->away($checkoutUrl);
     }
