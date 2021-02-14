@@ -248,7 +248,7 @@ class VivaController extends Controller
                 'email'         => $order['shipping_email'],
                 'sourceCode'    => 'Default',
                 'merchantTrns'  => 'Order reference: '. $order->id,
-                'customerTrns'  => $item_name,
+                'customerTrns'  => '',
             ]);
         } catch (VivaException $e) {
             report($e);
