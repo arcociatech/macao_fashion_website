@@ -243,12 +243,12 @@ class VivaController extends Controller
         Session::forget('cart');
         try {
             $viva_order = app(Order::class);
-            $orderCode = $viva_order->create($order['pay_amount'], [
+            $orderCode = $viva_order->create($item_amount, [
                 'fullName'      => $order['shipping_name'],
                 'email'         => $order['shipping_email'],
                 'sourceCode'    => 'Default',
                 'merchantTrns'  => 'Order reference: '. $order->id,
-                'customerTrns'  => '',
+                'customerTrns'  => $item_name,
             ]);
         } catch (VivaException $e) {
             report($e);
@@ -289,10 +289,12 @@ class VivaController extends Controller
                 break;
             case Order::PAID:
                 $state = 'The order is paid.';
+                dd($request,$order);
                 break;
         }
 
-        return view('order/success', compact('state'));
+        // return view('order/success', compact('state'));
+        return redirect()->route('payment.return');
     }
 
     /**

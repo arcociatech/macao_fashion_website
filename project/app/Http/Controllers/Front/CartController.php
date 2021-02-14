@@ -186,7 +186,7 @@ class CartController extends Controller
         foreach($cart->items as $data)
         $cart->totalPrice += $data['price'];
         Session::put('cart',$cart);
-         return redirect()->route('front.cart');
+        return redirect()->route('front.cart');
     }
 
    public function addcart($id)
