@@ -237,7 +237,8 @@ class VivaController extends Controller
         }
         try {
             $viva_order = app(Order::class);
-            $orderCode = $viva_order->create(ceil($item_amount), [
+            $price = ceil($item_amount)*100;
+            $orderCode = $viva_order->create($price, [
                 'fullName'      => $order['shipping_name'],
                 'email'         => $order['shipping_email'],
                 'sourceCode'    => 'Default',
