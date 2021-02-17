@@ -235,19 +235,13 @@ class VivaController extends Controller
                 $notification->save();
             }
         }
-        Session::put('temporder_id', $order->id);
-        Session::put('tempcart', $cart);
-
-
-
-        Session::forget('cart');
         try {
             $viva_order = app(Order::class);
-            $orderCode = $viva_order->create($item_amount, [
+            $orderCode = $viva_order->create(ceil($item_amount), [
                 'fullName'      => $order['shipping_name'],
                 'email'         => $order['shipping_email'],
                 'sourceCode'    => 'Default',
-                'merchantTrns'  => 'Order reference: '. $order->id,
+                'merchantTrns'  => 'Order reference: ' . $order->id,
                 'customerTrns'  => $item_name,
             ]);
         } catch (VivaException $e) {
@@ -257,6 +251,10 @@ class VivaController extends Controller
         }
 
         $checkoutUrl = $viva_order->getCheckoutUrl($orderCode);
+
+        Session::put('temporder_id', $order->id);
+        Session::put('tempcart', $cart);
+        Session::forget('cart');
 
         return redirect()->away($checkoutUrl);
     }
