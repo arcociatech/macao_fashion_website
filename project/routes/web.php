@@ -1326,6 +1326,7 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   Route::post('/paypal-submit', 'Front\PaymentController@store')->name('paypal.submit');
   Route::post('/stripe-submit', 'Front\StripeController@store')->name('stripe.submit');
   Route::post('/viva-submit', 'Front\VivaController@store')->name('viva.submit');
+  Route::get('/viva/success', 'Front\VivaController@confirm')->name('viva.success');
 
 
   // Molly Routes

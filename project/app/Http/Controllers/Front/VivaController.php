@@ -280,16 +280,19 @@ class VivaController extends Controller
         switch ($response->StateId) {
             case Order::PENDING:
                 $state = 'The order is pending.';
+                dd($request,$order,$state);
                 break;
             case Order::EXPIRED:
                 $state = 'The order has expired.';
+                dd($request, $order, $state);
                 break;
             case Order::CANCELED:
                 $state = 'The order has been canceled.';
+                dd($request, $order, $state);
                 break;
             case Order::PAID:
                 $state = 'The order is paid.';
-                dd($request,$order);
+                dd($request, $order, $state);
                 break;
         }
 
