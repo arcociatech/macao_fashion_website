@@ -60,7 +60,7 @@ class CatalogController extends Controller
         $search = $request->search;
         $minprice = round(($minprice / $curr->value),2);
         $maxprice = round(($maxprice / $curr->value),2);
-        if (!empty($slug)) {
+        if (!empty($slug) && $slug != "soldes") {
             $cat = Category::where('slug', $slug)->firstOrFail();
             $data['cat'] = $cat;
         }
@@ -138,7 +138,6 @@ class CatalogController extends Controller
                                   ->when(empty($sort), function ($query, $sort) {
                                       return $query->orderBy('id', 'DESC');
                                   });
-
                                   $prods = $prods->where(function ($query) use ($cat, $subcat, $childcat, $request) {
                                               $flag = 0;
 
@@ -200,6 +199,9 @@ class CatalogController extends Controller
                                                 }
                                               }
                                           });
+        if ($slug == "soldes") {
+            $prods = $prods->where('sale',1);
+        }
         $prods = $prods->where('status', 1)->get();
         $prods = (new Collection(Product::filterProducts($prods)))->paginate(12);
 
