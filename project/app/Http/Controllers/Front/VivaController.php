@@ -235,19 +235,14 @@ class VivaController extends Controller
                 $notification->save();
             }
         }
-        Session::put('temporder_id', $order->id);
-        Session::put('tempcart', $cart);
-
-
-
-        Session::forget('cart');
         try {
             $viva_order = app(Order::class);
-            $orderCode = $viva_order->create($item_amount, [
+            $price = ceil($item_amount)*100;
+            $orderCode = $viva_order->create($price, [
                 'fullName'      => $order['shipping_name'],
                 'email'         => $order['shipping_email'],
                 'sourceCode'    => 'Default',
-                'merchantTrns'  => 'Order reference: '. $order->id,
+                'merchantTrns'  => 'Order reference: ' . $order->id,
                 'customerTrns'  => $item_name,
             ]);
         } catch (VivaException $e) {
@@ -257,6 +252,10 @@ class VivaController extends Controller
         }
 
         $checkoutUrl = $viva_order->getCheckoutUrl($orderCode);
+
+        Session::put('temporder_id', $order->id);
+        Session::put('tempcart', $cart);
+        Session::forget('cart');
 
         return redirect()->away($checkoutUrl);
     }
@@ -280,16 +279,19 @@ class VivaController extends Controller
         switch ($response->StateId) {
             case Order::PENDING:
                 $state = 'The order is pending.';
+                dd($request,$order,$state);
                 break;
             case Order::EXPIRED:
                 $state = 'The order has expired.';
+                dd($request, $order, $state);
                 break;
             case Order::CANCELED:
                 $state = 'The order has been canceled.';
+                dd($request, $order, $state);
                 break;
             case Order::PAID:
                 $state = 'The order is paid.';
-                dd($request,$order);
+                dd($request, $order, $state);
                 break;
         }
 
