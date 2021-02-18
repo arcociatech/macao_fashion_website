@@ -80,16 +80,16 @@
                       <td class="unit-price quantity">
                         <p class="product-unit-price">
 
-                          {{ App\Models\Product::convertPrice($product['item_price']) }}                        
+                          {{ App\Models\Product::convertPrice($product['item_price']) }}
                         </p>
           @if($product['item']['type'] == 'Physical')
 
                           <div class="qty">
                               <ul>
-              <input type="hidden" class="prodid" value="{{$product['item']['id']}}">  
-              <input type="hidden" class="itemid" value="{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}">     
-              <input type="hidden" class="size_qty" value="{{$product['size_qty']}}">     
-              <input type="hidden" class="size_price" value="{{$product['size_price']}}">   
+                                    <input type="hidden" class="prodid" value="{{$product['item']['id']}}">
+                                    <input type="hidden" class="itemid" value="{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}">
+                                    <input type="hidden" class="size_qty" value="{{$product['size_qty']}}">
+                                    <input type="hidden" class="size_price" value="{{$product['size_price']}}">
                                 <li>
                                   <span class="qtminus1 reducing">
                                     <i class="icofont-minus"></i>
@@ -112,7 +112,7 @@
 
                             @if($product['size_qty'])
                             <input type="hidden" id="stock{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}" value="{{$product['size_qty']}}">
-                            @elseif($product['item']['type'] != 'Physical') 
+                            @elseif($product['item']['type'] != 'Physical')
                             <input type="hidden" id="stock{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}" value="1">
                             @else
                             <input type="hidden" id="stock{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}" value="{{$product['stock']}}">
@@ -120,7 +120,7 @@
 
                       <td class="total-price">
                         <p id="prc{{$product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values'])}}">
-                          {{ App\Models\Product::convertPrice($product['price']) }}                 
+                          {{ App\Models\Product::convertPrice($product['price']) }}
                         </p>
                       </td>
                       <td>
@@ -195,4 +195,4 @@
   </div>
 </section>
 <!-- Cart Area End -->
-@endsection 
+@endsection

@@ -36,9 +36,12 @@ class CartController extends Controller
             Session::forget('coupon_percentage');
         }
         $gs = Generalsetting::findOrFail(1);
+        // dd($gs);
         $oldCart = Session::get('cart');
+        // dd($oldCart);
         $cart = new Cart($oldCart);
         $products = $cart->items;
+        // dd($products);
         $totalPrice = $cart->totalPrice;
         $mainTotal = $totalPrice;
         $tx = $gs->tax;

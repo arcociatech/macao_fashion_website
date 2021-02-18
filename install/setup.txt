@@ -3,12 +3,12 @@ APP_ENV=local
 APP_KEY=base64:Jv+WvmI5e+wo4xbMQdLnmI3zjlFR6pFUY2Gv42ox8W8=
 APP_DEBUG=false
 APP_LOG_LEVEL=debug
-APP_URL=http://localhost/geniuscart1.8
+APP_URL=http://localhost/macao_fashion_website
 
 DB_CONNECTION=mysql
-DB_HOST=localhost
+DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=geniuscart
+DB_DATABASE=macao_website
 DB_USERNAME=root
 DB_PASSWORD=
 

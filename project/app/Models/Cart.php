@@ -57,7 +57,7 @@ class Cart extends Model
         }
         if($item->size_price != null){
         $storedItem['size_price'] = $item->size_price[0];
-        $size_cost = $item->size_price[0];
+        // $size_cost = $item->size_price[0];
         }
         if(!empty($color)){
         $storedItem['color'] = $color;
@@ -69,7 +69,8 @@ class Cart extends Model
         $storedItem['values'] = $values;
         }
         // dd($storedItem, $storedItem['item']->isDirty('price'), $storedItem['item']->getChanges('price'));
-        $item->price += $size_cost;
+        // $item->price += $size_cost;
+        // $item->price = $item->price;
         $storedItem['item_price'] = $item->price;
         if(!empty($item->whole_sell_qty))
         {
@@ -144,11 +145,11 @@ class Cart extends Model
         }
         if(!empty($item->size_price)){
         $storedItem['size_price'] = $item->size_price[0];
-        $size_cost = $item->size_price[0];
+        // $size_cost = $item->size_price[0];
         }
         if(!empty($size_price)){
         $storedItem['size_price'] = $size_price;
-        $size_cost = $size_price;
+        // $size_cost = $size_price;
         }
         if(!empty($item->color)){
         $storedItem['color'] = $item->color[0];
@@ -163,7 +164,7 @@ class Cart extends Model
         $storedItem['values'] = $values;
         }
 
-        $item->price += $size_cost;
+        // $item->price += $size_cost;
         $storedItem['item_price'] = $item->price;
         if(!empty($item->whole_sell_qty))
         {
