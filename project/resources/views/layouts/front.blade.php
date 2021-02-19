@@ -279,7 +279,7 @@
     <!-- Top Header Area End -->
 
     <!-- Logo Header Area Start -->
-    <section class="logo-header">
+    <section class="logo-header" style="background-color: peachpuff">
         <div class="container">
             <div class="row ">
                 <div class="col-lg-2 col-sm-6 col-5 remove-padding">
