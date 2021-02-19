@@ -24,11 +24,11 @@
                             <div class="sub-content open">
                               <a href="{{route('front.category', [$cat->slug, $subelement->slug])}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"><i class="fas fa-angle-right"></i>{{$subelement->name}}</a>
                               @if(!empty($subcat) && $subcat->id == $subelement->id && !empty($subcat->childs))
-                                @foreach ($subcat->childs as $key => $childcat)
+                                {{-- @foreach ($subcat->childs as $key => $childcat)
                                 <div class="child-content open">
                                   <a href="{{route('front.category', [$cat->slug, $subcat->slug, $childcat->slug])}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"><i class="fas fa-caret-right"></i> {{$childcat->name}}</a>
                                 </div>
-                                @endforeach
+                                @endforeach --}}
                               @endif
                             </div>
                             @endforeach
