@@ -99,6 +99,9 @@
             transform: translateX(0);
             transition: transform .2s;
         }
+        .logo-header {
+            position: relative;
+        }
     </style>
 
     @yield('styles')
@@ -322,6 +325,98 @@
                             </form>
                         </div>
                     </div>
+                    <nav hidden>
+                        <div class="nav-header">
+                            <button class="toggle-bar"><span class="fa fa-bars"></span></button>
+                        </div>
+                        <ul class="menu">
+                            @if($gs->is_home == 1)
+                            <li><a href="{{ route('front.index') }}">{{ $langg->lang17 }}</a></li>
+                            @endif
+                            {{-- <li>
+                                <a data-trigger="#my_offcanvas1" href="#">
+                                    Main Categories
+                                </a>
+                            </li> --}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Women
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.subcat',[ 'slug1' => 'women', 'slug2' => 'veste']) }}">
+                                            Vestes
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'top']) }}">
+                                            Tops
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'ensamble']) }}">
+                                            Ensambles
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'robe']) }}">
+                                            Robe
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-secondary"
+                                            href="{{ route('front.subcat',['slug1' => 'women', 'slug2' => 'bas']) }}">
+                                            Bas
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('front.category',[ 'category' => 'chaussure']) }}">
+                                    Chaussure
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('front.category',['category' => 'accessoire']) }}">
+                                    Accessories
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('front.category',['category' => 'soldes']) }}">
+                                    Soldes
+                                </a>
+                            </li>
+                            {{--
+                                <li class="active">
+                                    <a href="{{ route('front.blog') }}">
+                                        {{ $langg->lang18 }}
+                                    </a>
+                                </li>
+                                @if($gs->is_faq == 1)
+                                <li><a href="{{ route('front.faq') }}">{{ $langg->lang19 }}</a></li>
+                                @endif
+                            --}}
+                            @foreach(DB::table('pages')->where('header','=',1)->get() as $data)
+                            <li><a href="{{ route('front.page',$data->slug) }}">{{ $data->title }}</a></li>
+                            @endforeach
+                            @if($gs->is_contact == 1)
+                            <li><a href="{{ route('front.contact') }}">{{ $langg->lang20 }}</a></li>
+                            @endif
+                            {{-- <li>
+                                <a href="javascript:;" data-toggle="modal" data-target="#track-order-modal"
+                                    class="track-btn">{{ $langg->lang16 }}</a>
+                            </li> --}}
+                        </ul>
+
+                    </nav>
                 </div>
                 <div class="col-lg-2 col-sm-6 col-7 remove-padding order-lg-last">
                     <div class="helpful-links">
@@ -458,12 +553,12 @@
     </aside>
     <!-- offcanvas panel .end -->
     <!--Main-Menu Area Start-->
-    <div class="mainmenu-area mainmenu-bb">
+    {{-- <div class="mainmenu-area mainmenu-bb">
         <div class="container">
             <div class="row align-items-center mainmenu-area-innner">
-                <div class="col-lg-3 col-md-6 categorimenu-wrapper remove-padding hidden">
+                <div class="col-lg-3 col-md-6 categorimenu-wrapper remove-padding hidden"> --}}
                     <!--categorie menu start-->
-                    <div class="categories_menu">
+                    {{-- <div class="categories_menu">
                         <div class="categories_title">
                             <h2 class="categori_toggle"><i class="fa fa-bars"></i> {{ $langg->lang14 }} <i
                                     class="fa fa-angle-down arrow-down"></i></h2>
@@ -534,24 +629,24 @@
 
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                     <!--categorie menu end-->
-                </div>
-                <div class="col-lg-9 col-md-6 mainmenu-wrapper remove-padding">
-                    <nav hidden>
+                {{-- </div> --}}
+                {{-- <div class="col-lg-9 col-md-6 mainmenu-wrapper remove-padding"> --}}
+                    {{-- <nav hidden>
                         <div class="nav-header">
                             <button class="toggle-bar"><span class="fa fa-bars"></span></button>
                         </div>
                         <ul class="menu">
                             @if($gs->is_home == 1)
                             <li><a href="{{ route('front.index') }}">{{ $langg->lang17 }}</a></li>
-                            @endif
+                            @endif --}}
                             {{-- <li>
                                 <a data-trigger="#my_offcanvas1" href="#">
                                     Main Categories
                                 </a>
                             </li> --}}
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Women
@@ -606,7 +701,7 @@
                                     href="{{ route('front.category',['category' => 'soldes']) }}">
                                     Soldes
                                 </a>
-                            </li>
+                            </li> --}}
                             {{--
                                 <li class="active">
                                     <a href="{{ route('front.blog') }}">
@@ -617,23 +712,23 @@
                                 <li><a href="{{ route('front.faq') }}">{{ $langg->lang19 }}</a></li>
                                 @endif
                             --}}
-                            @foreach(DB::table('pages')->where('header','=',1)->get() as $data)
+                            {{-- @foreach(DB::table('pages')->where('header','=',1)->get() as $data)
                             <li><a href="{{ route('front.page',$data->slug) }}">{{ $data->title }}</a></li>
                             @endforeach
                             @if($gs->is_contact == 1)
                             <li><a href="{{ route('front.contact') }}">{{ $langg->lang20 }}</a></li>
-                            @endif
+                            @endif --}}
                             {{-- <li>
                                 <a href="javascript:;" data-toggle="modal" data-target="#track-order-modal"
                                     class="track-btn">{{ $langg->lang16 }}</a>
                             </li> --}}
                         </ul>
 
-                    </nav>
-                </div>
-            </div>
+                    {{-- </nav> --}}
+                {{-- </div> --}}
+            {{-- </div>
         </div>
-    </div>
+    </div> --}}
     <!--Main-Menu Area End-->
 
     @yield('content')
