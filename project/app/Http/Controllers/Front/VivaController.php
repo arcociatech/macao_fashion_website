@@ -244,8 +244,8 @@ class VivaController extends Controller
             // dd($order);
             // dd(Session::put('temporder_id', $order->id),Session::put('tempcart', $cart));
             $orderCode = $viva_order->create($price, [
-                'fullName'      => $order['customer_email'],
-                'email'         => $order['customer_name'],
+                'fullName'      => $order['customer_name'],
+                'email'         => $order['customer_email'],
                 'sourceCode'    => 'Default',
                 'merchantTrns'  => 'Order reference: ' . $order->id,
                 'customerTrns'  => $item_name,
