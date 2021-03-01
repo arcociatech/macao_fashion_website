@@ -351,7 +351,7 @@
 																</p>
 															</a>
 														@endif
-														@if($gs->paypal_check == 1)
+														@if($gs->viva_check == 1)
 															<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('viva.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'viva','slug2' => 0]) }}" id="v-pills-tab1-tab" data-toggle="pill" href="#v-pills-tab1" role="tab" aria-controls="v-pills-tab1" aria-selected="true">
 																	<div class="icon">
 																			<span class="radio"></span>
