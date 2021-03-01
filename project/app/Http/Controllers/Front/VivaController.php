@@ -296,7 +296,7 @@ class VivaController extends Controller
                 break;
             case Order::PAID:
                 $order_id = Session::get('temporder_id');
-                $order_table = DB::table('orders')->where('order_id',$order_id)->update([
+                $order_table = DB::table('orders')->where('id',$order_id)->update([
                     'payment_status' => 'Completed',
                     'payment_order_id' => $request->input('s'),
                     'transaction_id' => $request->input('t'),
