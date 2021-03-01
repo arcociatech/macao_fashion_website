@@ -296,11 +296,11 @@ class VivaController extends Controller
                 break;
             case Order::PAID:
                 $order_id = Session::get('temporder_id');
-                $order = DB::table('orders')->find($order_id);
-                $order->payment_status = 'Completed';
-                $order->payment_order_id = $request->input('s');
-                $order->transaction_id = $request->input('t');
-                $order->save();
+                $order_table = DB::table('orders')->find($order_id);
+                $order_table->payment_status = 'Completed';
+                $order_table->payment_order_id = $request->input('s');
+                $order_table->transaction_id = $request->input('t');
+                $order_table->save();
 
                 $notification = new Notification;
                 $notification->order_id = $order_id;
