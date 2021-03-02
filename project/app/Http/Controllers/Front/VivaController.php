@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\VendorOrder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -124,7 +125,8 @@ class VivaController extends Controller
         $order['cart'] = utf8_encode(bzcompress(serialize($cart), 9));
         $order['totalQty'] = $request->totalQty;
         $order['pay_amount'] = round($item_amount / $curr->value, 2);
-        $order['method'] = $request->method;
+        $order['method'] = 'Viva Payment';
+        // $order['method'] = $request->method;
         $order['customer_email'] = $request->email;
         $order['customer_name'] = $request->name;
         $order['customer_phone'] = $request->phone;
@@ -243,9 +245,11 @@ class VivaController extends Controller
             $viva_order = app(Order::class);
             $price =$item_amount*100;
             // dd($price);
+            // dd($order);
+            // dd(Session::put('temporder_id', $order->id),Session::put('tempcart', $cart));
             $orderCode = $viva_order->create($price, [
-                'fullName'      => $order['shipping_name'],
-                'email'         => $order['shipping_email'],
+                'fullName'      => $order['customer_name'],
+                'email'         => $order['customer_email'],
                 'sourceCode'    => 'Default',
                 'merchantTrns'  => 'Order reference: ' . $order->id,
                 'customerTrns'  => $item_name,
@@ -284,19 +288,35 @@ class VivaController extends Controller
         switch ($response->StateId) {
             case Order::PENDING:
                 $state = 'The order is pending.';
-                dd($request,$order,$state);
+                // dd($request,$order,$state);
                 break;
             case Order::EXPIRED:
                 $state = 'The order has expired.';
-                dd($request, $order, $state);
+                // dd($request, $order, $state);
                 break;
             case Order::CANCELED:
                 $state = 'The order has been canceled.';
-                dd($request, $order, $state);
+                // dd($request, $order, $state);
                 break;
             case Order::PAID:
+                $order_id = Session::get('temporder_id');
+                $order_table = DB::table('orders')->where('id',$order_id)->update([
+                    'payment_status' => 'Completed',
+                    'payment_order_id' => $request->input('s'),
+                    'transaction_id' => $request->input('t'),
+                ]);
+                // $order_table->payment_status = 'Completed';
+                // $order_table->payment_order_id = $request->input('s');
+                // $order_table->transaction_id = $request->input('t');
+                // $order_table->save();
+
+                $notification = new Notification;
+                $notification->order_id = $order_id;
+                $notification->save();
+                Session::forget('cart');
+
                 $state = 'The order is paid.';
-                dd($request, $order, $state);
+                // dd($request, $order, $state);
                 break;
         }
 
