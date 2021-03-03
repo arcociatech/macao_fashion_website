@@ -563,10 +563,10 @@ class CartController extends Controller
         $size_qty = $_GET['size_qty'];
         $size_price = $_GET['size_price'];
         $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
-
         if($prod->user_id != 0){
         $gs = Generalsetting::findOrFail(1);
         $prc = $prod->price + $gs->fixed_commission + ($prod->price/100) * $gs->percentage_commission ;
+        // dd($prc);
         $prod->price = round($prc,2);
         }
 
@@ -616,6 +616,7 @@ class CartController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->adding($prod, $itemid,$size_qty,$size_price);
+        // dd($cart);
         if($cart->items[$itemid]['stock'] < 0)
         {
             return 0;
