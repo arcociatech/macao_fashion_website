@@ -208,21 +208,28 @@ class GetDataController extends Controller
             $connection = DB::connection('pos_macaofashion');
             $products = $connection->table('website_products')
                         ->join('products as p', 'p.refference', '=', 'website_products.refference')
+                        ->join('variation_location_details as vld', 'vld.product_id', '=', 'p.id')
                         ->join('variations as v', 'p.id', '=', 'v.product_id')
                         ->join('sizes as s', 'p.sub_size_id', '=', 's.id')
                         ->join('colors as c', 'c.id', '=', 'p.color_id')
                         ->join('categories as cat', 'cat.id', '=', 'p.category_id')
                         ->join('categories as sub_cat', 'sub_cat.id', '=', 'p.sub_category_id')
+                ->groupBy('id')
                         ->get([
+                            'p.id',
                             'p.name as name',
                             'p.sku as sku',
                             'cat.name as category_name',
                             'sub_cat.name as sub_category_name',
                             'c.name as color',
+                            'c.color_code as color_code',
                             's.name as size',
                             'website_products.quantity as quantity',
                             'v.sell_price_inc_tax as price',
-                            'p.image'
+                            'p.image',
+                            // DB::raw('(SELECT qty_available from variation_location_details) as qty'),
+                            DB::raw('SUM(vld.qty_available) as qty'),
+                            // 'vld.qty_available',
                         ])
                         ->groupBy('name')
                         ->toArray();
@@ -232,6 +239,7 @@ class GetDataController extends Controller
             $qurrey_count = 0;
             $all_product = 0;
             $product = 0;
+            // dd($products);
             foreach ($products as $key => $value) {
                 // for ($i=0; $i < count($products); $i++) {
                 $qurrey_count++;
@@ -265,7 +273,12 @@ class GetDataController extends Controller
                     }elseif($j == 0){
                         $color[0] = $current_product[$j]->color;
                     }
-                    $quantity[$j] = $current_product[$j]->quantity;
+                    // $quantity[$j] = $current_product[$j]->quantity;
+                    if ($current_product[$j]->qty) {
+                        $quantity[$j] = (int) $current_product[$j]->qty;
+                    }else{
+                        $quantity[$j] = 0;
+                    }
                     $price[$j] = (float)$current_product[0]->price;
                     $all_product++;
                 }
@@ -282,29 +295,14 @@ class GetDataController extends Controller
                     $input['size'] = implode(",", $size);
                     $input['size_price'] = implode(",", $price);
                     $input['size_qty'] = implode(",", $quantity);
+                    $input['stock'] = $current_product[0]->quantity;
+                    $input['quantity'] = $current_product[0]->quantity;
                     $input['color'] = implode(",", $color);
                     $input['price'] = (float)$current_product[0]->price;
                     $input['category_id'] = $cat_id;
                     $input['subcategory_id'] = $subcat_id;
                     $input['childcategory_id'] = $child_id;
                     $data->fill($input)->save(); //save product
-                    // $products = Product::create([
-                    //     'name' => $current_product[0]->name,
-                    //     'slug' => strtolower($current_product[0]->name),
-                    //     'sku' => $current_product[0]->sku,
-                    //     'price' => implode(",", $price),
-                    //     //Euro to dollor
-                    //     // 'price' => $current_product[0]->price*1.21,
-                    //     'quantity' => implode(",", $quantity),
-                    //     'color' => implode(",", $color),
-                    //     'size' => implode(",", $size),
-                    //     'category_id' => $cat_id,
-                    //     'subcategory_id' => $subcat_id,
-                    //     'childcategory_id' => $child_id,
-                    //     'photo'=> 'images/noimage.png',
-                    //     'thumbnail'=> 'images/noimage.png'
-                    // ]);
-                    // dd($products);
                     $product++;
                 }
                 // dd("Hello");

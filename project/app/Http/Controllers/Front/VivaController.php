@@ -195,6 +195,31 @@ class VivaController extends Controller
                 $temp1 = implode(',', $temp);
                 $product->size_qty =  $temp1;
                 $product->update();
+
+                /**
+                 * Subtracting product from POS
+                 *
+                 **/
+                $connection = FacadesDB::connection('pos_macaofashion');
+                /**
+                 * Selecting Priority Location of selected product
+                 *
+                 **/
+                $location_setting = (array)$connection->table('sale_priorities')->first(['priority_1', 'priority_2', 'priority_3', 'priority_4']);
+
+                // dd($location_setting);
+                // dd($x, $temp, $prod['size']);
+                $size_id = $connection->table('sizes')->where('name', $prod['size'])->first()->id;
+
+                $product_id = $connection->table('products')->where('name', $product->name)->where('sub_size_id', $size_id)->first()->id;
+                for ($i = 0; $i < 4; $i++) {
+                    $location = $connection->table('variation_location_details')->where('product_id', $product_id)->where('location_id', $location_setting['priority_' . ($i + 1)])->first();
+                    if ($location) {
+                        $location = $location->location_id;
+                        break;
+                    }
+                }
+                $pos_update = $connection->table('variation_location_details')->where('product_id', $product_id)->where('location_id', $location)->decrement('qty_available', $prod['qty']);
             }
         }
         foreach ($cart->items as $prod) {
