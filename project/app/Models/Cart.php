@@ -220,6 +220,7 @@ class Cart extends Model
 
     public function adding($item, $id, $size_qty, $size_price) {
         $storedItem = ['qty' => 0,'size_key' => 0, 'size_qty' =>  $item->size_qty,'size_price' => $item->size_price, 'size' => $item->size, 'color' => $item->color, 'stock' => $item->stock, 'price' => $item->price, 'item' => $item, 'license' => '', 'dp' => '0','keys' => '', 'values' => '','item_price' => $item->price];
+        // dd($storedItem);
         if ($this->items) {
             if (array_key_exists($id, $this->items)) {
                 $storedItem = $this->items[$id];
@@ -233,8 +234,8 @@ class Cart extends Model
 
         // CURRENCY ISSUE CHECK IT CAREFULLY
 
-        $item->price += (double)$size_price;
-
+        $item->price = (double)$item->price;
+// dd($item->price);
         if(!empty($item->whole_sell_qty))
         {
             foreach(array_combine($item->whole_sell_qty,$item->whole_sell_discount) as $whole_sell_qty => $whole_sell_discount)
@@ -279,7 +280,7 @@ class Cart extends Model
 
         // CURRENCY ISSUE CHECK IT CAREFULLY
 
-        $item->price += (double)$size_price;
+        $item->price = (double)$item->price;
         if(!empty($item->whole_sell_qty))
         {
             $len = count($item->whole_sell_qty);

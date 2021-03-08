@@ -132,7 +132,10 @@ class VivaController extends Controller
         $order['customer_phone'] = $request->phone;
         $order['order_number'] = $item_number;
         $order['shipping'] = $request->shipping;
-        $order['pickup_location'] = $request->pickup_location;
+        if ($order['shipping'] == 'pickup') {
+            $order['pickup_location'] = $request->pickup_location;
+        }
+
         $order['customer_address'] = $request->address;
         $order['customer_country'] = $request->customer_country;
         $order['customer_city'] = $request->city;
@@ -165,6 +168,7 @@ class VivaController extends Controller
             $order['affilate_user'] = Session::get('affilate');
             $order['affilate_charge'] = $sub;
         }
+        // dd($order);
         $order->save();
         if ($request->coupon_id != "") {
             $coupon = Coupon::findOrFail($request->coupon_id);
