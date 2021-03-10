@@ -204,7 +204,7 @@ class VivaController extends Controller
                  * Subtracting product from POS
                  *
                  **/
-                $connection = FacadesDB::connection('pos_macaofashion');
+                $connection = DB::connection('pos_macaofashion');
                 /**
                  * Selecting Priority Location of selected product
                  *
