@@ -69,10 +69,12 @@ class LoginController extends Controller
                 }
             }
           // Login as User
-          return response()->json(1);
+            return response()->json(url("/"));
+            // return response()->json(1);
           }
           // Login as User
-          return response()->json(route('user-dashboard'));
+          return response()->json(url("/"));
+        //   return response()->json(route('user-dashboard'));
       }
 
       // if unsuccessful, then redirect back to the login with the form data

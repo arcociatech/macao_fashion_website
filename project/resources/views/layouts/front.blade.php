@@ -256,11 +256,11 @@
                                         <a href="{{ route('user-package') }}" class="sell-btn">{{ $langg->lang220 }}</a>
                                         @endif
                                     </li>
-                                    @else
+                                    {{-- @else
                                     <li class="hidden">
                                         <a href="javascript:;" data-toggle="modal" data-target="#vendor-login"
                                             class="sell-btn">{{ $langg->lang220 }}</a>
-                                    </li>
+                                    </li> --}}
                                     @endif
                                     @endif
                                     <li>
