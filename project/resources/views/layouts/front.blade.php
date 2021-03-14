@@ -339,7 +339,7 @@
                                 </a>
                             </li> --}}
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{ route('front.subcat',[ 'slug1' => 'women']) }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                <a class="nav-link dropdown-toggle" href="{{ route('front.category',[ 'category' => 'women']) }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Women
                                 </a>
