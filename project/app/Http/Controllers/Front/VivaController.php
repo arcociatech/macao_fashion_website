@@ -329,6 +329,7 @@ class VivaController extends Controller
                     'payment_status' => 'Completed',
                     'payment_order_id' => $request->input('s'),
                     'transaction_id' => $request->input('t'),
+                    'status' => 'processing',
                 ]);
                 // $order_table->payment_status = 'Completed';
                 // $order_table->payment_order_id = $request->input('s');

@@ -72,7 +72,7 @@
 								</p>
 							</div>
 							<div class="right">
-								<img src="{{asset('assets/images/categories/'.$cat->image) }}" alt="">
+								<img src="{{asset('assets/images/categories/'.$cat->image) }}" alt="" width="100px" height="100px">
 							</div>
 						</a>
 					</div>

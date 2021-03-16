@@ -475,11 +475,11 @@ class FrontendController extends Controller
         if($gs->is_capcha == 1)
         {
 
-        // Capcha Check
-        $value = session('captcha_string');
-        if ($request->codes != $value){
-            return response()->json(array('errors' => [ 0 => 'Please enter Correct Capcha Code.' ]));
-        }
+            // Capcha Check
+            $value = session('captcha_string');
+            if ($request->codes != $value){
+                return response()->json(array('errors' => [ 0 => 'Please enter Correct Capcha Code.' ]));
+            }
 
         }
 
@@ -493,19 +493,19 @@ class FrontendController extends Controller
         $msg = "Name: ".$name."\nEmail: ".$from."\nPhone: ".$phone."\nMessage: ".$request->text;
         if($gs->is_smtp)
         {
-        $data = [
-            'to' => $to,
-            'subject' => $subject,
-            'body' => $msg,
-        ];
+            $data = [
+                'to' => $to,
+                'subject' => $subject,
+                'body' => $msg,
+            ];
 
-        $mailer = new GeniusMailer();
-        $mailer->sendCustomMail($data);
+            $mailer = new GeniusMailer();
+            $mailer->sendCustomMail($data);
         }
         else
         {
-        $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-        mail($to,$subject,$msg,$headers);
+            $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
+            mail($to,$subject,$msg,$headers);
         }
         // Login Section Ends
 
