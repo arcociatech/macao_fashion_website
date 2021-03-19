@@ -134,15 +134,17 @@ class GeniusMailer
         $objDemo->subject = $mailData['subject'];
 
         try{
-            Mail::send('admin.email.mailbody',$data, function ($message) use ($objDemo) {
+            $mail = Mail::send('admin.email.mailbody',$data, function ($message) use ($objDemo) {
                 $message->from($objDemo->from,$objDemo->title);
                 $message->to($objDemo->to);
                 $message->subject($objDemo->subject);
             });
+            // dd($objDemo,$mail);
         }
         catch (\Exception $e){
             //die($e->getMessage());
-            // return $e->getMessage();
+            return $e->getMessage();
+            // dd($e->getMessage());
         }
         return true;
     }

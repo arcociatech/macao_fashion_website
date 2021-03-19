@@ -487,9 +487,11 @@ class FrontendController extends Controller
         $ps = DB::table('pagesettings')->where('id','=',1)->first();
         $subject = "Email From Of ".$request->name;
         $to = $request->to;
+        // $to = $request->to;
         $name = $request->name;
         $phone = $request->phone;
         $from = $request->email;
+        // $from = $request->email;
         $msg = "Name: ".$name."\nEmail: ".$from."\nPhone: ".$phone."\nMessage: ".$request->text;
         if($gs->is_smtp)
         {

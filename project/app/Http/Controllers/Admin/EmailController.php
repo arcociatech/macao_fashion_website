@@ -28,7 +28,7 @@ class EmailController extends Controller
          return Datatables::of($datas)
                             ->addColumn('action', function(EmailTemplate $data) {
                                 return '<div class="action-list"><a href="' . route('admin-mail-edit',$data->id) . '"> <i class="fas fa-edit"></i>Edit</a></div>';
-                            }) 
+                            })
                             ->toJson();//--- Returning Json Data To Client Side
     }
 
@@ -72,7 +72,7 @@ class EmailController extends Controller
                 ];
 
                 $mailer = new GeniusMailer();
-                $mailer->sendCustomMail($data);            
+                $mailer->sendCustomMail($data);
             }
             else
             {
@@ -81,18 +81,18 @@ class EmailController extends Controller
                $msg = $request->body;
                 $headers = "From: ".$config->from_name."<".$config->from_email.">";
                mail($to,$subject,$msg,$headers);
-            }  
-        } 
-        //--- Redirect Section          
+            }
+        }
+        //--- Redirect Section
         $msg = 'Email Sent Successfully.';
-        return response()->json($msg);    
-        //--- Redirect Section Ends  
+        return response()->json($msg);
+        //--- Redirect Section Ends
         }
 
         else if($request->type == 1)
         {
             $users = User::where('is_vendor','=','2')->get();
-            //Sending Email To Vendors        
+            //Sending Email To Vendors
             foreach($users as $user)
             {
                 if($config->is_smtp == 1)
@@ -104,7 +104,7 @@ class EmailController extends Controller
                     ];
 
                     $mailer = new GeniusMailer();
-                    $mailer->sendCustomMail($data);            
+                    $mailer->sendCustomMail($data);
                 }
                 else
                 {
@@ -113,9 +113,9 @@ class EmailController extends Controller
                 $msg = $request->body;
                     $headers = "From: ".$config->from_name."<".$config->from_email.">";
                 mail($to,$subject,$msg,$headers);
-                }  
+                }
             }
-        } 
+        }
         else
         {
             $users = Subscriber::all();
@@ -131,7 +131,7 @@ class EmailController extends Controller
                     ];
 
                     $mailer = new GeniusMailer();
-                    $mailer->sendCustomMail($data);            
+                    $mailer->sendCustomMail($data);
                 }
                 else
                 {
@@ -140,28 +140,28 @@ class EmailController extends Controller
                 $msg = $request->body;
                     $headers = "From: ".$config->from_name."<".$config->from_email.">";
                 mail($to,$subject,$msg,$headers);
-                }  
-            }   
+                }
+            }
         }
 
-        //--- Redirect Section          
+        //--- Redirect Section
         $msg = 'Email Sent Successfully.';
-        return response()->json($msg);    
-        //--- Redirect Section Ends  
+        return response()->json($msg);
+        //--- Redirect Section Ends
     }
 
 
-    
+
 
     public function update(Request $request, $id)
     {
         $data = EmailTemplate::findOrFail($id);
         $input = $request->all();
         $data->update($input);
-        //--- Redirect Section          
+        //--- Redirect Section
         $msg = 'Data Updated Successfully.'.'<a href="'.route("admin-mail-index").'">View Template Lists</a>';
-        return response()->json($msg);    
-        //--- Redirect Section Ends  
+        return response()->json($msg);
+        //--- Redirect Section Ends
     }
 
 }

@@ -1067,6 +1067,14 @@ class ProductController extends Controller
 
         $prod->update();
 
+        $stck = 0;
+        $qty = $prod->size_qty;
+        for ($i=0; $i < count($qty); $i++) {
+            $stck += $qty[$i];
+        }
+        $prod->stock = $stck;
+        $prod->update();
+
 
         //--- Redirect Section
         $msg = 'Product Updated Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
