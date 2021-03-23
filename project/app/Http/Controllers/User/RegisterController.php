@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Classes\GeniusMailer;
 use App\Models\Notification;
 use Auth;
-
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class RegisterController extends Controller
@@ -70,6 +70,27 @@ class RegisterController extends Controller
 			  }
 
 			$user->fill($input)->save();
+
+            /**
+             * Storing Customer in POS
+             *
+             **/
+            $pos = DB::connection('pos_macaofashion');
+            // $input = $request->only([
+            //     'discount', 'bonus_points', 'barcode',
+            //     'name', 'tax_number', 'pay_term_number', 'pay_term_type', 'mobile', 'landline', 'alternate_number', 'city', 'state', 'country', 'landmark', 'customer_group_id', 'contact_id', 'custom_field1', 'custom_field2', 'custom_field3', 'custom_field4', 'email'
+            // ]);
+            $pos_contacts['mobile'] = $user->phone;
+            $pos_contacts['email'] = $user->email;
+            $pos_contacts['type'] = 'customer';
+            $pos_contacts['business_id'] = 1;
+            $pos_contacts['created_by'] = 1;
+
+            $pos_contacts['name'] = $user->name;
+
+            $pos_contacts['credit_limit'] = null;
+            $pos->table('contacts')->insert($pos_contacts);
+
 	        if($gs->is_verification_email == 1)
 	        {
 	        $to = $request->email;

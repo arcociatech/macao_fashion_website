@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Socialite;
 
@@ -52,7 +53,7 @@ class SocialRegisterController extends Controller
             if(User::where('email',$socialUser->email)->exists())
             {
                 $auser = User::where('email',$socialUser->email)->first();
-                Auth::guard('web')->login($auser); 
+                Auth::guard('web')->login($auser);
                 return redirect()->route('user-dashboard');
             }
             //create a new user and provider
@@ -65,6 +66,26 @@ class SocialRegisterController extends Controller
             $user->affilate_code = $socialUser->name.$socialUser->email;
             $user->affilate_code = md5($user->affilate_code);
             $user->save();
+
+            /**
+             * Storing Customer in POS
+             *
+             **/
+            $pos = DB::connection('pos_macaofashion');
+            // $input = $request->only([
+            //     'discount', 'bonus_points', 'barcode',
+            //     'name', 'tax_number', 'pay_term_number', 'pay_term_type', 'mobile', 'landline', 'alternate_number', 'city', 'state', 'country', 'landmark', 'customer_group_id', 'contact_id', 'custom_field1', 'custom_field2', 'custom_field3', 'custom_field4', 'email'
+            // ]);
+            // $pos_contacts['mobile'] = $user-;
+            $pos_contacts['email'] = $user->email;
+            $pos_contacts['type'] = 'customer';
+            $pos_contacts['business_id'] = 1;
+            $pos_contacts['created_by'] = 1;
+
+            $pos_contacts['name'] = $user->name;
+
+            $pos_contacts['credit_limit'] = null;
+            $pos->table('contacts')->insert($pos_contacts);
 
             $user->socialProviders()->create(
                 ['provider_id' => $socialUser->getId(), 'provider' => $provider]
@@ -81,14 +102,14 @@ class SocialRegisterController extends Controller
             if(User::where('email',$socialUser->email)->exists())
             {
                 $auser = User::where('email',$socialUser->email)->first();
-                Auth::guard('web')->login($auser); 
+                Auth::guard('web')->login($auser);
                 return redirect()->route('user-dashboard');
             }
 
             $user = $socialProvider->user;
         }
 
-        Auth::guard('web')->login($user); 
+        Auth::guard('web')->login($user);
         return redirect()->route('user-dashboard');
 
     }
