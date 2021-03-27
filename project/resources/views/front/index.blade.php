@@ -13,7 +13,6 @@
 		<!-- Hero Area Start -->
 		<section class="hero-area">
 			@if($ps->slider == 1)
-
 				@if(count($sliders))
 					<div class="hero-area-slider">
 						<div class="slide-progress"></div>

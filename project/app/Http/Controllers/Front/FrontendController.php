@@ -278,6 +278,7 @@ class FrontendController extends Controller
           });
         $accessories_category_id = Category::where('slug', 'accessoire')->first()->id;
         $accessories_child_category_id = Subcategory::where('category_id', $accessories_category_id)->pluck('id');
+
         $accessories =  Product::with('user')->where('category_id', $accessories_category_id)->whereIn('subcategory_id', $accessories_child_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
 
             if($item->user_id != 0){

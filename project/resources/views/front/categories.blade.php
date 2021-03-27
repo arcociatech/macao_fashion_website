@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="bg-white">
+
                     @foreach($categories as $category)
                         <div class="sub-category-menu">
                             <h3 class="category-name"><a href="{{ route('front.category',$category->slug) }}">{{ $category->name }}</a></h3>

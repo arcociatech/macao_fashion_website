@@ -27,11 +27,12 @@ class GalleryController extends Controller
             $data[0] = 1;
             $data[1] = $prod->galleries;
         }
-        return response()->json($data);              
-    }  
+        return response()->json($data);
+    }
 
     public function store(Request $request)
-    { 
+    {
+        dd($request->all());
         $data = null;
         $lastid = $request->product_id;
         if ($files = $request->file('gallery')){
@@ -49,12 +50,12 @@ class GalleryController extends Controller
                     $gallery['photo'] = $thumbnail;
                     $gallery['product_id'] = $lastid;
                     $gallery->save();
-                    $data[] = $gallery;                        
+                    $data[] = $gallery;
                   }
             }
         }
-        return response()->json($data);      
-    } 
+        return response()->json($data);
+    }
 
     public function destroy()
     {
@@ -65,7 +66,7 @@ class GalleryController extends Controller
                 unlink(public_path().'/assets/images/galleries/'.$gal->photo);
             }
         $gal->delete();
-            
-    } 
+
+    }
 
 }
