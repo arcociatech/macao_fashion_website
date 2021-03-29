@@ -54,7 +54,7 @@ class GalleryController extends Controller
                 //   }
             }
         }
-        dd($data);
+        // dd($data);
         return response()->json($data);
     }
 
