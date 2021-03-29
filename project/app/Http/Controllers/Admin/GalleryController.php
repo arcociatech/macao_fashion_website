@@ -32,7 +32,7 @@ class GalleryController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $data = null;
         $lastid = $request->product_id;
         if ($files = $request->file('gallery')){
@@ -54,6 +54,7 @@ class GalleryController extends Controller
                   }
             }
         }
+        dd($data);
         return response()->json($data);
     }
 
