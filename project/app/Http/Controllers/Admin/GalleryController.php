@@ -38,20 +38,20 @@ class GalleryController extends Controller
         if ($files = $request->file('gallery')){
             foreach ($files as  $key => $file){
                 $val = $file->getClientOriginalExtension();
-                if($val == 'jpeg'|| $val == 'jpg'|| $val == 'png'|| $val == 'svg')
-                  {
+                // dd($val);
+                // if($val == 'jpeg'|| $val == 'jpg'|| $val == 'png'|| $val == 'svg')
+                //   {
                     $gallery = new Gallery;
 
-
-        $img = Image::make($file->getRealPath())->resize(800, 800);
-        $thumbnail = Str::random(10).'.jpg';
-        $img->save(public_path().'/assets/images/galleries/'.$thumbnail);
+                    $img = Image::make($file->getRealPath())->resize(800, 800);
+                    $thumbnail = Str::random(10).'.jpg';
+                    $img->save(public_path().'/assets/images/galleries/'.$thumbnail);
 
                     $gallery['photo'] = $thumbnail;
                     $gallery['product_id'] = $lastid;
                     $gallery->save();
                     $data[] = $gallery;
-                  }
+                //   }
             }
         }
         dd($data);
