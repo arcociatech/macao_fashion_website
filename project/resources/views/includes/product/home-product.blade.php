@@ -68,13 +68,17 @@
                     <i class="icofont-close-circled"></i> {{ $langg->lang78 }}
                 </span>
                 @else
-                <span class="add-to-cart add-to-cart-btn" data-href="{{ route('product.cart.add',$prod->id) }}">
+                {{-- Dont change span if changed the design will be exploited --}}
+                <span class="add-to-cart-btn" data-href="#" onclick="window.location={{ route('front.product', $prod->slug) }}">
+                    <i class="icofont-eye-alt"></i> Details
+                </span>
+                {{-- <span class="add-to-cart add-to-cart-btn" data-href="{{ route('product.cart.add',$prod->id) }}">
                     <i class="icofont-cart"></i> {{ $langg->lang56 }}
                 </span>
                 <span class="add-to-cart-quick add-to-cart-btn"
                     data-href="{{ route('product.cart.quickadd',$prod->id) }}">
                     <i class="icofont-cart"></i> {{ $langg->lang251 }}
-                </span>
+                </span> --}}
                 @endif
                 @endif
             </div>

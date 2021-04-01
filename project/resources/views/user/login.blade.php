@@ -50,24 +50,30 @@
                   </div>
                   <input type="hidden" name="modal" value="1">
                   <input class="mauthdata" type="hidden" value="{{ $langg->lang177 }}">
-                  <button type="submit" class="submit-btn">{{ $langg->lang178 }}</button>
+                  <button type="submit" class="submit-btn btn-success">{{ $langg->lang178 }}</button>
                   @if(App\Models\Socialsetting::find(1)->f_check == 1 || App\Models\Socialsetting::find(1)->g_check ==
                   1)
                   <div class="social-area">
                     <h3 class="title">{{ $langg->lang179 }}</h3>
                     <p class="text">{{ $langg->lang180 }}</p>
-                    <ul class="social-links">
+                    <ul>
                       @if(App\Models\Socialsetting::find(1)->f_check == 1)
                       <li>
-                        <a href="{{ route('social-provider','facebook') }}">
-                          <i class="fab fa-facebook-f"></i>
+                        <a class="btn btn-info submit-btn" href="{{ route('social-provider','facebook') }}">
+                          <i class="fab fa-facebook-f fa-2x"></i>
+                          <span>
+                              acebook
+                          </span>
                         </a>
                       </li>
                       @endif
                       @if(App\Models\Socialsetting::find(1)->g_check == 1)
                       <li>
-                        <a href="{{ route('social-provider','google') }}">
-                          <i class="fab fa-google-plus-g"></i>
+                        <a class="btn btn-info submit-btn bg-light text-danger" href="{{ route('social-provider','google') }}">
+                          <i class="fab fa-google-plus-g text-danger fa-2x text-left"></i>
+                          <span clss="text-center text-danger">
+                              Google
+                          </span>
                         </a>
                       </li>
                       @endif

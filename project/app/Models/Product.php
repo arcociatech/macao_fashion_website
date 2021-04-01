@@ -202,7 +202,8 @@ class Product extends Model
             if (is_array($attrVal) && array_key_exists("details_status",$attrVal) && $attrVal['details_status'] == 1) {
 
                 foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                  $price += $attrVal['prices'][$optionKey];
+                    $price += $attrVal['prices'][$optionKey];
+                    // $price = $attrVal['prices'][$optionKey];
                   // only the first price counts
                   break;
                 }

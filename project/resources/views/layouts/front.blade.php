@@ -423,7 +423,7 @@
                         <ul class="helpful-links-inner">
                             <li class="my-dropdown" data-toggle="tooltip" data-placement="top"
                                 title="{{ $langg->lang3 }}">
-                                <a href="javascript:;" class="cart carticon">
+                                <a href="{{ url("carts") }}" class="cart carticon">
                                     <div class="icon">
                                         <i class="icofont-cart"></i>
                                         <span class="cart-quantity"

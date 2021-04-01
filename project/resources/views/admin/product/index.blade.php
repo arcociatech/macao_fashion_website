@@ -205,6 +205,7 @@
 			   ordering: false,
                processing: true,
                serverSide: true,
+               "pageLength": 100,
                ajax: '{{ route('admin-prod-datatables') }}',
                columns: [
                         { data: 'name', name: 'name' },

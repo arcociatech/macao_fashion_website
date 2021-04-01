@@ -50,6 +50,6 @@
 														<a href="{{ route('front.checkout') }}" class="mybtn1">{{ $langg->lang7 }}</a>
 												</div><!-- End .dropdown-cart-total -->
 										</div>
-									@else 
+									@else
 									<p class="mt-1 pl-3 text-left">{{ $langg->lang8 }}</p>
 									@endif

@@ -38,7 +38,7 @@
             <div class="col-lg-5 col-md-12">
 
           <div class="xzoom-container">
-              <img class="xzoom5" id="xzoom-magnific" src="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" xoriginal="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" />
+              <img class="xzoom5" id="xzoom-magnific" height="100%" width="100%" src="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" xoriginal="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" />
               <div class="xzoom-thumbs">
 
                 <div class="all-slider">
@@ -171,6 +171,8 @@
                           <input type="hidden" class="size_key" value="{{$key}}">
                           <input type="hidden" class="size_price"
                             value="{{ round($productt->size_price[$key] * $curr->value,2) }}">
+                          {{-- <input type="hidden" class="size_price"
+                            value="{{ round($productt->size_price[$key] * $curr->value,2) }}"> --}}
                         </span>
                       </li>
                       @php
