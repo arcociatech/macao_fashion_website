@@ -261,7 +261,10 @@ nav .menu li.dropdown.open > a,
     .product-details-page .right-area .product-info .product-price .price {
       color: <?php echo $color; ?>;}
         .product-details-page .right-area .product-info .product-size .siz-list li.active .box {
-          border: 1px solid <?php echo $color; ?>; }
+          border: 1px solid <?php echo $color; ?>; 
+          background: <?php echo $color; ?>; 
+          color: white;
+          }
 
 
 

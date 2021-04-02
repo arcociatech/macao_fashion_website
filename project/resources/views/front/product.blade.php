@@ -13,6 +13,7 @@
           @if($productt->subcategory_id != null)
           <li><a
               href="{{ route('front.subcat',['slug1' => $productt->category->slug, 'slug2' => $productt->subcategory->slug]) }}">{{$productt->subcategory->name}}</a>
+
           </li>
           @endif
           @if($productt->childcategory_id != null)
@@ -66,7 +67,12 @@
             <div class="col-lg-7">
               <div class="right-area">
                 <div class="product-info">
-                  <h4 class="product-name">{{ $productt->name }}</h4>
+                  <h4 class="product-name">
+                      {{ $productt->name }}
+                    </h4>
+                    <h6>
+                        {{$productt->category->name}}-{{$productt->subcategory->name}}-{{$productt->childcategory->name}}
+                    </h6>
                   <div class="info-meta-1">
                     <ul>
 
