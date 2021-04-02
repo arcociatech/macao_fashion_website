@@ -834,6 +834,11 @@ class CartController extends Controller
         }
     }
 
+    public function emptyCart()
+    {
+        Session::forget('cart');
+        return redirect()->back();
+    }
     public function coupon()
     {
         $gs = Generalsetting::findOrFail(1);
