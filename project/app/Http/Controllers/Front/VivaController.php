@@ -214,8 +214,8 @@ class VivaController extends Controller
                 // dd($location_setting);
                 // dd($x, $temp, $prod['size']);
                 $size_id = $connection->table('sizes')->where('name', $prod['size'])->first()->id;
-
-                $product_id = $connection->table('products')->where('name', $product->name)->where('sub_size_id', $size_id)->first()->id;
+                // dd($size_id,$connection->table('products')->where('name', $product->name)->where('sub_size_id', $size_id)->orWhere('size_id', $size_id)->first());
+                $product_id = $connection->table('products')->where('name', $product->name)->where('sub_size_id', $size_id)->orWhere('size_id', $size_id)->first()->id;
                 for ($i = 0; $i < 4; $i++) {
                     $location = $connection->table('variation_location_details')->where('product_id', $product_id)->where('location_id', $location_setting['priority_' . ($i + 1)])->first();
                     if ($location) {
