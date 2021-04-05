@@ -242,18 +242,19 @@ class FrontendController extends Controller
             return false;
 
           });
-        $sale_products =  Product::with('user')->where('sale','=',1)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+        $sale_products =  Product::with('user')->where('sale','=',1)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get();
+        // ->reject(function($item){
 
-            if($item->user_id != 0){
-              if($item->user->is_vendor != 2){
-                return true;
-              }
-            }
-            return false;
+        //     if($item->user_id != 0){
+        //       if($item->user->is_vendor != 2){
+        //         return true;
+        //       }
+        //     }
+        //     return false;
 
-          });
+        //   });
         $women_category_id = Category::where('slug','women')->first()->id;
-        $women_sub_category_id = Subcategory::where('category_id',$women_category_id)->pluck('id');
+        $women_sub_category_id = Subcategory::where('category_id',$women_category_id)->pluck('id')->toArray();
 
         $women =  Product::with('user')->where('category_id',$women_category_id)->whereIn('subcategory_id',$women_sub_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
 
@@ -266,29 +267,14 @@ class FrontendController extends Controller
 
           });
         $chaussure_category_id = Category::where('slug', 'chaussure')->first()->id;
-        $chaussure =  Product::with('user')->where('category_id', $chaussure_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
+        $chaussure =  Product::with('user')->where('category_id', $chaussure_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get();
 
-            if($item->user_id != 0){
-              if($item->user->is_vendor != 2){
-                return true;
-              }
-            }
-            return false;
-
-          });
         $accessories_category_id = Category::where('slug', 'accessoire')->first()->id;
-        $accessories_child_category_id = Subcategory::where('category_id', $accessories_category_id)->pluck('id');
+        $accessories_child_category_id = Subcategory::where('category_id', $accessories_category_id)->pluck('id')->toArray();
 
-        $accessories =  Product::with('user')->where('category_id', $accessories_category_id)->whereIn('subcategory_id', $accessories_child_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get()->reject(function($item){
-
-            if($item->user_id != 0){
-              if($item->user->is_vendor != 2){
-                return true;
-              }
-            }
-            return false;
-
-          });
+        //   ->whereIn('subcategory_id', $accessories_child_category_id)
+        $accessories =  Product::with('user')->where('category_id', $accessories_category_id)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(9)->get();
+        //   dd($accessories_category_id, $accessories_child_category_id,$accessories);
         return view('front.extraindex',compact('ps','services','reviews','large_banners','bottom_small_banners','best_products','top_products','hot_products','latest_products','big_products','trending_products','sale_products','discount_products','partners', 'women', 'chaussure', 'accessories'));
     }
 
