@@ -19,24 +19,54 @@
                   <li>
                     <div class="content">
                         <a href="{{route('front.category', $element->slug)}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="category-link"> <i class="fas fa-angle-double-right"></i> {{$element->name}}</a>
-                        @if(!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
+                        {{-- @if(!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
                             @foreach ($cat->subs as $key => $subelement)
-                            <div class="sub-content open">
-                              <a href="{{route('front.category', [$cat->slug, $subelement->slug])}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"><i class="fas fa-angle-right"></i>{{$subelement->name}}</a>
-                              @if(!empty($subcat) && $subcat->id == $subelement->id && !empty($subcat->childs))
-                                {{-- @foreach ($subcat->childs as $key => $childcat)
-                                <div class="child-content open">
-                                  <a href="{{route('front.category', [$cat->slug, $subcat->slug, $childcat->slug])}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"><i class="fas fa-caret-right"></i> {{$childcat->name}}</a>
+                                <div class="sub-content open">
+                                <a href="{{route('front.category', [$cat->slug, $subelement->slug])}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"><i class="fas fa-angle-right"></i>{{$subelement->name}}</a>
+                                @if(!empty($subcat) && $subcat->id == $subelement->id && !empty($subcat->childs))
+                                    @foreach ($subcat->childs as $key => $childcat)
+                                    <div class="child-content open">
+                                    <a href="{{route('front.category', [$cat->slug, $subcat->slug, $childcat->slug])}}{{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"><i class="fas fa-caret-right"></i> {{$childcat->name}}</a>
+                                    </div>
+                                    @endforeach
+                                @endif
                                 </div>
-                                @endforeach --}}
-                              @endif
-                            </div>
                             @endforeach
 
-                          </div>
+                        @endif --}}
+                        @if ($element->name == "WOMEN")
+                            <div class="sub-content open">
+                                <a {{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"href="{{ route('front.subcat',[ 'slug1' => 'women', 'slug2' => 'veste']) }}">
+                                    <i class="fas fa-angle-right"></i>
+                                    Vestes
+                                </a>
+                            </div>
+                            <div class="sub-content open">
+                                <a {{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"href="{{ route('front.subcat',[ 'slug1' => 'women', 'slug2' => 'top']) }}">
+                                    <i class="fas fa-angle-right"></i>
+                                    Tops
+                                </a>
+                            </div>
+                            <div class="sub-content open">
+                                <a {{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"href="{{ route('front.subcat',[ 'slug1' => 'women', 'slug2' => 'ensamble']) }}">
+                                    <i class="fas fa-angle-right"></i>
+                                    Ensambles
+                                </a>
+                            </div>
+                            <div class="sub-content open">
+                                <a {{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"href="{{ route('front.subcat',[ 'slug1' => 'women', 'slug2' => 'robe']) }}">
+                                    <i class="fas fa-angle-right"></i>
+                                    Robe
+                                </a>
+                            </div>
+                            <div class="sub-content open">
+                                <a {{!empty(request()->input('search')) ? '?search='.request()->input('search') : ''}}" class="subcategory-link"href="{{ route('front.subcat',[ 'slug1' => 'women', 'slug2' => 'bas']) }}">
+                                    <i class="fas fa-angle-right"></i>
+                                    Bas
+                                </a>
+                            </div>
                         @endif
-
-
+                    </div>
                   </li>
                   @endforeach
 
@@ -60,7 +90,7 @@
 
             @if ((!empty($cat) && !empty(json_decode($cat->attributes, true))) || (!empty($subcat) && !empty(json_decode($subcat->attributes, true))) || (!empty($childcat) && !empty(json_decode($childcat->attributes, true))))
 
-              <div class="tags-area">
+              <div class="tags-area d-none">
                 <div class="header-area">
                   <h4 class="title">
                       Filters

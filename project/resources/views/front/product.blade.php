@@ -71,7 +71,15 @@
                       {{ $productt->name }}
                     </h4>
                     <h6>
-                        {{$productt->category->name}}-{{$productt->subcategory->name}}-{{$productt->childcategory->name}}
+                        @if (($productt->subcategory->name == "Deleted") && ($productt->childcategory->name == "Deleted"))
+                            {{$productt->category->name}}
+                        @endif
+                        @if ($productt->subcategory->name != "Deleted")
+                            {{$productt->subcategory->name}}
+                        @endif
+                        @if($productt->childcategory->name != "Deleted")
+                            - {{$productt->childcategory->name}}
+                        @endif
                     </h6>
                   <div class="info-meta-1">
                     <ul>
