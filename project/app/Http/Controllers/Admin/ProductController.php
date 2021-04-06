@@ -71,6 +71,7 @@ class ProductController extends Controller
                                 $s = $data->status == 1 ? 'selected' : '';
                                 $ns = $data->status == 0 ? 'selected' : '';
                                 $gallery_btn = '<button href="javascript" class="set-gallery btn btn-sm btn-info" data-toggle="modal" data-target="#setgallery" title="Gallery"><input type="hidden" value="' . $data->id . '"><i class="fas fa-images"></i></button>';
+                                // $setMainImage = '<button href="javascript" class="set-main-image btn btn-sm btn-success" data-toggle="modal" data-target="#setMainImage" title="Main Image"><input type="hidden" value="' . $data->id . '"><i class="fas fa-images"></i></button>';
 
                                 return $gallery_btn.'<div class="action-list"><select class="process select droplinks '.$class.'"><option data-val="1" value="'. route('admin-prod-status',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>Activated</option><<option data-val="0" value="'. route('admin-prod-status',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>Deactivated</option>/select></div>';
                             })
