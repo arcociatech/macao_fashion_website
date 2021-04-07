@@ -847,6 +847,11 @@ Route::prefix('admin')->group(function() {
   Route::get('/gallery/show', 'Admin\GalleryController@show')->name('admin-gallery-show');
   Route::post('/gallery/store', 'Admin\GalleryController@store')->name('admin-gallery-store');
   Route::get('/gallery/delete', 'Admin\GalleryController@destroy')->name('admin-gallery-delete');
+  // Main Image SECTION ------------
+
+  Route::get('/mainimage/show', 'Admin\MainImageController@show')->name('admin-mainimage-show');
+  Route::post('/mainimage/store', 'Admin\MainImageController@store')->name('admin-mainimage-store');
+  Route::get('/mainimage/delete', 'Admin\MainImageController@destroy')->name('admin-mainimage-delete');
 
   // GALLERY SECTION ENDS------------
 

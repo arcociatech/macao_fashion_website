@@ -251,12 +251,11 @@ class GetDataController extends Controller
                     $cat_id = Category::where('name', $current_product[0]->category_name)->first()->id;
                 }
                 if (Subcategory::where('name', $current_product[0]->sub_category_name)->first()) {
-                    $sub_category = Subcategory::where('name', $current_product[0]->category_name)->orWhere('name', $current_product[0]->sub_category_name)->first();
+                    $sub_category = Subcategory::where('name', $current_product[0]->sub_category_name)->first();
                     $subcat_id = $sub_category->id;
                     $cat_id = $sub_category->category_id;
                     ;
                 }
-                // dd($sub_category);
                 if (Childcategory::where('name', $current_product[0]->sub_category_name)->first()) {
                     $child = Childcategory::where('name', $current_product[0]->sub_category_name)->first();
                     $child_id = $child->id;
@@ -268,14 +267,6 @@ class GetDataController extends Controller
                 $quantity =[];
                 $price = [];
                 for ($j=0; $j < count($current_product); $j++) {
-
-
-                    // if (Subcategory::where('name', $current_product[$j]->sub_category_name)->first()) {
-                    //     $sub_category = Subcategory::where('name', $current_product[$j]->category_name)->orWhere('name', $current_product[$j]->sub_category_name)->first();
-                    //     $subcat_id = $sub_category->id;
-                    //     $cat_id = $sub_category->category_id;;
-                    // }
-
                     $size[$j] =  $current_product[$j]->size;
                     if(($j > 0 ) && (isset($color[($j - 1)]) && ($color[($j-1)] != $current_product[$j]->color))) {
                         $color[$j] = $current_product[$j]->color;
@@ -291,30 +282,26 @@ class GetDataController extends Controller
                     $price[$j] = (float)$current_product[0]->price;
                     $all_product++;
                 }
-                // if ($current_product[0]->sub_category_name == "ROBE") {
-                //     dd($current_product[$j]->sub_category_name);
-                // }
                 // dd($current_product);
                 // Create Product here
-                if (Product::where('name', $current_product[0]->name)->where('subcategory_id',null)->first()) {
-                    // $data = new Product;
-                    $data = Product::where('name', $current_product[0]->name)->first();
-                    // $input = [];
-                    // $input['name'] = $current_product[0]->name;
-                    // $input['slug'] = strtolower($current_product[0]->name);
-                    // $input['sku'] = $current_product[0]->sku;
-                    // $input['photo'] = $current_product[0]->image;
-                    // $input['thumbnail'] = $current_product[0]->image;
-                    // $input['size'] = implode(",", $size);
-                    // $input['size_price'] = implode(",", $price);
-                    // $input['size_qty'] = implode(",", $quantity);
-                    // $input['stock'] = $current_product[0]->quantity;
-                    // $input['quantity'] = $current_product[0]->quantity;
-                    // $input['color'] = implode(",", $color);
-                    // $input['price'] = (float)$current_product[0]->price;
-                    // $input['category_id'] = $cat_id;
+                if (!Product::where('name', $current_product[0]->name)->first()) {
+                    $data = new Product;
+                    $input = [];
+                    $input['name'] = $current_product[0]->name;
+                    $input['slug'] = strtolower($current_product[0]->name);
+                    $input['sku'] = $current_product[0]->sku;
+                    $input['photo'] = $current_product[0]->image;
+                    $input['thumbnail'] = $current_product[0]->image;
+                    $input['size'] = implode(",", $size);
+                    $input['size_price'] = implode(",", $price);
+                    $input['size_qty'] = implode(",", $quantity);
+                    $input['stock'] = $current_product[0]->quantity;
+                    $input['quantity'] = $current_product[0]->quantity;
+                    $input['color'] = implode(",", $color);
+                    $input['price'] = (float)$current_product[0]->price;
+                    $input['category_id'] = $cat_id;
                     $input['subcategory_id'] = $subcat_id;
-                    // $input['childcategory_id'] = $child_id;
+                    $input['childcategory_id'] = $child_id;
                     $data->fill($input)->save(); //save product
                     $product++;
                 }

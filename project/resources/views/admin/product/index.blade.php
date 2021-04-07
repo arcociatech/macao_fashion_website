@@ -189,6 +189,51 @@
 
 
 {{-- GALLERY MODAL ENDS --}}
+{{-- MAIN IMAGE MODAL --}}
+
+		<div class="modal fade" id="setMainImage" tabindex="-1" role="dialog" aria-labelledby="setMainImage" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Main Image</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="top-area">
+						<div class="row">
+							<div class="col-sm-6 text-right">
+								<div class="upload-img-btn">
+									<form  method="POST" enctype="multipart/form-data" id="form-setMainImage">
+										{{ csrf_field() }}
+									<input type="hidden" id="main_pid" name="product_id" value="">
+									<input type="file" name="setMainImage" class="hidden" id="uploadsetMainImage" accept="image/*" multiple>
+											<label for="image-upload" id="prod_setMainImage"><i class="icofont-upload-alt"></i>{{ __("Upload File") }}</label>
+									</form>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<a href="javascript:;" class="upload-done" data-dismiss="modal"> <i class="fas fa-check"></i> {{ __("Done") }}</a>
+							</div>
+							{{-- <div class="col-sm-12 text-center">( <small>{{ __("You can upload multiple Images") }}.</small> )</div> --}}
+						</div>
+					</div>
+					<div class="gallery-images">
+						<div class="selected-image">
+							<div class="row">
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+
+{{-- MAIN IMAGE MODAL ENDS --}}
 
 @endsection
 
@@ -246,7 +291,7 @@
 
 // Gallery Section Update
 
-    $(document).on("click", ".set-gallery" , function(){
+        $(document).on("click", ".set-gallery" , function(){
         var pid = $(this).find('input[type=hidden]').val();
         $('#pid').val(pid);
         $('.selected-image .row').html('');
@@ -284,6 +329,44 @@
                     }
                   });
       });
+    $(document).on("click", ".set-main-image" , function(){
+        var pid = $(this).find('input[type=hidden]').val();
+        $('#main_pid').val(pid);
+        $('.selected-image .row').html('');
+            $.ajax({
+                    type: "GET",
+                    url:"{{ route('admin-mainimage-show') }}",
+                    data:{id:pid},
+                    success:function(data){
+                      if(data[0] == 0)
+                      {
+	                    $('.selected-image .row').addClass('justify-content-center');
+	      				$('.selected-image .row').html('<h3>{{ __("No Images Found.") }}</h3>');
+     				  }
+                      else {
+	                    $('.selected-image .row').removeClass('justify-content-center');
+	      				$('.selected-image .row h3').remove();
+                          var arr = $.map(data[1], function(el) {
+                          return el });
+
+                          for(var k in arr)
+                          {
+        				$('.selected-image .row').append('<div class="col-sm-6">'+
+                                        '<div class="img gallery-img">'+
+                                            // '<span class="remove-img"><i class="fas fa-times"></i>'+
+                                            // '<input type="hidden" value="'+arr[k]['id']+'">'+
+                                            // '</span>'+
+                                            '<a href="'+'{{asset('assets/images/products').'/'}}'+arr[k]['photo']+'" target="_blank">'+
+                                            '<img src="'+'{{asset('assets/images/thumbnails').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
+                                            '</a>'+
+                                        '</div>'+
+                                  	'</div>');
+                          }
+                       }
+
+                    }
+                  });
+    });
 
 
   $(document).on('click', '.remove-img' ,function() {
@@ -299,10 +382,16 @@
   $(document).on('click', '#prod_gallery' ,function() {
     $('#uploadgallery').click();
   });
+  $(document).on('click', '#prod_setMainImage' ,function() {
+    $('#uploadsetMainImage').click();
+  });
 
 
   $("#uploadgallery").change(function(){
     $("#form-gallery").submit();
+  });
+  $("#uploadsetMainImage").change(function(){
+    $("#form-setMainImage").submit();
   });
 
   $(document).on('submit', '#form-gallery' ,function() {
@@ -325,12 +414,50 @@
 		        for(var k in arr)
 		           {
         				$('.selected-image .row').append('<div class="col-sm-6">'+
+                            '<div class="img gallery-img">'+
+                                '<span class="remove-img"><i class="fas fa-times"></i>'+
+                                '<input type="hidden" value="'+arr[k]['id']+'">'+
+                                '</span>'+
+                                '<a href="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" target="_blank">'+
+                                '<img src="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
+                                '</a>'+
+                            '</div>'+
+                        '</div>'
+                        );
+		            }
+		    }
+
+		                       }
+
+		  });
+		  return false;
+ });
+  $(document).on('submit', '#form-setMainImage' ,function() {
+		  $.ajax({
+		   url:"{{ route('admin-mainimage-store') }}",
+		   method:"POST",
+		   data:new FormData(this),
+		   dataType:'JSON',
+		   contentType: false,
+		   cache: false,
+		   processData: false,
+		   success:function(data)
+		   {
+		    if(data != 0)
+		    {
+	                    $('.selected-image .row').removeClass('justify-content-center');
+	      				$('.selected-image .row h3').remove();
+		        var arr = $.map(data, function(el) {
+		        return el });
+		        for(var k in arr)
+		           {
+        				$('.selected-image .row').append('<div class="col-sm-6">'+
                                         '<div class="img gallery-img">'+
-                                            '<span class="remove-img"><i class="fas fa-times"></i>'+
-                                            '<input type="hidden" value="'+arr[k]['id']+'">'+
-                                            '</span>'+
-                                            '<a href="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" target="_blank">'+
-                                            '<img src="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
+                                            // '<span class="remove-img"><i class="fas fa-times"></i>'+
+                                            // '<input type="hidden" value="'+arr[k]['id']+'">'+
+                                            // '</span>'+
+                                            '<a href="'+'{{asset('assets/images/products').'/'}}'+arr[k]['photo']+'" target="_blank">'+
+                                            '<img src="'+'{{asset('assets/images/thumbnails').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
                                             '</a>'+
                                         '</div>'+
                                   	'</div>');
