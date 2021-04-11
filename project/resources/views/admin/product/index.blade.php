@@ -424,8 +424,8 @@
             url:"{{ route('admin-description-show') }}",
             data:{id:pid},
             success:function(data){
-                console.log(data.details);
-                $(".nicEdit-main").val(data.details)
+                // console.log(data.details);
+                // $(".nicEdit-main").val(data.details)
                 // $("textarea[data-product-id="+pid+"]").val(data.details)
             }
         });
@@ -544,7 +544,7 @@
 		   processData: false,
 		   success:function(data)
 		   {
-                $("#product-description").val(data.details);
+                // $("#product-description").val(data.details);
            }
 		  });
 		  return false;
