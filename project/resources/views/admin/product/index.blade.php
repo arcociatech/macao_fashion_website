@@ -206,7 +206,7 @@
 							<div class="col-sm-6 text-right">
 								<div class="upload-img-btn">
 									<form  method="POST" enctype="multipart/form-data" id="form-setMainImage">
-										{{ csrf_field() }}
+										@csrf
 									<input type="hidden" id="main_pid" name="product_id" value="">
 									<input type="file" name="setMainImage" class="hidden" id="uploadsetMainImage" accept="image/*" multiple>
 											<label for="image-upload" id="prod_setMainImage"><i class="icofont-upload-alt"></i>{{ __("Upload File") }}</label>
@@ -234,6 +234,54 @@
 
 
 {{-- MAIN IMAGE MODAL ENDS --}}
+{{-- DESCRIPTION MODAL --}}
+
+		<div class="modal fade" id="setDescription" tabindex="-1" role="dialog" aria-labelledby="setDescription" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Product Description</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="top-area">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <form  method="POST"  id="form-setDescription">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" id="description_pid" name="product_id" value="">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="left-area">
+                                                        <h4 class="heading">
+                                                            {{ __('Product Description') }}
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="text-editor">
+                                                        <textarea id="product-description" class="nic-edit-p " name="description"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success col-3 offset-5 mt-2">
+                                                Submit
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+
+
+{{-- DESCRIPTION MODAL ENDS --}}
 
 @endsection
 
@@ -291,44 +339,44 @@
 
 // Gallery Section Update
 
-        $(document).on("click", ".set-gallery" , function(){
+    $(document).on("click", ".set-gallery" , function(){
         var pid = $(this).find('input[type=hidden]').val();
         $('#pid').val(pid);
         $('.selected-image .row').html('');
-            $.ajax({
-                    type: "GET",
-                    url:"{{ route('admin-gallery-show') }}",
-                    data:{id:pid},
-                    success:function(data){
-                      if(data[0] == 0)
-                      {
-	                    $('.selected-image .row').addClass('justify-content-center');
-	      				$('.selected-image .row').html('<h3>{{ __("No Images Found.") }}</h3>');
-     				  }
-                      else {
-	                    $('.selected-image .row').removeClass('justify-content-center');
-	      				$('.selected-image .row h3').remove();
-                          var arr = $.map(data[1], function(el) {
-                          return el });
+        $.ajax({
+            type: "GET",
+            url:"{{ route('admin-gallery-show') }}",
+            data:{id:pid},
+            success:function(data){
+                if(data[0] == 0)
+                {
+                $('.selected-image .row').addClass('justify-content-center');
+                $('.selected-image .row').html('<h3>{{ __("No Images Found.") }}</h3>');
+                }
+                else {
+                $('.selected-image .row').removeClass('justify-content-center');
+                $('.selected-image .row h3').remove();
+                    var arr = $.map(data[1], function(el) {
+                    return el });
 
-                          for(var k in arr)
-                          {
-        				$('.selected-image .row').append('<div class="col-sm-6">'+
-                                        '<div class="img gallery-img">'+
-                                            '<span class="remove-img"><i class="fas fa-times"></i>'+
-                                            '<input type="hidden" value="'+arr[k]['id']+'">'+
-                                            '</span>'+
-                                            '<a href="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" target="_blank">'+
-                                            '<img src="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
-                                            '</a>'+
-                                        '</div>'+
-                                  	'</div>');
-                          }
-                       }
-
+                    for(var k in arr)
+                    {
+                $('.selected-image .row').append('<div class="col-sm-6">'+
+                                '<div class="img gallery-img">'+
+                                    '<span class="remove-img"><i class="fas fa-times"></i>'+
+                                    '<input type="hidden" value="'+arr[k]['id']+'">'+
+                                    '</span>'+
+                                    '<a href="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" target="_blank">'+
+                                    '<img src="'+'{{asset('assets/images/galleries').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
+                                    '</a>'+
+                                '</div>'+
+                            '</div>');
                     }
-                  });
-      });
+                }
+
+            }
+        });
+    });
     $(document).on("click", ".set-main-image" , function(){
         var pid = $(this).find('input[type=hidden]').val();
         $('#main_pid').val(pid);
@@ -352,20 +400,36 @@
                           for(var k in arr)
                           {
         				$('.selected-image .row').append('<div class="col-sm-6">'+
-                                        '<div class="img gallery-img">'+
-                                            // '<span class="remove-img"><i class="fas fa-times"></i>'+
-                                            // '<input type="hidden" value="'+arr[k]['id']+'">'+
-                                            // '</span>'+
-                                            '<a href="'+'{{asset('assets/images/products').'/'}}'+arr[k]['photo']+'" target="_blank">'+
-                                            '<img src="'+'{{asset('assets/images/thumbnails').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
-                                            '</a>'+
-                                        '</div>'+
-                                  	'</div>');
+                            '<div class="img gallery-img">'+
+                                // '<span class="remove-img"><i class="fas fa-times"></i>'+
+                                // '<input type="hidden" value="'+arr[k]['id']+'">'+
+                                // '</span>'+
+                                '<a href="'+'{{asset('assets/images/products').'/'}}'+arr[k]['photo']+'" target="_blank">'+
+                                '<img src="'+'{{asset('assets/images/thumbnails').'/'}}'+arr[k]['photo']+'" alt="gallery image">'+
+                                '</a>'+
+                            '</div>'+
+                        '</div>');
                           }
                        }
 
                     }
                   });
+    });
+    $(document).on("click", ".set-description" , function(){
+        var pid = $(this).find('input[type=hidden]').val();
+        $('#description_pid').val(pid);
+        $('textarea').attr("data-product-id",pid);
+        $.ajax({
+            type: "GET",
+            url:"{{ route('admin-description-show') }}",
+            data:{id:pid},
+            success:function(data){
+                console.log(data.details);
+                $(".nicEdit-main").val(data.details)
+                // $("textarea[data-product-id="+pid+"]").val(data.details)
+            }
+        });
+
     });
 
 
@@ -466,6 +530,22 @@
 
 		                       }
 
+		  });
+		  return false;
+ });
+  $(document).on('submit', '#form-setDescription' ,function() {
+        $.ajax({
+		   url:"{{ route('admin-description-store') }}",
+		   method:"POST",
+		   data:new FormData(this),
+		   dataType:'JSON',
+		   contentType: false,
+		   cache: false,
+		   processData: false,
+		   success:function(data)
+		   {
+                $("#product-description").val(data.details);
+           }
 		  });
 		  return false;
  });

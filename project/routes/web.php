@@ -853,6 +853,11 @@ Route::prefix('admin')->group(function() {
   Route::post('/mainimage/store', 'Admin\MainImageController@store')->name('admin-mainimage-store');
   Route::get('/mainimage/delete', 'Admin\MainImageController@destroy')->name('admin-mainimage-delete');
 
+    // Product Description SECTION ------------
+
+    Route::get('/description/show', 'Admin\DescriptionController@show')->name('admin-description-show');
+    Route::post('/description/update', 'Admin\DescriptionController@update')->name('admin-description-store');
+
   // GALLERY SECTION ENDS------------
 
   Route::post('/page-settings/update/all', 'Admin\PageSettingController@update')->name('admin-ps-update');

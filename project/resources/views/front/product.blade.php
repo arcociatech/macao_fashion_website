@@ -68,9 +68,15 @@
               <div class="right-area">
                 <div class="product-info">
                   <h4 class="product-name">
+                        @if ($productt->subcategory->name != "Deleted" && !$productt->childcategory->name)
+                            {{$productt->subcategory->name}}
+                        @endif
+                        @if($productt->childcategory->name != "Deleted")
+                            {{$productt->childcategory->name}}
+                        @endif
                       {{ $productt->name }}
                     </h4>
-                    <h6>
+                    {{-- <h6>
                         @if (($productt->subcategory->name == "Deleted") && ($productt->childcategory->name == "Deleted"))
                             {{$productt->category->name}}
                         @endif
@@ -80,7 +86,7 @@
                         @if($productt->childcategory->name != "Deleted")
                             - {{$productt->childcategory->name}}
                         @endif
-                    </h6>
+                    </h6> --}}
                   <div class="info-meta-1">
                     <ul>
 
@@ -345,6 +351,14 @@
                       </li>
                     </ul>
                   </div>
+                  <p @if (!$productt->details)
+                      class="hidden"
+                  @endif>
+                      <b>
+                          Description
+                      </b>
+                  </p>
+                  <p>{!! $productt->details !!}</p>
                   <div class="social-links social-sharing a2a_kit a2a_kit_size_32">
                     <ul class="link-list social-links">
                       <li>
@@ -408,7 +422,8 @@
             </div>
 
           </div>
-          <div class="row">
+          {{-- This will be hidden --}}
+          <div class="row hidden">
               <div class="col-lg-12">
                   <div id="product-details-tab">
                     <div class="top-menu-area">
