@@ -182,8 +182,12 @@
                     <ul class="siz-list">
                       @php
                       $is_first = true;
+                        $sizes = $productt->size;
+                        $ordered_sizes = collect($sizes)->reverse()->toArray();
+                        // dd();
+                        // $sizes = rsort($productt->size);
                       @endphp
-                      @foreach($productt->size as $key => $data1)
+                      @foreach($ordered_sizes as $key => $data1)
                       <li class="{{ $is_first ? 'active' : '' }}">
                         <span class="box">{{ $data1 }}
                           <input type="hidden" class="size" value="{{ $data1 }}">
