@@ -37,7 +37,7 @@
         <div class="col-lg-8">
           <div class="blog-content">
             <div class="feature-image">
-              <img class="img-fluid" src="{{ asset('assets/images/blogs/'.$blog->photo) }}" alt="">
+              <img class="img-fluid img-thumbnail" src="{{ asset('assets/images/blogs/'.$blog->photo) }}" alt="">
             </div>
             <div class="content">
                 <h3 class="title">
@@ -87,7 +87,7 @@
                             <a class="twitter a2a_button_twitter" href="">
                               <i class="fab fa-twitter"></i>
                             </a>
-                          
+
                         </li>
                         <li>
                             <a class="linkedin a2a_button_linkedin" href="">
@@ -96,12 +96,12 @@
 
                         </li>
                         <li>
-                          
+
                         <a class="a2a_dd plus" href="https://www.addtoany.com/share">
                             <i class="fas fa-plus"></i>
                           </a>
                         </li>
-                      
+
                     </ul>
                     </div>
                     <script async src="https://static.addtoany.com/menu/page.js"></script>
@@ -110,7 +110,7 @@
           </div>
 
 
-    {{-- DISQUS START --}}   
+    {{-- DISQUS START --}}
     @if($gs->is_disqus == 1)
       <div class="comments">
            {!! $gs->disqus !!}

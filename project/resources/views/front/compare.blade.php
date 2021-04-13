@@ -49,7 +49,7 @@
 											@foreach($products as $product)
 											<td class="product-image-title c{{$product['item']['id']}}">
 
-													<img class="img-fluid" src="{{ $product['item']['thumbnail'] ? asset('assets/images/thumbnails/'.$product['item']['thumbnail']):asset('assets/images/noimage.png') }}" alt="Compare product['item']">
+													<img class="img-fluid img-thumbnail" src="{{ $product['item']['thumbnail'] ? asset('assets/images/thumbnails/'.$product['item']['thumbnail']):asset('assets/images/noimage.png') }}" alt="Compare product['item']">
 
 												<a href="{{ route('front.product', $product['item']['slug']) }}">
 													<h4 class="title">
@@ -77,9 +77,9 @@
 											@endforeach
 										</tr>
 
-										
-										
-										
+
+
+
 										<tr>
 												<td class="first-column">{{ $langg->lang74 }}</td>
 												@foreach($products as $product)
@@ -87,7 +87,7 @@
 													<p>{{ strip_tags($product['item']['details']) }}</p>
 												</td>
 												@endforeach
-	
+
 											</tr>
 											<tr>
 													<td class="first-column">{{ $langg->lang75 }}</td>
@@ -95,8 +95,8 @@
 													<td class="c{{$product['item']['id']}}">
 															@if($product['item']['product_type'] == "affiliate")
 															<a href="{{ route('affiliate.product', $product['item']['slug']) }}" class="btn__bg">{{ $langg->lang251 }}</a>
-															@else														
-														
+															@else
+
 														<a href="javascript:;" data-href="{{ route('product.cart.add',$product['item']['id']) }}" class="btn__bg add-to-cart">{{ $langg->lang75 }}</a>
 													<a href="{{ route('product.cart.quickadd',$product['item']['id']) }}" class="btn__bg">{{ $langg->lang251 }}</a>
 															@endif
@@ -122,7 +122,7 @@
 			@else
 
 			<div class="page-center">
-				<h4 class="text-center">{{ $langg->lang60 }}</h4>              
+				<h4 class="text-center">{{ $langg->lang60 }}</h4>
 			</div>
 
 			@endif

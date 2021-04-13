@@ -12,7 +12,7 @@
           {{-- Category Breadcumbs --}}
 
           @if(isset($bcat))
-                
+
               <li>
                 <a href="{{ route('front.index') }}">
                   {{ $langg->lang17 }}
@@ -48,7 +48,7 @@
               </li>
 
           @elseif(isset($search))
-                
+
               <li>
                 <a href="{{ route('front.index') }}">
                   {{ $langg->lang17 }}
@@ -71,7 +71,7 @@
               </li>
 
           @elseif(isset($date))
-                
+
               <li>
                 <a href="{{ route('front.index') }}">
                   {{ $langg->lang17 }}
@@ -89,7 +89,7 @@
               </li>
 
           @else
-                
+
               <li>
                 <a href="{{ route('front.index') }}">
                   {{ $langg->lang17 }}
@@ -121,7 +121,7 @@
               <div class="blog-box">
                 <div class="blog-images">
                     <div class="img">
-                    <img src="{{ $blogg->photo ? asset('assets/images/blogs/'.$blogg->photo):asset('assets/images/noimage.png') }}" class="img-fluid" alt="">
+                    <img src="{{ $blogg->photo ? asset('assets/images/blogs/'.$blogg->photo):asset('assets/images/noimage.png') }}" class="img-fluid img-thumbnail" alt="">
                     <div class="date d-flex justify-content-center">
                       <div class="box align-self-center">
                         <p>{{date('d', strtotime($blogg->created_at))}}</p>
@@ -150,7 +150,7 @@
       </div>
 
         <div class="page-center">
-          {!! $blogs->links() !!}               
+          {!! $blogs->links() !!}
         </div>
 </div>
 
@@ -167,7 +167,7 @@
 @section('scripts')
 
 <script type="text/javascript">
-  
+
 
     // Pagination Starts
 

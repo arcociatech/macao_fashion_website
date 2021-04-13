@@ -5,7 +5,7 @@
 				<div class="sell-area">
 				@foreach($prod->features as $key => $data1)
 					<span class="sale" style="background-color:{{ $prod->colors[$key] }}">{{ $prod->features[$key] }}</span>
-					@endforeach 
+					@endforeach
 				</div>
 			@endif
 				<div class="extra-list">
@@ -16,7 +16,7 @@
 							<span class="add-to-wish" data-href="{{ route('user-wishlist-add',$prod->id) }}" data-toggle="tooltip" data-placement="right" title="{{ $langg->lang54 }}" data-placement="right"><i class="icofont-heart-alt" ></i>
 							</span>
 
-							@else 
+							@else
 
 							<span rel-toggle="tooltip" title="{{ $langg->lang54 }}" data-toggle="modal" id="wish-btn" data-target="#comment-log-reg" data-placement="right">
 								<i class="icofont-heart-alt"></i>
@@ -35,7 +35,7 @@
 						</li>
 					</ul>
 				</div>
-			<img class="img-fluid" src="{{ $prod->thumbnail ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="">
+			<img class="img-fluid img-thumbnail" src="{{ $prod->thumbnail ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="">
 		</div>
 		<div class="info">
 			<div class="stars">
@@ -56,7 +56,7 @@
 							@if($prod->stock === 0)
 							<span class="add-to-cart-btn cart-out-of-stock">
 								<i class="icofont-close-circled"></i> {{ $langg->lang78 }}
-							</span>													
+							</span>
 							@else
 							<span class="add-to-cart add-to-cart-btn" data-href="{{ route('product.cart.add',$prod->id) }}">
 								<i class="icofont-cart"></i> {{ $langg->lang56 }}

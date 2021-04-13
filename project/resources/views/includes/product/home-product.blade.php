@@ -43,7 +43,7 @@
                     </li>
                 </ul>
             </div>
-            <img class="img-fluid"
+            <img class="img-fluid img-thumbnail"
                 src="{{ $prod->thumbnail ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}"
                 alt="">
         </div>
