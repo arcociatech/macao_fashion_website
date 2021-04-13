@@ -39,7 +39,7 @@
             <div class="col-lg-5 col-md-12">
 
           <div class="xzoom-container">
-              <img class="xzoom5" id="xzoom-magnific" height="500px" width="450px" src="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" xoriginal="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" />
+              <img class="xzoom5 img-fluid img-thumbnail" id="xzoom-magnific" height="500px" width="450px" src="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" xoriginal="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" />
               <div class="xzoom-thumbs">
 
                 <div class="all-slider">
