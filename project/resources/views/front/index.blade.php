@@ -1,5 +1,12 @@
 @extends('layouts.front')
+@section('styles')
+<style>
+    .item .item-img img{
+        height: 400px;
+    }
 
+</style>
+@endsection
 @section('content')
 
 	@if($ps->slider == 1)
