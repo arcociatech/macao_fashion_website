@@ -248,6 +248,25 @@
                     </ul>
                   </div>
                   @endif
+                  @if(empty($productt->color_image) && !empty($productt->color))
+                  <div class="product-color">
+                    <p class="title">{{ $langg->lang89 }} :</p>
+                    <ul class="color-list">
+                      @php
+                      $is_first = true;
+                      @endphp
+                      @foreach($productt->color as $key => $data1)
+                        <li class="{{ $is_first ? 'active' : '' }}">
+                            <span class="box" data-color="{{ $productt->color[$key] }}" style="background-color: {{ $productt->color[$key] }}"></span>
+                        </li>
+                        @php
+                            $is_first = false;
+                        @endphp
+                      @endforeach
+
+                    </ul>
+                  </div>
+                  @endif
 
                   @if(!empty($productt->size))
 
