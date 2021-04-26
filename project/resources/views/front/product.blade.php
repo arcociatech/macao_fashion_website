@@ -1,5 +1,12 @@
 @extends('layouts.front')
-
+@section('styles')
+    <style>
+        .active .box{
+            /* border: 4px solid #11e53f !important; */
+            border: 4px solid #1175e5 !important;
+        }
+    </style>
+@endsection
 @section('content')
 
 <div class="breadcrumb-area">
@@ -188,6 +195,7 @@
                         // $sizes = rsort($productt->size);
                       @endphp
                       @foreach($ordered_sizes as $key => $data1)
+                      {{-- <li > --}}
                       <li class="{{ $is_first ? 'active' : '' }}">
                         <span class="box">{{ $data1 }}
                           <input type="hidden" class="size" value="{{ $data1 }}">
@@ -215,14 +223,27 @@
                       @php
                       $is_first = true;
                       @endphp
-                      @foreach($productt->color as $key => $data1)
-                      <li class="{{ $is_first ? 'active' : '' }}">
-                        <span class="box" data-color="{{ $productt->color[$key] }}" style="background-color: {{ $productt->color[$key] }}"></span>
-                      </li>
-                      @php
-                      $is_first = false;
-                      @endphp
+                      {{-- {{ dd($productt->color,$productt->color_image) }} --}}
+                      @foreach($productt->color_image as $key => $data1)
+                      {{-- {{ $is_first ? 'active' : '' }} --}}
+                        <li class="{{ $is_first ? 'active' : '' }} text-center color-select">
+                            {{-- <span class="box" data-color="{{ $productt->color[$key] }}" style="background-color: {{ $productt->color[$key] }}"></span> --}}
+                                <img class="box" data-color="{{ $productt->color[$key] }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $productt->color[$key] }} image"width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
+                                <br>
+                                {{ $productt->color[$key] }}
+                        </li>
+                        @php
+                            $is_first = false;
+                        @endphp
                       @endforeach
+                      {{-- @foreach($productt->color as $key => $data1)
+                        <li class="{{ $is_first ? 'active' : '' }}">
+                            <span class="box" data-color="{{ $productt->color[$key] }}" style="background-color: {{ $productt->color[$key] }}"></span>
+                        </li>
+                        @php
+                            $is_first = false;
+                        @endphp
+                      @endforeach --}}
 
                     </ul>
                   </div>

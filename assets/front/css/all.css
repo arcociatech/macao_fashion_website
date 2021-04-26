@@ -41212,6 +41212,11 @@ nav button {
     opacity: 0;
 }
 
+
+/* .product-details-page .right-area .product-info .product-color .color-list li .active:enabled .box {
+    border: blue 2px solid;
+} */
+
 .product-details-page .right-area .product-info .product-color .color-list li.active .box::after {
     opacity: 1;
 }

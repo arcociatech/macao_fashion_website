@@ -818,6 +818,7 @@ $(function($) {
             var parent = $(this).parent();
             $('.product-color .color-list li').removeClass('active');
             parent.addClass('active');
+            // $(".active .box").css('border', '2px solid blue');
         });
 
         // COMMENT FORM

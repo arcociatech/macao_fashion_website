@@ -434,6 +434,14 @@ class Product extends Model
         }
         return explode(',', $value);
     }
+    public function getColorImageAttribute($value)
+    {
+        if($value == null)
+        {
+            return '';
+        }
+        return explode(',', $value);
+    }
 
     public function getTagsAttribute($value)
     {
