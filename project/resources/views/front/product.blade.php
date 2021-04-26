@@ -216,7 +216,7 @@
                   </div>
                   @endif
 
-                  @if(!empty($productt->color))
+                  @if(!empty($productt->color_image))
                   <div class="product-color">
                     <p class="title">{{ $langg->lang89 }} :</p>
                     <ul class="color-list">
