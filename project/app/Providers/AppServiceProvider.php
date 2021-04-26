@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $settings->with('seo', cache()->remember('seotools', now()->addDay(), function () {
                 return DB::table('seotools')->first();
             }));
-            
+
             $settings->with('socialsetting', cache()->remember('socialsettings', now()->addDay(), function () {
                 return DB::table('socialsettings')->first();
             }));
