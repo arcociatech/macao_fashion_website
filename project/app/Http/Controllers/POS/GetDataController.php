@@ -284,9 +284,9 @@ class GetDataController extends Controller
                     $color_image[$j] = $current_product[$j]->image;
                     $all_product++;
                 }
-                // dd($current_product);
                 // Create Product here
                 if (!Product::where('name', $current_product[0]->name)->first()) {
+                    dd($current_product);
                     $data = new Product;
                     $input = [];
                     $input['name'] = $current_product[0]->name;
