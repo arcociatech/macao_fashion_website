@@ -281,7 +281,7 @@ class GetDataController extends Controller
                         $quantity[$j] = 0;
                     }
                     $price[$j] = (float)$current_product[0]->price;
-                    $color_image[$j] = 'assets/images/products/'.$current_product[$j]->image;
+                    $color_image[$j] = 'assets/images/thumbnails/'.$current_product[$j]->image;
                     $all_product++;
                 }
                 // Create Product here
