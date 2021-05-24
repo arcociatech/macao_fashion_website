@@ -228,7 +228,14 @@
                       {{-- {{ $is_first ? 'active' : '' }} --}}
                         <li class="{{ $is_first ? 'active' : '' }} text-center color-select">
                             {{-- <span class="box" data-color="{{ $productt->color[$key] }}" style="background-color: {{ $productt->color[$key] }}"></span> --}}
-                                <img class="box" data-color="{{ $productt->color[$key] ?? '' }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $productt->color[$key] }} image"width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
+                            @php
+                                if (isset($productt->color[$key])){
+                                    $color = $productt->color[$key];
+                                }else{
+                                    $productt->color[0]
+                                }
+                            @endphp
+                                <img class="box" data-color="{{ $color ?? '' }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $productt->color[$key] }} image"width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
                                 <br>
                                 {{ $productt->color[$key] }}
                         </li>
