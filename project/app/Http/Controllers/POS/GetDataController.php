@@ -264,6 +264,7 @@ class GetDataController extends Controller
                 }
                 $size = [];
                 $color = [];
+                $color_image = [];
                 $quantity =[];
                 $price = [];
                 for ($j=0; $j < count($current_product); $j++) {
@@ -280,6 +281,7 @@ class GetDataController extends Controller
                         $quantity[$j] = 0;
                     }
                     $price[$j] = (float)$current_product[0]->price;
+                    $color_image[$j] = $current_product[0]->image;
                     $all_product++;
                 }
                 // dd($current_product);
@@ -298,6 +300,7 @@ class GetDataController extends Controller
                     $input['stock'] = $current_product[0]->quantity;
                     $input['quantity'] = $current_product[0]->quantity;
                     $input['color'] = implode(",", $color);
+                    $input['color_image'] = implode(",", $color_image);
                     $input['price'] = (float)$current_product[0]->price;
                     $input['category_id'] = $cat_id;
                     $input['subcategory_id'] = $subcat_id;
