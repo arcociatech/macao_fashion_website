@@ -223,7 +223,7 @@
                       @php
                       $is_first = true;
                       @endphp
-                      {{-- {{ dd($productt->color,$productt->color_image) }} --}}
+                      {{ dd($productt->color,$productt->color_image) }}
                       @foreach($productt->color_image as $key => $data1)
                       {{-- {{ $is_first ? 'active' : '' }} --}}
                         <li class="{{ $is_first ? 'active' : '' }} text-center color-select">
