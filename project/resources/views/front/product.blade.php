@@ -232,7 +232,7 @@
                                 if (isset($productt->color[$key])){
                                     $color = $productt->color[$key];
                                 }else{
-                                    $productt->color[0]
+                                    $productt->color[0];
                                 }
                             @endphp
                                 <img class="box" data-color="{{ $color ?? '' }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $productt->color[$key] }} image"width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
