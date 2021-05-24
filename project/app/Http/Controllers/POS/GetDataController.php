@@ -315,7 +315,7 @@ class GetDataController extends Controller
             return redirect()->back();
         } catch (\Exception $ex) {
             DB::rollback();
-            dd($current_product);
+            // dd($current_product);
             dd($ex->getMessage().' on Line: '.$ex->getLine().' in file: '.$ex->getFile());
             Session::flash('error', 'Error Occured. ' . $ex->getMessage());
             return redirect()->back();
