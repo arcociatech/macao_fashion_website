@@ -214,7 +214,7 @@ class GetDataController extends Controller
                         ->join('colors as c', 'c.id', '=', 'p.color_id')
                         ->join('categories as cat', 'cat.id', '=', 'p.category_id')
                         ->join('categories as sub_cat', 'sub_cat.id', '=', 'p.sub_category_id')
-                ->groupBy('id')
+                        ->groupBy('id')
                         ->get([
                             'p.id',
                             'p.name as name',
