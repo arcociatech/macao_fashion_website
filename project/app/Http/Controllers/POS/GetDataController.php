@@ -280,7 +280,7 @@ class GetDataController extends Controller
                             $quantity[$j] = 0;
                         }
                     }
-                    if (!in_array($current_product[$j]->size, $size)) {
+                    if (!in_array($current_product[$j]->size, $size)|| $j == 0) {
                         $size[$j] =  $current_product[$j]->size;
                     }
                     // elseif($j == 0){
