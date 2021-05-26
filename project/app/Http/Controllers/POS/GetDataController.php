@@ -274,14 +274,14 @@ class GetDataController extends Controller
                         $color[$j] = $current_product[$j]->color;
                         $price[$j] = (float)$current_product[0]->price;
                         $color_image[$j] = 'assets/images/thumbnails/'.$current_product[$j]->image;
+                    }
+                    if (!in_array($current_product[$j]->size, $size)|| $j == 0) {
+                        $size[$j] =  $current_product[$j]->size;
                         if ($current_product[$j]->qty) {
                             $quantity[$j] = (int) $current_product[$j]->qty;
                         }else{
                             $quantity[$j] = 0;
                         }
-                    }
-                    if (!in_array($current_product[$j]->size, $size)|| $j == 0) {
-                        $size[$j] =  $current_product[$j]->size;
                     }
                     // elseif($j == 0){
                     //     $color[0] = $current_product[$j]->color;
