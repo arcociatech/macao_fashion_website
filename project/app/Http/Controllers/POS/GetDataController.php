@@ -277,11 +277,11 @@ class GetDataController extends Controller
                     }
                     if (!in_array($current_product[$j]->size, $size)|| $j == 0) {
                         $size[$j] =  $current_product[$j]->size;
-                        if ($current_product[$j]->qty) {
-                            $quantity[$j] = (int) $current_product[$j]->qty;
-                        }else{
-                            $quantity[$j] = 0;
-                        }
+                    }
+                    if ($current_product[$j]->qty) {
+                        $quantity[$j] = (int) $current_product[$j]->qty;
+                    }else{
+                        $quantity[$j] = 0;
                     }
                     // elseif($j == 0){
                     //     $color[0] = $current_product[$j]->color;
