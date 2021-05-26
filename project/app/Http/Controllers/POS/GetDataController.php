@@ -272,7 +272,6 @@ class GetDataController extends Controller
                         // in_array($current_product[$j]->color,$color)
                     if(!in_array($current_product[$j]->color, $color) || $j == 0) {
                         $color[$j] = $current_product[$j]->color;
-                        $price[$j] = (float)$current_product[0]->price;
                         $color_image[$j] = 'assets/images/thumbnails/'.$current_product[$j]->image;
                     }
                     if (!in_array($current_product[$j]->size, $size)|| $j == 0) {
@@ -283,6 +282,7 @@ class GetDataController extends Controller
                     }else{
                         $quantity[$j] = 0;
                     }
+                    $price[$j] = (float)$current_product[0]->price;
                     // elseif($j == 0){
                     //     $color[0] = $current_product[$j]->color;
                     //     $all_product++;
