@@ -270,7 +270,7 @@ class GetDataController extends Controller
                 for ($j=0; $j < count($current_product); $j++) {
                     // if(($j > 0 ) && (isset($color[($j - 1)]) && ($color[($j-1)] != $current_product[$j]->color))) {
                         // in_array($current_product[$j]->color,$color)
-                    if(!in_array($current_product[$j]->color, $color) || $j == 0)) {
+                    if(!in_array($current_product[$j]->color, $color) || $j == 0) {
                         $color[$j] = $current_product[$j]->color;
                         $price[$j] = (float)$current_product[0]->price;
                         $color_image[$j] = 'assets/images/thumbnails/'.$current_product[$j]->image;
