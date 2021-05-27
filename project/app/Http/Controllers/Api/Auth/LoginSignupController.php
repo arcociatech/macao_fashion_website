@@ -107,7 +107,7 @@ class LoginSignupController extends Controller
         $rules = [
             'email'   => 'required|email|unique:users',
             'password' => 'required|confirmed'
-            ];
+        ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return $this->apiResponse(422, 'message', $validator->errors());
@@ -161,7 +161,7 @@ class LoginSignupController extends Controller
 
             $pos_contacts['credit_limit'] = null;
             $pos->table('contacts')->insert($pos_contacts);
-            
+
 	        // if($gs->is_verification_email == 1)
 	        // {
 	        // $to = $request->email;

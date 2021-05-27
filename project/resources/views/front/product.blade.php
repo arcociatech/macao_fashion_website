@@ -235,7 +235,7 @@
                                     $productt->color[0];
                                 }
                             @endphp
-                                <img class="box" data-color="{{ $color ?? '' }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $color }} image"width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
+                                <img class="box xzoom-gallery5" data-color="{{ $color ?? '' }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $color }} image"width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
                                 <br>
                                 {{ $color }}
                         </li>
