@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '92a0ace27a85fdb76be2042e6217aa9ab18c0429',
+    'reference' => 'b42fd825ca9d127bb03bc9fad5e66e7eb895358c',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -78,6 +78,15 @@
       array (
         0 => '*',
       ),
+    ),
+    'defuse/php-encryption' => 
+    array (
+      'pretty_version' => 'v2.3.1',
+      'version' => '2.3.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '77880488b9954b7884c25555c2a0ea9e7053f9d2',
     ),
     'dnoegel/php-xdg-base-dir' => 
     array (
@@ -186,6 +195,15 @@
       array (
       ),
       'reference' => '2ec31f3adc54c71a59c5e3c2143d7a0e2f8899f8',
+    ),
+    'firebase/php-jwt' => 
+    array (
+      'pretty_version' => 'v5.2.1',
+      'version' => '5.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f42c9110abe98dd6cfe9053c49bc86acc70b2d23',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -469,6 +487,24 @@
         0 => '*',
       ),
     ),
+    'laminas/laminas-diactoros' => 
+    array (
+      'pretty_version' => '2.6.0',
+      'version' => '2.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '7d2034110ae18afe05050b796a3ee4b3fe177876',
+    ),
+    'laminas/laminas-zendframework-bridge' => 
+    array (
+      'pretty_version' => '1.2.0',
+      'version' => '1.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6cccbddfcfc742eb02158d6137ca5687d92cee32',
+    ),
     'laravel/framework' => 
     array (
       'pretty_version' => 'v7.28.4',
@@ -485,7 +521,16 @@
       'aliases' => 
       array (
       ),
-      'reference' => '92a0ace27a85fdb76be2042e6217aa9ab18c0429',
+      'reference' => 'b42fd825ca9d127bb03bc9fad5e66e7eb895358c',
+    ),
+    'laravel/passport' => 
+    array (
+      'pretty_version' => 'v9.3.2',
+      'version' => '9.3.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '192fe387c1c173c12f82784e2a1b51be8bd1bf45',
     ),
     'laravel/socialite' => 
     array (
@@ -523,6 +568,15 @@
       ),
       'reference' => 'a56e91e0fa1f6d0049153a9c34f63488f6b7ce61',
     ),
+    'league/event' => 
+    array (
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd2cc124cf9a3fab2bb4ff963307f60361ce4d119',
+    ),
     'league/flysystem' => 
     array (
       'pretty_version' => '1.1.3',
@@ -549,6 +603,29 @@
       array (
       ),
       'reference' => '159c3d2bf27568f9af87d6c3f4bb616a251eb12b',
+    ),
+    'league/oauth2-server' => 
+    array (
+      'pretty_version' => '8.1.1',
+      'version' => '8.1.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '09f22e8121fa1832962dba18213b80d4267ef8a3',
+    ),
+    'league/oauth2server' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '*',
+      ),
+    ),
+    'lncd/oauth2' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '*',
+      ),
     ),
     'mockery/mockery' => 
     array (
@@ -635,6 +712,15 @@
       ),
       'reference' => 'd50490417eded97be300a92cd7df7badc37a9018',
     ),
+    'nyholm/psr7' => 
+    array (
+      'pretty_version' => '1.4.0',
+      'version' => '1.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '23ae1f00fbc6a886cbe3062ca682391b9cc7c37b',
+    ),
     'opis/closure' => 
     array (
       'pretty_version' => '3.6.0',
@@ -643,6 +729,15 @@
       array (
       ),
       'reference' => 'c547f8262a5fa9ff507bd06cc394067b83a75085',
+    ),
+    'paragonie/random_compat' => 
+    array (
+      'pretty_version' => 'v9.99.100',
+      'version' => '9.99.100.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
     ),
     'phar-io/manifest' => 
     array (
@@ -680,6 +775,15 @@
       ),
       'reference' => '5fa61b65e612ce1ae15f69b3d223cb14ecc60e32',
     ),
+    'php-http/message-factory' => 
+    array (
+      'pretty_version' => 'v1.0.2',
+      'version' => '1.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a478cb11f66a6ac48d8954216cfed9aa06a501a1',
+    ),
     'phpdocumentor/reflection-common' => 
     array (
       'pretty_version' => '2.2.0',
@@ -715,6 +819,15 @@
       array (
       ),
       'reference' => '994ecccd8f3283ecf5ac33254543eb0ac946d525',
+    ),
+    'phpseclib/phpseclib' => 
+    array (
+      'pretty_version' => '2.0.31',
+      'version' => '2.0.31.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '233a920cb38636a43b18d428f9a8db1f0a1a08f4',
     ),
     'phpspec/prophecy' => 
     array (
@@ -805,6 +918,22 @@
       'reference' => 'dbefd12671e8a14ec7f180cab83036ed26714bb0',
     ),
     'psr/event-dispatcher-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'psr/http-factory' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '12ac7fcd07e5b077433f5f2bee95b3a771bf61be',
+    ),
+    'psr/http-factory-implementation' => 
     array (
       'provided' => 
       array (
@@ -1263,6 +1392,15 @@
       ),
       'reference' => 'd3a2e64866169586502f0cd9cab69135ad12cee9',
     ),
+    'symfony/psr-http-message-bridge' => 
+    array (
+      'pretty_version' => 'v2.1.0',
+      'version' => '2.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '81db2d4ae86e9f0049828d9343a72b9523884e5d',
+    ),
     'symfony/routing' => 
     array (
       'pretty_version' => 'v5.1.7',
@@ -1386,6 +1524,13 @@
       array (
       ),
       'reference' => 'd85285c87cd9c02dfaee2a1201a05e002e148e1a',
+    ),
+    'zendframework/zend-diactoros' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '^2.2.1',
+      ),
     ),
   ),
 );
