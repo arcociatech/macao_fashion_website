@@ -104,6 +104,7 @@ class LoginSignupController extends Controller
      */
     public function register(Request $request)
     {
+        dd(1);
         $rules = [
             'email'   => 'required|email|unique:users',
             'password' => 'required|confirmed'
@@ -114,7 +115,7 @@ class LoginSignupController extends Controller
         }
         try {
             DB::beginTransaction();
-            // $gs = Generalsetting::findOrFail(1);
+            $gs = Generalsetting::findOrFail(1);
             $user = new User();
 	        $input = $request->all();
 	        $input['password'] = bcrypt($request['password']);
@@ -147,10 +148,7 @@ class LoginSignupController extends Controller
              *
              **/
             $pos = DB::connection('pos_macaofashion');
-            // $input = $request->only([
-            //     'discount', 'bonus_points', 'barcode',
-            //     'name', 'tax_number', 'pay_term_number', 'pay_term_type', 'mobile', 'landline', 'alternate_number', 'city', 'state', 'country', 'landmark', 'customer_group_id', 'contact_id', 'custom_field1', 'custom_field2', 'custom_field3', 'custom_field4', 'email'
-            // ]);
+
             $pos_contacts['mobile'] = $user->phone;
             $pos_contacts['email'] = $user->email;
             $pos_contacts['type'] = 'customer';
@@ -162,47 +160,47 @@ class LoginSignupController extends Controller
             $pos_contacts['credit_limit'] = null;
             $pos->table('contacts')->insert($pos_contacts);
 
-	        // if($gs->is_verification_email == 1)
-	        // {
-	        // $to = $request->email;
-	        // $subject = 'Verify your email address.';
-	        // $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=".url('user/register/verify/'.$token).">Simply click here to verify. </a>";
-	        // //Sending Email To Customer
-	        // if($gs->is_smtp == 1)
-	        // {
-	        // $data = [
-	        //     'to' => $to,
-	        //     'subject' => $subject,
-	        //     'body' => $msg,
-	        // ];
+	        if($gs->is_verification_email == 1)
+	        {
+                $to = $request->email;
+                $subject = 'Verify your email address.';
+                $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=".url('user/register/verify/'.$token).">Simply click here to verify. </a>";
+                //Sending Email To Customer
+                if($gs->is_smtp == 1)
+                {
+                    $data = [
+                        'to' => $to,
+                        'subject' => $subject,
+                        'body' => $msg,
+                    ];
 
-	        // $mailer = new GeniusMailer();
-	        // $mailer->sendCustomMail($data);
-	        // }
-	        // else
-	        // {
-	        // $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-	        // mail($to,$subject,$msg,$headers);
-	        // }
-            // // return $this->apiResponse(200, 'data', $data,'', $message);
-          	// return response()->json('We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.');
-	        // }
-	        // else {
+                    $mailer = new GeniusMailer();
+                    $mailer->sendCustomMail($data);
+                }
+                else
+                {
+                    $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
+                    mail($to,$subject,$msg,$headers);
+                }
+                // return $this->apiResponse(200, 'data', $data,'', $message);
+                    return response()->json('We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.');
+                }
+                else {
 
-            // $user->email_verified = 'Yes';
-            // $user->update();
-	        // $notification = new Notification();
-	        // $notification->user_id = $user->id;
-	        // $notification->save();
-            // Auth::guard('web')->login($user);
-          	// return response()->json(1);
-	        // }
+                    $user->email_verified = 'Yes';
+                    $user->update();
+                    $notification = new Notification();
+                    $notification->user_id = $user->id;
+                    $notification->save();
+                    Auth::guard('web')->login($user);
+                    return response()->json(1);
+                }
 
-            $data['user'] = $user;
-            $message = 'Registered Successfully';
-            $data['token'] = $user->createToken('myApp')->accessToken;
-            DB::commit();
-            return $this->apiResponse(200, 'data', $data,'', $message);
+                $data['user'] = $user;
+                $message = 'Registered Successfully';
+                $data['token'] = $user->createToken('myApp')->accessToken;
+                DB::commit();
+                return $this->apiResponse(200, 'data', $data,'', $message);
         }catch (\Exception $ex) {
             DB::rollback();
             return $this->apiResponse(422, 'message', $ex->getMessage());
