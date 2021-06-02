@@ -32,8 +32,8 @@
 namespace Mollie\Laravel\Wrappers;
 
 use Illuminate\Contracts\Config\Repository;
-use Mollie\Api\MollieApiClient;
 use Mollie\Api\Exceptions\ApiException;
+use Mollie\Api\MollieApiClient;
 
 /**
  * Class MollieApiWrapper.
@@ -129,11 +129,27 @@ class MollieApiWrapper
     }
 
     /**
+     * @return \Mollie\Api\Endpoints\PaymentRefundEndpoint
+     */
+    public function paymentRefunds()
+    {
+        return $this->client->paymentRefunds;
+    }
+
+    /**
      * @return \Mollie\Api\Endpoints\MethodEndpoint
      */
     public function methods()
     {
         return $this->client->methods;
+    }
+
+    /**
+     * @return \Mollie\Api\Endpoints\ProfileMethodEndpoint
+     */
+    public function profileMethods()
+    {
+        return $this->client->profileMethods;
     }
 
     /**
