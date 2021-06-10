@@ -26,7 +26,8 @@ class MessageController extends Controller
             return $this->apiResponse(422, 'message', $validator->errors());
         }
         $user=Auth::user();
-        $reciever=User::where('email',$request->email)->first();
+        $reciever=User::where('email',$request->email)
+                    ->first();
         $reciever_id=$reciever->id;
        /**
         * Send Email
@@ -55,7 +56,9 @@ class MessageController extends Controller
         /**
          * Check If Conversation_id Already exit or not
          **/
-        $conv = Conversation::where('sent_user','=',$user->id)->where('subject','=',$subject)->first();
+        $conv = Conversation::where('sent_user','=',$user->id)
+                            ->where('subject','=',$subject)
+                            ->first();
         /**
          * If Conversation_id Already then user can start conversation
          **/
@@ -101,14 +104,15 @@ class MessageController extends Controller
         if ($validator->fails()) {
             return $this->apiResponse(422, 'message', $validator->errors());
         }
-        $find=Message::where('conversation_id',$request->con_id)->first();
+        $find=Message::where('conversation_id',$request->con_id)
+                    ->first();
         if($find)
         {
             $msg=Message::where('conversation_id',$request->con_id)
-                    ->where('sent_user',$user->id)
-                    ->get([
-                        'message'
-                    ]);
+                        ->where('sent_user',$user->id)
+                        ->get([
+                            'message'
+                        ]);
             return $this->apiResponse(200,'message',$msg);
         }
         else{
@@ -141,18 +145,19 @@ class MessageController extends Controller
     public function index(Request $request)
     {
         $user=Auth::user();
-        $find=Conversation::where('sent_user',$user->id)->first();
+        $find=Conversation::where('sent_user',$user->id)
+                            ->first();
         if($find==null)
         {
             return $this->apiResponse(404,'message','Not Found');
         }
         else{
             $con=Conversation::where('sent_user',$user->id)
-                    ->get([
-                        'message',
-                        'created_at'
-                    ]);
-                    return $this->apiResponse(200,'data',$con);
+                            ->get([
+                                'message',
+                                'created_at'
+                            ]);
+        return $this->apiResponse(200,'data',$con);
         }
     }
     /**
@@ -168,15 +173,17 @@ class MessageController extends Controller
             return $this->apiResponse(422, 'message', $validator->errors());
         }
         $con_id=$request->conversation_id;
-        $msg=Message::where('conversation_id',$con_id)->delete();
-        $con=Conversation::where('id',$con_id)->delete();
+        $msg=Message::where('conversation_id',$con_id)
+                    ->delete();
+        $con=Conversation::where('id',$con_id)
+                        ->delete();
         if($msg ||$con)
         {
             $message="Deleted Successfully";
             return $this->apiResponse(200,'message',$message);
         }
         else{
-            $message="Already Deleted";
+            $message="Not Found";
              return $this->apiResponse(200,'message',$message);
         }
     }

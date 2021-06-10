@@ -25,17 +25,11 @@ class CategoryController extends Controller
     public function category_sub(Request $request)
     {
         $category=$request->category;
-        // $cat = Category::join('subcategories as s','s.category_id','categories.id')
-        //                 ->where('categories.slug',$category)
-        //                 // ->orwhere('slug',$category)
-        //                 ->get();
-        // dd($cat);
         $sub_categories = Category::with('subs')
                                     ->where('slug',$category)
                                     ->orWhere('name',$category)
                                     ->orWhere('id',$category)
                                     ->get();
-        // dd($sub_categories);
         if(!$sub_categories->first())
         {
             return $this->apiResponse(404,'message','Invalid Category');

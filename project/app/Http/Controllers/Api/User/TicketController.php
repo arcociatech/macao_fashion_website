@@ -68,12 +68,14 @@ class TicketController extends Controller
              **/
             $conv = AdminUserConversation::where('type','=','ticket')
                                         ->where('user_id','=',$user->id)
-                                        ->where('subject','=',$request->subject)->first();
+                                        ->where('subject','=',$request->subject)
+                                        ->first();
         }
         elseif($type=='dispute'){
             $conv = AdminUserConversation::where('type','=','dispute')
                                         ->where('user_id','=',$user->id)
-                                        ->where('subject','=',$request->subject)->first();
+                                        ->where('subject','=',$request->subject)
+                                        ->first();
              }
         else{
             return $this->apiResponse(404,'message','Invalid Type');
@@ -126,7 +128,8 @@ class TicketController extends Controller
         }
         $user=Auth::user();
         $type=Str::lower($request->type);
-        $find=AdminUserConversation::where('user_id',$user->id)->first();
+        $find=AdminUserConversation::where('user_id',$user->id)
+                                    ->first();
         if($find)
         {
             if($type == 'ticket'){
@@ -137,7 +140,7 @@ class TicketController extends Controller
                                                 'message',
                                                 'created_at'
                                             ]);
-                                            return $this->apiResponse(200,'data',$conv);
+                return $this->apiResponse(200,'data',$conv);
             }
             else{
                 $conv = AdminUserConversation::where('type','=','dispute')
@@ -147,7 +150,7 @@ class TicketController extends Controller
                                                 'message',
                                                 'created_at'
                                             ]);
-                                            return $this->apiResponse(200,'data',$conv);
+                    return $this->apiResponse(200,'data',$conv);
                  }
         }
         else
@@ -173,8 +176,11 @@ class TicketController extends Controller
         $con_id=$request->con_id;
         if($type=='ticket')
         {
-            $con=AdminUserConversation::where('type','ticket')->where('id',$con_id)->delete();
-            $msg=AdminUserMessage::where('conversation_id',$con_id)->delete();
+            $con=AdminUserConversation::where('type','ticket')
+                                        ->where('id',$con_id)
+                                        ->delete();
+            $msg=AdminUserMessage::where('conversation_id',$con_id)
+                                ->delete();
             if($con||$msg)
             {
                 $message='Successfully Deleted';
@@ -186,8 +192,11 @@ class TicketController extends Controller
             }
         }
         else{
-                $con=AdminUserConversation::where('type','dispute')->where('id',$con_id)->delete();
-                $msg=AdminUserMessage::where('conversation_id',$con_id)->delete();
+                $con=AdminUserConversation::where('type','dispute')
+                                            ->where('id',$con_id)
+                                            ->delete();
+                $msg=AdminUserMessage::where('conversation_id',$con_id)
+                                    ->delete();
                 if($con||$msg)
                 {
                     $message='Successfully Deleted';

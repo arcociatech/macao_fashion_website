@@ -28,7 +28,7 @@ class UserController extends Controller
                         'zip',
                         'address'
                     ]);
-                    return $this->apiResponse(200,'data',$user);
+            return $this->apiResponse(200,'data',$user);
         }
         else{
             return $this->apiResponse(404,'message','Not Found');
@@ -43,7 +43,8 @@ class UserController extends Controller
         $find=User::find($user->id);
         if($find)
         {
-            $user=User::where('id',$user->id)->first();
+            $user=User::where('id',$user->id)
+                        ->first();
             $income=round($user->affilate_income,2);
             return $this->apiResponse(200,'affilate_income',$income);
         }
@@ -58,10 +59,12 @@ class UserController extends Controller
     public function total_orders(Request $request)
     {
         $user=Auth::user();
-        $find=Order::where('user_id','=',$user->id)->first();
+        $find=Order::where('user_id','=',$user->id)
+                    ->first();
         if($find)
         {
-            $orders=Order::where('user_id','=',$user->id)->count();
+            $orders=Order::where('user_id','=',$user->id)
+                        ->count();
             return $this->apiResponse(200,'Total_Orders',$orders);
         }
         else{
@@ -74,10 +77,13 @@ class UserController extends Controller
     public function pending_orders(Request $request)
     {
         $user=Auth::user();
-        $find=Order::where('user_id','=',$user->id)->first();
+        $find=Order::where('user_id','=',$user->id)
+                    ->first();
         if($find)
         {
-            $orders=Order::where('user_id','=',$user->id)->where('status','pending')->count();
+            $orders=Order::where('user_id','=',$user->id)
+                        ->where('status','pending')
+                        ->count();
             return $this->apiResponse(200,'Pending_Orders',$orders);
         }
         else{
@@ -90,7 +96,8 @@ class UserController extends Controller
     public function recent_orders(Request $request)
     {
         $user=Auth::user();
-        $find=Order::where('user_id','=',$user->id)->first();
+        $find=Order::where('user_id','=',$user->id)
+                    ->first();
         if($find)
         {
             $order=Order::where('user_id','=',$user->id)
@@ -102,7 +109,7 @@ class UserController extends Controller
                             'currency_value',
                             'status'
                         ]);
-                        return $this->apiResponse(200,'data',$order);
+        return $this->apiResponse(200,'data',$order);
         }
         else{
             return $this->apiResponse(404,'message','Not Found');

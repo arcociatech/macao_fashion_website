@@ -23,10 +23,12 @@ class ViewOrderController extends Controller
             return $this->apiResponse(422,'message',$validator->errors());
         }
         $order_id = $request->order_id;
-        $find=Order::where('id',$order_id)->first();
+        $find=Order::where('id',$order_id)
+                    ->first();
         if($find)
         {
-            $order=Order::where('id',$order_id)->get();
+            $order=Order::where('id',$order_id)
+                        ->get();
             return $this->apiResponse(200,'data',$order);
         }
         else{

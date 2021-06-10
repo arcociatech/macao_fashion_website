@@ -17,7 +17,8 @@ class FavoriteSellereController extends Controller
     public function favorites(Request $request)
     {
         $user=Auth::user();
-        $fav = FavoriteSeller::where('user_id',$user->id)->first();
+        $fav = FavoriteSeller::where('user_id',$user->id)
+                            ->first();
         if($fav!=null)
         {
          $user2=User::where('id',$fav->user_id)
@@ -26,7 +27,7 @@ class FavoriteSellereController extends Controller
                                 'owner_name',
                                 'shop_address'
                             ]);
-                            return $this->apiResponse(200,'data',$user2);
+        return $this->apiResponse(200,'data',$user2);
 
         }
         else{
@@ -40,7 +41,9 @@ class FavoriteSellereController extends Controller
     public function delete(Request $request)
     {
         $user=Auth::user();
-        $fav = DB::table('favorite_sellers')->where('user_id','=',$user->id)->delete();
+        $fav = DB::table('favorite_sellers')
+                ->where('user_id','=',$user->id)
+                ->delete();
         if($fav)
         {
             $message="Successfully Delete";
