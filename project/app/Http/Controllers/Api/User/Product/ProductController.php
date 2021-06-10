@@ -26,15 +26,14 @@ class ProductController extends Controller
             return $this->apiResponse(422,'message',$validator->errors());
         }
         $category = $request->category;
-        $selectable = ['id','user_id','name','category_id','slug','features','colors','thumbnail','price',  'previous_price','attributes','size','size_price','discount_date'];
+        $selectable = ['name','category_id','slug','features','colors','thumbnail','price',  'previous_price','attributes','size','size_price','discount_date'];
         if($category=='women')
         {
             $women_category_id = Category::where('slug','women')->first()->id;
             $women_sub_category_id = Subcategory::where('category_id',$women_category_id)
                                                 ->pluck('id')
                                                 ->toArray();
-            $women =  Product::with('user')
-                            ->where('category_id',$women_category_id)
+            $women =  Product::where('category_id',$women_category_id)
                             ->whereIn('subcategory_id',$women_sub_category_id)
                             ->where('status','=',1)->select($selectable)
                             ->orderBy('id','desc')
@@ -186,54 +185,28 @@ class ProductController extends Controller
             return $this->apiResponse(422,'message',$validator->errors());
         }
         $sub_category=Str::lower($request->sub_category);
+        /**
+         * Check The  $sub_category  in Subcategory Table
+         **/
         $sub_category_id=Subcategory::where('slug',$sub_category)->first();
+        /**
+         * If $sub_category Exist in Subdcategory table ,then check into
+         * product table ,if $child_category is not exist then show error messsage
+         **/
         if(!$sub_category_id)
         {
             return $this->apiResponse(404,'message','Invalid Sub_Category');
         }
-        $sub_categories = Product::where('subcategory_id',$sub_category_id->id)->get();
-        if(!$sub_categories->first())
-        {
-            return $this->apiResponse(404,'message','Not Found');
-        }
-        return $this->apiResponse(200,'data',$sub_categories);
-    }
-    /**
-     * Show Products By Thier Child Categories
-     **/
-    public function ChildCategoryProducts(Request $request)
-    {
-        $rules=[
-            'child_category'=>'required'
-        ];
-        $validator=Validator::make($request->all(),$rules);
-        if($validator->fails())
-        {
-            return $this->apiResponse(422,'message',$validator->errors());
-        }
-        $child_category=Str::lower($request->child_category);
-        // $child=Category::join('subcategories as s','s.category_id','categories.id')
-        //                 ->join('childcategories as c','c.subcategory_id','s.id')
-        //                 ->where('c.slug',$child_category)
-        //                 ->get([
-        //                     'categories.name as cat_name',
-        //                     's.name as sub_name',
-        //                     'c.name as child_name'
-        //                 ]);
-
-        // if(!$child)
-        // {
-        //     return $this->apiResponse(404,'message','Invalid child_Category');
-        // }
+        $chk= Product::where('subcategory_id',$sub_category_id->id)->count();
         $products=Category::join('products as p','p.category_id','categories.id')
                             ->join('subcategories as s','s.id','p.subcategory_id')
                             ->join('childcategories as c','c.id','p.childcategory_id')
-                            ->where('c.slug',$child_category)
+                            ->where('s.slug',$sub_category)
                             ->get([
-                                'categories.name as cat_name',
+                                'categories.name as category_name',
                                 'p.sku',
-                                's.name as sub_name',
-                                'c.name as child_name',
+                                's.name as subcategory_name',
+                                'c.name as childcategory_name',
                                 'p.product_type',
                                 'p.name',
                                 'p.slug',
@@ -253,14 +226,123 @@ class ProductController extends Controller
                                 'p.views',
                                 'p.tags',
                                 'p.features',
-                                'p.'
+                                'p.product_condition',
+                                'p.ship',
+                                'p.is_meta',
+                                'p.meta_tag',
+                                'p.meta_description',
+                                'p.youtube',
+                                'p.type',
+                                'p.license',
+                                'p.license_qty',
+                                'p.link',
+                                'p.platform',
+                                'p.region',
+                                'p.licence_type',
+                                'p.measure',
+                                'p.featured',
+                                'p.best',
+                                'p.top',
+                                'p.latest',
+                                'p.sale',
+                                'p.hot',
+                                'p.big',
+                                'p.trending',
+                                'p.is_discount',
                             ]);
-                            // dd($products);
-        // $child_categories = Product::where('childcategory_id',$child_category_id->id)->get();
-        // if(!$child_categories->first())
-        // {
-        //     return $this->apiResponse(404,'message','Not Found');
-        // }
-        return $this->apiResponse(200,'data',$products);
+        if($chk<=0)
+        {
+            return $this->apiResponse(404,'message','Not Found');
+        }
+        else{
+            return $this->apiResponse(200,'data',$products);
+        }
+    }
+    /**
+     * Show Products By Thier Child Categories
+     **/
+    public function ChildCategoryProducts(Request $request)
+    {
+        $rules=[
+            'child_category'=>'required'
+        ];
+        $validator=Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            return $this->apiResponse(422,'message',$validator->errors());
+        }
+        $child_category=Str::lower($request->child_category);
+        /**
+         * Check The  $child_category  in Childcategory Table
+         **/
+        $child_cat_id=Childcategory::where('slug',$child_category)->first();
+        /**
+         * If $child_category Exist in Childcategory table ,then check into
+         * product table ,if $child_category is not exist then show error messsage
+         **/
+        if(!$child_cat_id)
+        {
+            return $this->apiResponse(404,'message','Not Found');
+        }
+        $chk=Product::where('childcategory_id',$child_cat_id->id)->count();
+        $products=Category::join('products as p','p.category_id','categories.id')
+                            ->join('subcategories as s','s.id','p.subcategory_id')
+                            ->join('childcategories as c','c.id','p.childcategory_id')
+                            ->where('c.slug',$child_category)
+                            ->get([
+                                'categories.name as category_name',
+                                'p.sku',
+                                's.name as subcategory_name',
+                                'c.name as childcategory_name',
+                                'p.product_type',
+                                'p.name',
+                                'p.slug',
+                                'p.photo',
+                                'p.file',
+                                'p.size',
+                                'p.size_qty',
+                                'p.size_price',
+                                'p.color',
+                                'p.color_image',
+                                'p.price',
+                                'p.previous_price',
+                                'p.details',
+                                'p.stock',
+                                'p.policy',
+                                'p.status',
+                                'p.views',
+                                'p.tags',
+                                'p.features',
+                                'p.product_condition',
+                                'p.ship',
+                                'p.is_meta',
+                                'p.meta_tag',
+                                'p.meta_description',
+                                'p.youtube',
+                                'p.type',
+                                'p.license',
+                                'p.license_qty',
+                                'p.link',
+                                'p.platform',
+                                'p.region',
+                                'p.licence_type',
+                                'p.measure',
+                                'p.featured',
+                                'p.best',
+                                'p.top',
+                                'p.latest',
+                                'p.sale',
+                                'p.hot',
+                                'p.big',
+                                'p.trending',
+                                'p.is_discount',
+                            ]);
+        if($chk<=0)
+        {
+            return $this->apiResponse(404,'message','Not Found');
+        }
+        else{
+            return $this->apiResponse(200,'data',$products);
+        }
     }
 }
