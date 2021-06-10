@@ -52,17 +52,39 @@
                 <div class="all-slider">
 
                     <a href="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}">
-                  <img class="xzoom-gallery5" width="80" src="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" title="The description goes here">
+                  <img class="xzoom-gallery5" width="80" src="{{filter_var($productt->photo, FILTER_VALIDATE_URL) ?$productt->photo:asset('assets/images/products/'.$productt->photo)}}" title="Product Image">
                     </a>
 
                 @foreach($productt->galleries as $gal)
 
 
                     <a href="{{asset('assets/images/galleries/'.$gal->photo)}}">
-                  <img class="xzoom-gallery5" width="80" src="{{asset('assets/images/galleries/'.$gal->photo)}}" title="The description goes here">
+                  <img class="xzoom-gallery5" width="80" src="{{asset('assets/images/galleries/'.$gal->photo)}}" title="Product Image">
                     </a>
 
                 @endforeach
+
+                @if(!empty($productt->color_image))
+                    @php
+                        $is_first = true;
+                    @endphp
+                    @foreach($productt->color_image as $key => $data1)
+                        @php
+                            if (isset($productt->color[$key])){
+                                $color = $productt->color[$key];
+                            }else{
+                                $productt->color[0];
+                            }
+                        @endphp
+                        <a href="{{ asset($productt->color_image[$key]) }}">
+                            <img class="xzoom-gallery5" width="80" src="{{ asset($productt->color_image[$key]) }}"
+                                title="Product Image">
+                        </a>
+                        @php
+                            $is_first = false;
+                        @endphp
+                    @endforeach
+                @endif
 
                 </div>
 
@@ -235,7 +257,7 @@
                                     $productt->color[0];
                                 }
                             @endphp
-                                <img class="box xzoom-gallery5" data-color="{{ $color ?? '' }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $color }} image"width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
+                                <img class="xzoom-gallery5 box" data-color="{{ $color ?? '' }}" src="{{ asset($productt->color_image[$key]) }}" alt="{{ $color }} image "width="60px" height="60px" style="border-radius: 30px; width: 60px; height:60px">
                                 <br>
                                 {{ $color }}
                         </li>

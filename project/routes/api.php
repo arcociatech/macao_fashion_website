@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
     Route::post('login', 'Api\Auth\LoginSignupController@login');
+<<<<<<< HEAD
     Route::post('register', 'Api\Auth\LoginSignupController@register');
     Route::post('user-logout', 'Api\Auth\AuthController@logout');
 });
@@ -62,4 +63,14 @@ Route::get('product','Api\User\Product\ProductController@show_products')->middle
 Route::get('SubCategoryProducts','Api\User\Product\ProductController@SubCategoryProducts')->middleware('auth:api');
 Route::get('ChildCategoryProducts','Api\User\Product\ProductController@ChildCategoryProducts')->middleware('auth:api');
 
+=======
+    Route::post('user-register','Api\Auth\LoginSignupController@register');
+    Route::post('logout','Api\Auth\AuthController@logout')->middleware('auth:api');
+});
+
+// dd(1);
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+>>>>>>> 05aece33c75946d182d523d00f45aeea44c8388f
 });

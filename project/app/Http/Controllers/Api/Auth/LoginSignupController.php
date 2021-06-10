@@ -54,6 +54,7 @@ class LoginSignupController extends Controller
                 if (Auth::guard('web')->user()->ban == 1) {
                     Auth::guard('web')->logout();
                     return $this->apiResponse(422, 'message', 'Your Account Has Been Banned.');
+<<<<<<< HEAD
                 }
                 if (!empty($request->all())) {
                     // Login as Vendor
@@ -78,6 +79,19 @@ class LoginSignupController extends Controller
                 $data['user'] = $user;
                 $data['token'] = $user->createToken('myApp')->accessToken;
                 return $this->apiResponse(200, 'data', $data, '',  $message);
+=======
+                }
+                // Login as User
+                if (!empty($request->all())) {
+
+                    $user = Auth::user();
+                    $message = 'Logged in successfully';
+                    $data['user'] = $user;
+                    $data['token'] = $user->createToken('myApp')->accessToken;
+                    DB::commit();
+                    return $this->apiResponse(200, 'data', $data, '', $message);
+                }
+>>>>>>> 05aece33c75946d182d523d00f45aeea44c8388f
             } else {
                 return $this->apiResponse(401, 'message', trans('auth.failed'));
             }
@@ -99,20 +113,30 @@ class LoginSignupController extends Controller
      */
     public function register(Request $request)
     {
+
         $rules = [
             'name' => 'required',
             'email'   => 'required|email|unique:users',
             'password' => 'required|confirmed',
+<<<<<<< HEAD
             'phone'=>'required',
             'address'=>'required'
+=======
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+>>>>>>> 05aece33c75946d182d523d00f45aeea44c8388f
         ];
+        // check validation
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return $this->apiResponse(422, 'message', $validator->errors());
         }
+        // validation end
         try {
             DB::beginTransaction();
             $gs = Generalsetting::findOrFail(1);
+<<<<<<< HEAD
             $user = new User();
             $input = $request->all();
             $input['password'] = bcrypt($request['password']);
@@ -120,12 +144,25 @@ class LoginSignupController extends Controller
             $input['verification_link'] = $token;
             $input['affilate_code'] = md5($request->name . $request->email);
 
+=======
+            $input = $request->all();
+            $input['password'] = bcrypt($request['password']);
+            $token = md5(time() . $request->name . $request->email);
+            $input['verification_link'] = $token;
+            $input['affilate_code'] = md5($request->name . $request->email);
+            $user = new User();
+            // Storing user in user table
+>>>>>>> 05aece33c75946d182d523d00f45aeea44c8388f
             $user->fill($input)->save();
             /**
              * Storing Customer in POS
              *
              **/
             $pos = DB::connection('pos_macaofashion');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 05aece33c75946d182d523d00f45aeea44c8388f
             $pos_contacts['mobile'] = $user->phone;
             $pos_contacts['email'] = $user->email;
             $pos_contacts['type'] = 'customer';
@@ -136,7 +173,54 @@ class LoginSignupController extends Controller
 
             $pos_contacts['credit_limit'] = null;
             $pos->table('contacts')->insert($pos_contacts);
+            // send varification email
+            if ($gs->is_verification_email == 1) {
+                $to = $request->email;
+                $subject = 'Verify your email address.';
+                $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=" . url('user/register/verify/' . $token) . ">Simply click here to verify. </a>";
+                //Sending Email To Customer
+                if ($gs->is_smtp == 1) {
+                    $data = [
+                        'to' => $to,
+                        'subject' => $subject,
+                        'body' => $msg,
+                    ];
 
+                    $mailer = new GeniusMailer();
+                    // $mailer->sendCustomMail($data);
+                    if ($mailer->sendCustomMail($data)) {
+                        $message = "Registered Successfully, We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.";
+                        $dat['user'] = $user;
+                        // $message = '';
+                        $data['token'] = $user->createToken('myApp')->accessToken;
+                        DB::commit();
+                    }
+                } else {
+                    $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
+                    if (mail($to, $subject, $msg, $headers)) {
+                        $message = " Registered Successfully , We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.";
+                        $dat['user'] = $user;
+                        $message = ', ';
+                        $data['token'] = $user->createToken('myApp')->accessToken;
+                        DB::commit();
+                    }
+                }
+            }
+            // when user register
+            else {
+
+                $user->email_verified = 'Yes';
+                $user->update();
+                $notification = new Notification();
+                $notification->user_id = $user->id;
+                $notification->save();
+                $dat['user'] = $user;
+                $message = 'Already Registered';
+                $data['token'] = $user->createToken('myApp')->accessToken;
+                DB::commit();
+            }
+
+<<<<<<< HEAD
             if($gs->is_verification_email == 1)
             {
             $to = $request->email;
@@ -186,6 +270,8 @@ class LoginSignupController extends Controller
             DB::commit();
 
             }
+=======
+>>>>>>> 05aece33c75946d182d523d00f45aeea44c8388f
             return $this->apiResponse(200, 'data', $dat, '', $message);
         } catch (\Exception $ex) {
             DB::rollback();
