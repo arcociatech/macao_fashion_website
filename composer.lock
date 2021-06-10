@@ -5,8 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "f693db9e0a929024c92aa7c3710de08d",
-    "packages": [
-        {
+    "packages": [{
             "name": "doctrine/inflector",
             "version": "2.0.3",
             "source": {
@@ -45,8 +44,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com"
                 },
@@ -81,8 +79,7 @@
                 "uppercase",
                 "words"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://www.doctrine-project.org/sponsorship.html",
                     "type": "custom"
                 },
@@ -150,8 +147,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Michael Dowling",
                     "email": "mtdowling@gmail.com",
                     "homepage": "https://github.com/mtdowling"
@@ -175,8 +171,7 @@
                 "rest",
                 "web service"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://github.com/GrahamCampbell",
                     "type": "github"
                 },
@@ -233,13 +228,11 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
+            "authors": [{
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }],
             "description": "Guzzle promises library",
             "keywords": [
                 "promise"
@@ -293,8 +286,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Michael Dowling",
                     "email": "mtdowling@gmail.com",
                     "homepage": "https://github.com/mtdowling"
@@ -357,12 +349,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Collections package.",
             "homepage": "https://laravel.com",
             "time": "2021-01-30T19:50:02+00:00"
@@ -401,12 +391,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Config package.",
             "homepage": "https://laravel.com",
             "time": "2020-10-27T15:20:30+00:00"
@@ -448,12 +436,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Container package.",
             "homepage": "https://laravel.com",
             "time": "2020-12-01T14:31:29+00:00"
@@ -492,12 +478,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Contracts package.",
             "homepage": "https://laravel.com",
             "time": "2021-01-20T14:18:13+00:00"
@@ -550,12 +534,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Filesystem package.",
             "homepage": "https://laravel.com",
             "time": "2021-02-02T13:47:20+00:00"
@@ -604,12 +586,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Http package.",
             "homepage": "https://laravel.com",
             "time": "2021-02-02T13:42:30+00:00"
@@ -646,12 +626,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Macroable package.",
             "homepage": "https://laravel.com",
             "time": "2020-10-27T15:20:30+00:00"
@@ -690,12 +668,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Pipeline package.",
             "homepage": "https://laravel.com",
             "time": "2020-10-27T15:20:30+00:00"
@@ -749,12 +725,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Routing package.",
             "homepage": "https://laravel.com",
             "time": "2021-02-02T13:42:30+00:00"
@@ -801,12 +775,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Session package.",
             "homepage": "https://laravel.com",
             "time": "2020-12-08T17:15:16+00:00"
@@ -865,12 +837,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
+            "authors": [{
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
             "time": "2021-02-08T14:49:31+00:00"
@@ -934,8 +904,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Brian Nesbitt",
                     "email": "brian@nesbot.com",
                     "homepage": "http://nesbot.com"
@@ -952,8 +921,7 @@
                 "datetime",
                 "time"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://opencollective.com/Carbon",
                     "type": "open_collective"
                 },
@@ -996,12 +964,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
+            "authors": [{
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }],
             "description": "Common Container Interface (PHP FIG PSR-11)",
             "homepage": "https://github.com/php-fig/container",
             "keywords": [
@@ -1045,12 +1011,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
+            "authors": [{
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }],
             "description": "Standard interfaces for event handling.",
             "keywords": [
                 "events",
@@ -1092,12 +1056,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
+            "authors": [{
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }],
             "description": "Common interface for HTTP clients",
             "homepage": "https://github.com/php-fig/http-client",
             "keywords": [
@@ -1140,12 +1102,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
+            "authors": [{
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }],
             "description": "Common interface for HTTP messages",
             "homepage": "https://github.com/php-fig/http-message",
             "keywords": [
@@ -1190,12 +1150,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
+            "authors": [{
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }],
             "description": "Common interface for logging libraries",
             "homepage": "https://github.com/php-fig/log",
             "keywords": [
@@ -1237,12 +1195,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
+            "authors": [{
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }],
             "description": "Common interfaces for simple caching",
             "keywords": [
                 "cache",
@@ -1284,12 +1240,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Ralph Khattar",
-                    "email": "ralph.khattar@gmail.com"
-                }
-            ],
+            "authors": [{
+                "name": "Ralph Khattar",
+                "email": "ralph.khattar@gmail.com"
+            }],
             "description": "A polyfill for getallheaders.",
             "time": "2019-03-08T08:55:37+00:00"
         },
@@ -1335,14 +1289,12 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Sébastien Nikolaou",
-                    "email": "info@sebdesign.eu",
-                    "homepage": "https://github.com/sebdesign",
-                    "role": "Developer"
-                }
-            ],
+            "authors": [{
+                "name": "Sébastien Nikolaou",
+                "email": "info@sebdesign.eu",
+                "homepage": "https://github.com/sebdesign",
+                "role": "Developer"
+            }],
             "description": "A Laravel package for integrating the Viva Payments gateway",
             "homepage": "https://github.com/sebdesign/laravel-viva-payments",
             "keywords": [
@@ -1393,8 +1345,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -1405,8 +1356,7 @@
             ],
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -1459,8 +1409,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -1471,8 +1420,7 @@
             ],
             "description": "Provides tools to manage errors and ease debugging PHP code",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -1541,8 +1489,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -1553,8 +1500,7 @@
             ],
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -1609,8 +1555,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -1629,8 +1574,7 @@
                 "interoperability",
                 "standards"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -1675,8 +1619,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -1687,8 +1630,7 @@
             ],
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -1743,8 +1685,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -1763,8 +1704,7 @@
                 "interoperability",
                 "standards"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -1821,8 +1761,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -1833,8 +1772,7 @@
             ],
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -1930,8 +1868,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -1942,8 +1879,7 @@
             ],
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2005,8 +1941,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -2021,8 +1956,7 @@
                 "mime",
                 "mime-type"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2079,8 +2013,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Gert de Pagter",
                     "email": "BackEndTea@gmail.com"
                 },
@@ -2097,8 +2030,7 @@
                 "polyfill",
                 "portable"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2157,8 +2089,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Laurent Bassin",
                     "email": "laurent@bassin.info"
                 },
@@ -2181,8 +2112,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2242,8 +2172,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -2262,8 +2191,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2320,8 +2248,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -2339,8 +2266,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2394,8 +2320,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -2412,8 +2337,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2470,8 +2394,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -2488,8 +2411,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2546,8 +2468,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Ion Bazan",
                     "email": "ion.bazan@gmail.com"
                 },
@@ -2568,8 +2489,7 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2637,8 +2557,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -2655,8 +2574,7 @@
                 "uri",
                 "url"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2733,8 +2651,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
@@ -2745,8 +2662,7 @@
             ],
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2800,8 +2716,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -2820,8 +2735,7 @@
                 "interoperability",
                 "standards"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2889,8 +2803,7 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
+            "authors": [{
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
                 },
@@ -2905,8 +2818,7 @@
                 "debug",
                 "dump"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://symfony.com/sponsor",
                     "type": "custom"
                 },
@@ -2954,12 +2866,10 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Lars Moelleken",
-                    "homepage": "http://www.moelleken.org/"
-                }
-            ],
+            "authors": [{
+                "name": "Lars Moelleken",
+                "homepage": "http://www.moelleken.org/"
+            }],
             "description": "Portable ASCII library - performance optimized (ascii) string functions for php.",
             "homepage": "https://github.com/voku/portable-ascii",
             "keywords": [
@@ -2967,8 +2877,7 @@
                 "clean",
                 "php"
             ],
-            "funding": [
-                {
+            "funding": [{
                     "url": "https://www.paypal.me/moelleken",
                     "type": "custom"
                 },

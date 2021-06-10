@@ -34,7 +34,7 @@ class Controller extends BaseController
         } else {
             $response[$key] = $value;
         }
-        if (!empty($meta)) {
+        if (!empty($meta) && $meta != null) {
             $response = array_merge($response, $meta);
         }
         return response()->json($response)->setStatusCode($status_code);
