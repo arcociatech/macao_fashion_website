@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\Childcategory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
 /**
@@ -24,6 +24,14 @@ class CategoryController extends Controller
      **/
     public function category_sub(Request $request)
     {
+        $rules=[
+            'category'=>'required'
+        ];
+        $validator=Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            return $this->apiResponse(422,'message',$validator->errors());
+        }
         $category=$request->category;
         $sub_categories = Category::with('subs')
                                     ->where('slug',$category)

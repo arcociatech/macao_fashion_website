@@ -16,8 +16,7 @@ class UserController extends Controller
     public function account_info(Request $request)
     {
         $user=Auth::user();
-        $find=User::find($user->id);
-        if($find)
+        if($user)
         {
             $user=User::where('id',$user->id)
                     ->get([
@@ -40,8 +39,7 @@ class UserController extends Controller
     public function balance(Request $request)
     {
         $user=Auth::user();
-        $find=User::find($user->id);
-        if($find)
+        if($user)
         {
             $user=User::where('id',$user->id)
                         ->first();
@@ -65,10 +63,10 @@ class UserController extends Controller
         {
             $orders=Order::where('user_id','=',$user->id)
                         ->count();
-            return $this->apiResponse(200,'Total_Orders',$orders);
+            return $this->apiResponse(200,'Total Orders',$orders);
         }
         else{
-            return $this->apiResponse(404,'message','Not Found');
+            return $this->apiResponse(404,'message','Order Not Found');
         }
     }
     /**

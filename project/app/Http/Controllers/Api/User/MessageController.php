@@ -18,8 +18,8 @@ class MessageController extends Controller
     {
         $rules = [
             'email'=>'required',
-            'subject'=>'required',
-            'message'=>'required',
+            'subject'=>'required|min:6',
+            'message'=>'required|min:10',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -28,6 +28,10 @@ class MessageController extends Controller
         $user=Auth::user();
         $reciever=User::where('email',$request->email)
                     ->first();
+        if(!$reciever)
+        {
+            return $this->apiResponse(404,'message','Email Not Found');
+        }
         $reciever_id=$reciever->id;
        /**
         * Send Email
@@ -88,7 +92,7 @@ class MessageController extends Controller
             $msg->sent_user = $user->id;;
             $msg->save();
             $msg="Successfully Added";
-            return $this->apiResponse(200,'message',$msg);
+            return $this->apiResponse(200,'message','Successfully Send a Message');
         }
     }
     /**
@@ -149,7 +153,7 @@ class MessageController extends Controller
                             ->first();
         if($find==null)
         {
-            return $this->apiResponse(404,'message','Not Found');
+            return $this->apiResponse(404,'message','Conversation is Not Found');
         }
         else{
             $con=Conversation::where('sent_user',$user->id)
@@ -179,7 +183,7 @@ class MessageController extends Controller
                         ->delete();
         if($msg ||$con)
         {
-            $message="Deleted Successfully";
+            $message="Delete Successfully";
             return $this->apiResponse(200,'message',$message);
         }
         else{

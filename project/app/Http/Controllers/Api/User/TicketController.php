@@ -23,10 +23,9 @@ class TicketController extends Controller
     public function AddTicket(Request $request)
     {
         $rules = [
-            'subject' => 'required',
-            'message' => 'required',
+            'subject' => 'required|min:5,max:15',
+            'message' => 'required|min:10,max:100',
             'type' => 'required',
-            'order' => 'required',
             'user_email'=>'required'
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -89,28 +88,26 @@ class TicketController extends Controller
         $msg->message = $request->message;
         $msg->user_id = $user->id;
         $msg->save();
-        $message='Successfully Added';
-        return $this->apiResponse(200,'message',$message);
+        return $this->apiResponse(200,'message',$msg);
     }
     /**
-     * If Conversatio_id Not Exit
+     * If Conversatio_id Not Exist
      */
     else{
-        $message = new AdminUserConversation();
-        $message->subject = $request->subject;
-        $message->user_id= $user->id;
-        $message->message = $request->message;
-        $message->order_number = $request->order;
-        $message->type = $type;
-        $message->save();
+            $message = new AdminUserConversation();
+            $message->subject = $request->subject;
+            $message->user_id= $user->id;
+            $message->message = $request->message;
+            $message->order_number = $request->order;
+            $message->type = $type;
+            $message->save();
 
-        $msg = new AdminUserMessage();
-        $msg->conversation_id = $message->id;
-        $msg->message = $request->message;
-        $msg->user_id = $user->id;
-        $msg->save();
-        $message='Successfully Added';
-        return $this->apiResponse(200,'message',$message);
+            $msg = new AdminUserMessage();
+            $msg->conversation_id = $message->id;
+            $msg->message = $request->message;
+            $msg->user_id = $user->id;
+            $msg->save();
+            return $this->apiResponse(200,'message','Successfully Send a Message');
             }
 
     }

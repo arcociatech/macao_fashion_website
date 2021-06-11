@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function () {
     Route::post('login', 'Api\Auth\LoginSignupController@login');
     Route::post('register', 'Api\Auth\LoginSignupController@register');
-    Route::post('user-logout', 'Api\Auth\AuthController@logout');
+    // Route::post('user-logout', 'Api\Auth\AuthController@logout');
 });
   /** User Routes  */
 
@@ -28,6 +28,7 @@ Route::get('view_order','Api\User\ViewOrderController@view_order')->middleware('
 /**
  * Favourites Seller Api
  **/
+Route::post('add/favourite','Api\User\FavoriteSellereController@favorite')->middleware('auth:api');
 Route::get('favourite_seller','Api\User\FavoriteSellereController@favorites')->middleware('auth:api');
 Route::get('favourite_seller/delete','Api\User\FavoriteSellereController@delete')->middleware('auth:api');
 /**
@@ -47,8 +48,8 @@ Route::get('ticketDelete','Api\User\TicketController@delete')->middleware('auth:
 /**
  * Edit Profile & Reset Password Api
  **/
-Route::post('editProfile','Api\Auth\LoginSignupController@edit');
-Route::post('reset','Api\Auth\LoginSignupController@reset');
+Route::post('editProfile','Api\Auth\AuthController@edit')->middleware('auth:api');
+Route::post('reset','Api\Auth\AuthController@reset')->middleware('auth:api');
 /**
  * Categories Api
  **/

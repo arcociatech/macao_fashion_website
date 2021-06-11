@@ -26,7 +26,7 @@ class ProductController extends Controller
             return $this->apiResponse(422,'message',$validator->errors());
         }
         $category = $request->category;
-        $selectable = ['name','category_id','slug','features','colors','thumbnail','price',             'previous_price','attributes','size','size_price','discount_date'];
+        $selectable = ['name','slug','features','colors','thumbnail','price',             'previous_price','attributes','size','size_price','discount_date'];
         if($category=='women')
         {
             $women_category_id = Category::where('slug','women')
@@ -86,7 +86,7 @@ class ProductController extends Controller
             return $this->apiResponse(422,'message',$validator->errors());
         }
         $product_type=Str::lower($request->product_type);
-        $selectable = ['id','user_id','name','slug','features','colors','thumbnail','price','previous_price','attributes','size','size_price','discount_date'];
+        $selectable = ['id','name','slug','features','colors','thumbnail','price','previous_price','attributes','size','size_price','discount_date'];
         if($product_type=='best')
         {
             $best_products=Product::where('best','=',1)

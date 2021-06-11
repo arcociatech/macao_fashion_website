@@ -32,7 +32,7 @@ class ViewOrderController extends Controller
             return $this->apiResponse(200,'data',$order);
         }
         else{
-            return $this->apiResponse(404,'message','Not Found');
+            return $this->apiResponse(404,'message','Order Not Found');
         }
     }
 }

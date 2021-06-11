@@ -12,9 +12,29 @@ use Illuminate\Support\Facades\Validator;
 class FavoriteSellereController extends Controller
 {
     /**
+     * Add Favorite product
+     **/
+    public function favorite(Request $request)
+    {
+        $rules = [
+            'vendor_id' => 'required'
+         ];
+         $validator = Validator::make($request->all(), $rules);
+         if ($validator->fails()) {
+             return $this->apiResponse(422, 'message', $validator->errors());
+         }
+        $user=Auth::user();
+        $fav = new FavoriteSeller();
+        $fav->user_id = $user->id;
+        $fav->vendor_id = $request->vendor_id;
+        if($fav->save()){
+            return $this->apiResponse(200,'message','Successfully Add a Favorite Product');
+        }
+    }
+    /**
      *Favourite Seller Api
      **/
-    public function favorites(Request $request)
+    public function favorites()
     {
         $user=Auth::user();
         $fav = FavoriteSeller::where('user_id',$user->id)
