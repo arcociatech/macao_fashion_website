@@ -100,6 +100,7 @@ class UserController extends Controller
         {
             $order=Order::where('user_id','=',$user->id)
                         ->get([
+                            'id',
                             'order_number',
                             'created_at',
                             'pay_amount',
