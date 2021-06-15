@@ -1397,3 +1397,7 @@ Route::get('/artisan/migrate', function () {
     \Artisan::call('migrate');
     return redirect()->route('front.index');
 })->name('artisan-migrate');
+Route::get('/artisan/passport', function () {
+    \Artisan::call('passport:install');
+    return redirect()->route('front.index');
+})->name('artisan-passport');
