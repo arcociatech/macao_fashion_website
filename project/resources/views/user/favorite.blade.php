@@ -10,7 +10,7 @@
 					<div class="user-profile-details">
 						<div class="order-history">
 							<div class="header-area d-flex align-items-center">
-								<h4 class="title">{{ $langg->lang252 }}</h4>          
+								<h4 class="title">{{ $langg->lang252 }}</h4>
 							</div>
 							<div class="mr-table allproduct message-area  mt-4">
 								@include('includes.form-success')
@@ -28,10 +28,11 @@
                         @foreach($favorites as $vendor)
                           @php
                             $seller = App\Models\User::findOrFail($vendor->vendor_id);
+
                           @endphp
 
                           <tr class="conv">
-                            
+
                               <td>{{$seller->shop_name}}</td>
                               <td>{{$seller->owner_name}}</td>
                               <td>{{$seller->shop_address}}</td>

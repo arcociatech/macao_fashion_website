@@ -14,18 +14,22 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginSignupController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
     /**
      * Login
      *
      * @param \Illuminate\Http\Request $request
      * @return JsonResponse
      */
-     public function login(Request $request)
-     {
+    public function login(Request $request)
+    {
         $rules = [
             'email'   => 'required|email',
             'password' => 'required'
-          ];
+        ];
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -34,69 +38,70 @@ class LoginSignupController extends Controller
         }
         //--- Validation Section Ends
         try {
-                DB::beginTransaction();
+            DB::beginTransaction();
 
             // Attempt to log the user in
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // if successful, then redirect to their intended location
+                // if successful, then redirect to their intended location
 
-            // Check If Email is verified or not
-                if(Auth::guard('web')->user()->email_verified == 'No')
-                {
+                // Check If Email is verified or not
+                if (Auth::guard('web')->user()->email_verified == 'No') {
                     Auth::guard('web')->logout();
                     return $this->apiResponse(422, 'message', 'Your Email is not Verified!');
-                    // return response()->json(array('errors' => [ 0 => 'Your Email is not Verified!' ]));
                 }
 
-                if(Auth::guard('web')->user()->ban == 1)
-                {
+                if (Auth::guard('web')->user()->ban == 1) {
                     Auth::guard('web')->logout();
                     return $this->apiResponse(422, 'message', 'Your Account Has Been Banned.');
-                    // return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));
                 }
-
-                // Login Via Modal
-                if(!empty($request->modal))
-                {
+                if (!empty($request->all())) {
                     // Login as Vendor
-                    if(!empty($request->vendor))
-                    {
-                        if(Auth::guard('web')->user()->is_vendor == 2)
-                        {
+                    if (!empty($request->vendor)) {
+                        if (Auth::guard('web')->user()->is_vendor == 2) {
                             return response()->json(route('vendor-dashboard'));
-                        }
-                        else {
+                        } else {
                             return response()->json(route('user-package'));
                         }
+                    }
+                    // Login as User
+                    $user = Auth::user();
+                    $message = 'Logged in successfully';
+                    $data['user'] = $user;
+                    $data['token'] = $user->createToken('myApp')->accessToken;
+                    DB::commit();
+                    return $this->apiResponse(200, 'data', $data, '', $message);
                 }
                 // Login as User
                 $user = Auth::user();
                 $message = 'Logged in successfully';
                 $data['user'] = $user;
                 $data['token'] = $user->createToken('myApp')->accessToken;
-                DB::commit();
-                return $this->apiResponse(200, 'data', $data,'', $message);
-                // return response()->json(url("/"));
-                // return response()->json(1);
-                }
+                return $this->apiResponse(200, 'data', $data, '',  $message);
+                // }
                 // Login as User
-                // return $this->apiResponse(200, 'data', $data,'', $message);
-                return response()->json(url("/"));
-            //   return response()->json(route('user-dashboard'));
-            }else {
+                if (!empty($request->all())) {
+
+                    $user = Auth::user();
+                    $message = 'Logged in successfully';
+                    $data['user'] = $user;
+                    $data['token'] = $user->createToken('myApp')->accessToken;
+                    DB::commit();
+                    return $this->apiResponse(200, 'data', $data, '', $message);
+                }
+            } else {
                 return $this->apiResponse(401, 'message', trans('auth.failed'));
             }
 
-        // if unsuccessful, then redirect back to the login with the form data
+            // if unsuccessful, then redirect back to the login with the form data
             // return $this->apiResponse(422, 'message', 'Credentials Doesn\'t Match !');
             // return response()->json(array('errors' => [ 0 => 'Credentials Doesn\'t Match !' ]));
 
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             DB::rollback();
             return $this->apiResponse(422, 'message', $ex->getMessage());
         }
-     }
-     /**
+    }
+    /**
      * Register
      *
      * @param \Illuminate\Http\Request $request
@@ -104,45 +109,38 @@ class LoginSignupController extends Controller
      */
     public function register(Request $request)
     {
-        dd(1);
+
         $rules = [
+            'name' => 'required|min:5',
             'email'   => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'phone'=>'required|min:11',
+            'address'=>'required|min:8',
         ];
+        // check validation
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return $this->apiResponse(422, 'message', $validator->errors());
         }
+        // validation end
         try {
             DB::beginTransaction();
             $gs = Generalsetting::findOrFail(1);
             $user = new User();
-	        $input = $request->all();
-	        $input['password'] = bcrypt($request['password']);
-	        $token = md5(time().$request->name.$request->email);
-	        $input['verification_link'] = $token;
-	        $input['affilate_code'] = md5($request->name.$request->email);
-            // if(!empty($request->vendor))
-	        //   {
-			// 		//--- Validation Section
-			// 		$rules = [
-			// 			'shop_name' => 'unique:users',
-			// 			'shop_number'  => 'max:10'
-			// 				];
-			// 		$customs = [
-			// 			'shop_name.unique' => 'This Shop Name has already been taken.',
-			// 			'shop_number.max'  => 'Shop Number Must Be Less Then 10 Digit.'
-			// 		];
+            $input = $request->all();
+            $input['password'] = bcrypt($request['password']);
+            $token = md5(time() . $request->name . $request->email);
+            $input['verification_link'] = $token;
+            $input['affilate_code'] = md5($request->name . $request->email);
 
-			// 		$validator = Validator::make($request->all(), $rules, $customs);
-			// 		if ($validator->fails()) {
-            //             return $this->apiResponse(422, 'message', $validator->errors());
-			// 		}
-			// 		$input['is_vendor'] = 1;
-
-			//   }
-
-			$user->fill($input)->save();
+            $input = $request->all();
+            $input['password'] = bcrypt($request['password']);
+            $token = md5(time() . $request->name . $request->email);
+            $input['verification_link'] = $token;
+            $input['affilate_code'] = md5($request->name . $request->email);
+            $user = new User();
+            // Storing user in user table
+            $user->fill($input)->save();
             /**
              * Storing Customer in POS
              *
@@ -159,15 +157,13 @@ class LoginSignupController extends Controller
 
             $pos_contacts['credit_limit'] = null;
             $pos->table('contacts')->insert($pos_contacts);
-
-	        if($gs->is_verification_email == 1)
-	        {
+            // send varification email
+            if ($gs->is_verification_email == 1) {
                 $to = $request->email;
                 $subject = 'Verify your email address.';
-                $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=".url('user/register/verify/'.$token).">Simply click here to verify. </a>";
+                $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=" . url('user/register/verify/' . $token) . ">Simply click here to verify. </a>";
                 //Sending Email To Customer
-                if($gs->is_smtp == 1)
-                {
+                if ($gs->is_smtp == 1) {
                     $data = [
                         'to' => $to,
                         'subject' => $subject,
@@ -175,35 +171,93 @@ class LoginSignupController extends Controller
                     ];
 
                     $mailer = new GeniusMailer();
-                    $mailer->sendCustomMail($data);
+                    // $mailer->sendCustomMail($data);
+                    if ($mailer->sendCustomMail($data)) {
+                        $message = "Registered Successfully, We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.";
+                        $dat['user'] = $user;
+                        // $message = '';
+                        $data['token'] = $user->createToken('myApp')->accessToken;
+                        DB::commit();
+                    }
+                } else {
+                    $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
+                    if (mail($to, $subject, $msg, $headers)) {
+                        $message = " Registered Successfully , We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.";
+                        $dat['user'] = $user;
+                        $message = ', ';
+                        $data['token'] = $user->createToken('myApp')->accessToken;
+                        DB::commit();
+                    }
                 }
-                else
-                {
-                    $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-                    mail($to,$subject,$msg,$headers);
-                }
-                // return $this->apiResponse(200, 'data', $data,'', $message);
-                    return response()->json('We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.');
-                }
-                else {
+            }
+            // when user register
+            else {
 
-                    $user->email_verified = 'Yes';
-                    $user->update();
-                    $notification = new Notification();
-                    $notification->user_id = $user->id;
-                    $notification->save();
-                    Auth::guard('web')->login($user);
-                    return response()->json(1);
-                }
-
-                $data['user'] = $user;
-                $message = 'Registered Successfully';
+                $user->email_verified = 'Yes';
+                $user->update();
+                $notification = new Notification();
+                $notification->user_id = $user->id;
+                $notification->save();
+                $dat['user'] = $user;
+                $message = 'Already Registered';
                 $data['token'] = $user->createToken('myApp')->accessToken;
                 DB::commit();
-                return $this->apiResponse(200, 'data', $data,'', $message);
-        }catch (\Exception $ex) {
+            }
+
+            if($gs->is_verification_email == 1)
+            {
+            $to = $request->email;
+            $subject = 'Verify your email address.';
+            $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=".url('user/register/verify/'.$token).">Simply click here to verify. </a>";
+            //Sending Email To Customer
+            if($gs->is_smtp == 1)
+            {
+            $data = [
+                'to' => $to,
+                'subject' => $subject,
+                'body' => $msg,
+            ];
+
+            $mailer = new GeniusMailer();
+            if($mailer->sendCustomMail($data))
+                {
+
+                    $dat['user'] = $user;
+                    $message = 'Registered Successfully, We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.';
+                    $dat['token'] = $user->createToken('myApp')->accessToken;
+                    DB::commit();
+                }
+            }
+                else
+                {
+                $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
+                    if(mail($to,$subject,$msg,$headers))
+                    {
+                        $dat['user'] = $user;
+                        $message = 'Registered Successfully, We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.';
+                        $dat['token'] = $user->createToken('myApp')->accessToken;
+                        DB::commit();
+                    }
+                }
+            }
+            else {
+
+            $user->email_verified = 'Yes';
+            $user->update();
+            $notification = new Notification();
+            $notification->user_id = $user->id;
+            $notification->save();
+            $dat['user'] = $user;
+            $message = 'Already Registered';
+            $dat['token'] = $user->createToken('myApp')->accessToken;
+            DB::commit();
+
+            }
+            return $this->apiResponse(200, 'data', $dat, '', $message);
+        } catch (\Exception $ex) {
             DB::rollback();
             return $this->apiResponse(422, 'message', $ex->getMessage());
         }
     }
+
 }

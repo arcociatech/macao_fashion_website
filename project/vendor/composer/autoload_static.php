@@ -724,6 +724,7 @@ class ComposerStaticInit0dc75120fbc88746f88ebe6abb5c0b5e
         'App\\Http\\Controllers\\Admin\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/VerificationController.php',
         'App\\Http\\Controllers\\Api\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Auth/AuthController.php',
         'App\\Http\\Controllers\\Api\\Auth\\LoginSignupController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Auth/LoginSignupController.php',
+        'App\\Http\\Controllers\\Api\\User\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/User/UserController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Front\\CartController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/CartController.php',
         'App\\Http\\Controllers\\Front\\CatalogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Front/CatalogController.php',

@@ -60,6 +60,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\VerificationController' => $baseDir . '/app/Http/Controllers/Admin/VerificationController.php',
     'App\\Http\\Controllers\\Api\\Auth\\AuthController' => $baseDir . '/app/Http/Controllers/Api/Auth/AuthController.php',
     'App\\Http\\Controllers\\Api\\Auth\\LoginSignupController' => $baseDir . '/app/Http/Controllers/Api/Auth/LoginSignupController.php',
+    'App\\Http\\Controllers\\Api\\User\\UserController' => $baseDir . '/app/Http/Controllers/Api/User/UserController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Front\\CartController' => $baseDir . '/app/Http/Controllers/Front/CartController.php',
     'App\\Http\\Controllers\\Front\\CatalogController' => $baseDir . '/app/Http/Controllers/Front/CatalogController.php',

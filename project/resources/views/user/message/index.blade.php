@@ -11,9 +11,9 @@
 						<div class="order-history">
 							<div class="header-area d-flex align-items-center">
 								<h4 class="title">{{ $langg->lang356 }}</h4>
-                <a data-toggle="modal" data-target="#vendorform" class="mybtn1 ml-3" href="javascript:;"> <i class="fas fa-envelope"></i> 
+                <a data-toggle="modal" data-target="#vendorform" class="mybtn1 ml-3" href="javascript:;"> <i class="fas fa-envelope"></i>
                   {{ $langg->lang357 }}
-                </a>                
+                </a>
 							</div>
 							<div class="mr-table allproduct message-area  mt-4">
 								@include('includes.form-success')
@@ -31,10 +31,10 @@
                         @foreach($convs as $conv)
 
                           <tr class="conv">
-                            
+
                             <input type="hidden" value="{{$conv->id}}">
                             @if($user->id == $conv->sent->id)
-                            <td>{{$conv->recieved->name}}</td>    
+                            <td>{{$conv->recieved->name}}</td>
                             @else
                             <td>{{$conv->sent->name}}</td>
                             @endif
@@ -138,7 +138,7 @@
 @section('scripts')
 
 <script type="text/javascript">
-    
+
           $(document).on("submit", "#emailreply" , function(){
           var token = $(this).find('input[name=_token]').val();
           var subject = $(this).find('input[name=subject]').val();
@@ -175,7 +175,7 @@
 
         $('.ti-close').click();
             }
-        });          
+        });
           return false;
         });
 
