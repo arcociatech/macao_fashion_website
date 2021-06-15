@@ -53,15 +53,15 @@ Route::post('reset','Api\Auth\AuthController@reset')->middleware('auth:api');
 /**
  * Categories Api
  **/
-Route::get('category/show_category','Api\User\Category\CategoryController@show_category')->middleware('auth:api');
-Route::get('category/category_sub','Api\User\Category\CategoryController@category_sub')->middleware('auth:api');
+Route::get('category/show_category','Api\User\Category\CategoryController@show_category');
+Route::get('category/category_sub','Api\User\Category\CategoryController@category_sub');
 /**
  * Produt Api
  **/
-Route::get('category/products','Api\User\Product\ProductController@Category_products')->middleware('auth:api');
-Route::get('product','Api\User\Product\ProductController@show_products')->middleware('auth:api');
-Route::get('SubCategoryProducts','Api\User\Product\ProductController@SubCategoryProducts')->middleware('auth:api');
-Route::get('ChildCategoryProducts','Api\User\Product\ProductController@ChildCategoryProducts')->middleware('auth:api');
+Route::get('category/products','Api\User\Product\ProductController@Category_products');
+Route::get('product','Api\User\Product\ProductController@show_products');
+Route::get('SubCategoryProducts','Api\User\Product\ProductController@SubCategoryProducts');
+Route::get('ChildCategoryProducts','Api\User\Product\ProductController@ChildCategoryProducts');
 
     Route::post('user-register','Api\Auth\LoginSignupController@register');
     Route::post('logout','Api\Auth\AuthController@logout')->middleware('auth:api');
