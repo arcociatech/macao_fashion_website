@@ -25,7 +25,9 @@ class UserController extends Controller
                         'fax',
                         'city',
                         'zip',
-                        'address'
+                        'address',
+                        'name',
+                        'photo'
                     ]);
             return $this->apiResponse(200,'data',$user);
         }
