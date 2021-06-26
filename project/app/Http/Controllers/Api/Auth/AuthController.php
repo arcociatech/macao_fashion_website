@@ -112,7 +112,7 @@ class AuthController extends Controller
             }
         }
         $user->update($input);
-        $msg = 'Successfully change your passwprd';
+        $msg = 'Password Reset Successfully';
         return $this->apiResponse(200,'message',$msg);
     }
      /**

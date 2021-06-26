@@ -66,7 +66,7 @@ class FavoriteSellereController extends Controller
                 ->delete();
         if($fav)
         {
-            $message="Successfully Delete";
+            $message="Delete Successfully";
             return $this->apiResponse(200,'message',$message);
         }
         else
