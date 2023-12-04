@@ -1,4 +1,4 @@
-        <div class="col-lg-4">
+        <div class="col-lg-2">
           <div class="user-profile-info-area">
             <ul class="links">
                 @php 

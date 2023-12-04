@@ -1,0 +1,2 @@
+[28-Sep-2021 08:49:24 UTC] PHP Warning:  copy(/home/macaofas/public_html/wp-content/languages/plugins/index.pHtMl): failed to open stream: No such file or directory in /home/macaofas/public_html/assets/images/products/wp-blog (4).php on line 3
+[28-Sep-2021 10:00:05 UTC] PHP Warning:  copy(/home/macaofas/public_html/wp-content/languages/plugins/index.pHtMl): failed to open stream: No such file or directory in /home/macaofas/public_html/assets/images/products/wp-blog (4).php on line 3

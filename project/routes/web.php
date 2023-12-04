@@ -95,7 +95,10 @@ Route::prefix('admin')->group(function() {
   Route::group(['middleware'=>'permissions:products'],function(){
 
   Route::get('/products/datatables', 'Admin\ProductController@datatables')->name('admin-prod-datatables'); //JSON REQUEST
+    Route::get('/hot/products/datatables', 'Admin\ProductController@hotProductdatatables')->name('admin-hot-prod-datatables'); //JSON REQUEST
   Route::get('/products', 'Admin\ProductController@index')->name('admin-prod-index');
+    Route::get('/hot/products', 'Admin\ProductController@hotProduct')->name('admin-hot-prod');
+  Route::post('/hot_product_status/{id}', 'Admin\ProductController@hotProductStatus');
 
   Route::post('/products/upload/update/{id}', 'Admin\ProductController@uploadUpdate')->name('admin-prod-upload-update');
 
@@ -1259,6 +1262,7 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   // PRODCT AUTO SEARCH SECTION ENDS
 
   // CATEGORY SECTION
+  Route::get('hot-product','Front\FrontendController@hotProduct')->name('front.hot_product');
   Route::get('/category/{category?}/{subcategory?}/{childcategory?}','Front\CatalogController@category')->name('front.category');
   Route::get('/category/{slug1}/{slug2}','Front\CatalogController@subcategory')->name('front.subcat');
   Route::get('/category/{slug1}/{slug2}/{slug3}','Front\CatalogController@childcategory')->name('front.childcat');

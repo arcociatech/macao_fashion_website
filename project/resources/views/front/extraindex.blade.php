@@ -2,7 +2,7 @@
 	@if($women)
 		<!-- Phone and Accessories Area Start -->
 		<section class="phone-and-accessories categori-item">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
 						<div class="section-top">
@@ -13,20 +13,20 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-9">
+					<div class="col-lg-12">
 						<div class="row">
 							@foreach($women as $prod)
 								@include('includes.product.home-product')
 							@endforeach
 						</div>
 					</div>
-					<div class="col-lg-3 remove-padding d-none d-lg-block">
+					{{-- <div class="col-lg-2 remove-padding d-none d-lg-block">
 						<div class="aside">
 							<div class="banner-effect mb-10" >
 								<img src="{{asset('assets/images/'.$ps->best_seller_banner)}}" alt="">
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</section>
@@ -35,7 +35,7 @@
 	@if($chaussure)
 		<!-- Phone and Accessories Area Start -->
 		<section class="phone-and-accessories categori-item">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
 						<div class="section-top">
@@ -46,20 +46,20 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-9">
+					<div class="col-lg-12">
 						<div class="row">
 							@foreach($chaussure as $prod)
 								@include('includes.product.home-product')
 							@endforeach
 						</div>
 					</div>
-					<div class="col-lg-3 remove-padding d-none d-lg-block">
+					{{-- <div class="col-lg-3 remove-padding d-none d-lg-block">
 						<div class="aside">
 							<div class="banner-effect mb-10">
 								<img src="{{asset('assets/images/'.$ps->best_seller_banner)}}" alt="">
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</section>
@@ -68,7 +68,7 @@
 	@if($accessories)
 		<!-- Phone and Accessories Area Start -->
 		<section class="phone-and-accessories categori-item">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
 						<div class="section-top">
@@ -79,20 +79,20 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-9">
+					<div class="col-lg-12">
 						<div class="row">
 							@foreach($accessories as $prod)
 								@include('includes.product.home-product')
 							@endforeach
 						</div>
 					</div>
-					<div class="col-lg-3 remove-padding d-none d-lg-block">
+					{{-- <div class="col-lg-3 remove-padding d-none d-lg-block">
 						<div class="aside">
 							<div class="banner-effect mb-10">
 								<img src="{{asset('assets/images/'.$ps->best_seller_banner)}}" alt="">
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</section>
@@ -101,7 +101,7 @@
 	@if($ps->best == 1)
 		<!-- Phone and Accessories Area Start -->
 		<section class="phone-and-accessories categori-item">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
 						<div class="section-top">
@@ -112,14 +112,14 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-9">
+					<div class="col-lg-12">
 						<div class="row">
 							@foreach($best_products as $prod)
 								@include('includes.product.home-product')
 							@endforeach
 						</div>
 					</div>
-					<div class="col-lg-3 remove-padding d-none d-lg-block">
+					{{-- <div class="col-lg-3 remove-padding d-none d-lg-block">
 						<div class="aside">
 							<a class="banner-effect mb-10" href="{{ $ps->best_seller_banner_link }}">
 								<img src="{{asset('assets/images/'.$ps->best_seller_banner)}}" alt="">
@@ -128,7 +128,7 @@
 								<img src="{{asset('assets/images/'.$ps->best_seller_banner1)}}" alt="">
 							</a>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</section>
@@ -138,7 +138,7 @@
 	@if($ps->flash_deal == 1)
 		<!-- Electronics Area Start -->
 		<section class="categori-item electronics-section">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
 						<div class="section-top">
@@ -168,7 +168,7 @@
 	@if($ps->large_banner == 1)
 		<!-- Banner Area One Start -->
 		<section class="banner-section">
-			<div class="container">
+			<div class="container-fluid p-5">
 				@foreach($large_banners->chunk(1) as $chunk)
 					<div class="row">
 						@foreach($chunk as $img)
@@ -190,7 +190,7 @@
 	@if($ps->top_rated == 1)
 		<!-- Electronics Area Start -->
 		<section class="categori-item electronics-section">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
 						<div class="section-top">
@@ -219,11 +219,11 @@
 	@if($ps->bottom_small == 1)
 		<!-- Banner Area One Start -->
 		<section class="banner-section">
-			<div class="container">
+			<div class="container-fluid p-5">
 				@foreach($bottom_small_banners->chunk(3) as $chunk)
 					<div class="row">
 						@foreach($chunk as $img)
-							<div class="col-lg-4 remove-padding">
+							<div class="col-lg-3 remove-padding">
 								<div class="left">
 									<a class="banner-effect" href="{{ $img->link }}" target="_blank">
 										<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="">
@@ -241,7 +241,7 @@
 	@if($ps->big == 1)
 		<!-- Clothing and Apparel Area Start -->
 		<section class="categori-item clothing-and-Apparel-Area">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
 						<div class="section-top">
@@ -253,7 +253,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-9">
+					<div class="col-lg-12">
 						<div class="row">
 							@foreach($big_products as $prod)
 								@include('includes.product.home-product')
@@ -263,7 +263,7 @@
 
 						</div>
 					</div>
-					<div class="col-lg-3 remove-padding d-none d-lg-block">
+					{{-- <div class="col-lg-3 remove-padding d-none d-lg-block">
 						<div class="aside">
 							<a class="banner-effect mb-10" href="{{ $ps->big_save_banner_link }}">
 								<img src="{{asset('assets/images/'.$ps->big_save_banner)}}" alt="">
@@ -272,7 +272,7 @@
 								<img src="{{asset('assets/images/'.$ps->big_save_banner1)}}" alt="">
 							</a>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 			</div>
@@ -283,7 +283,7 @@
 	@if($ps->hot_sale == 1)
 		<!-- hot-and-new-item Area Start -->
 		<section class="hot-and-new-item">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="accessories-slider">
@@ -394,7 +394,7 @@
 	@if($ps->review_blog == 1)
 		<!-- Blog Area Start -->
 		<section class="blog-area">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="aside">
@@ -467,7 +467,7 @@
 	@if($ps->partners == 1)
 		<!-- Partners Area Start -->
 		<section class="partners">
-			<div class="container">
+			<div class="container-fluid p-5">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-top">
@@ -498,7 +498,7 @@
 	@if($ps->service == 1)
         {{-- Info Area Start --}}
         <section class="info-area">
-			<div class="container">
+			<div class="container-fluid p-5">
 
 					@foreach($services->chunk(4) as $chunk)
 

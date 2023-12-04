@@ -3,10 +3,10 @@
 
 
 <section class="user-dashbord">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         @include('includes.user-dashboard-sidebar')
-        <div class="col-lg-8">
+        <div class="col-lg-10">
 					<div class="user-profile-details">
 						<div class="order-history">
 							<div class="header-area d-flex align-items-center">

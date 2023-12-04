@@ -157,7 +157,8 @@
 <script src="../assets/front/js/bootstrap.min.js"></script>
 <script src="install.js"></script>
 <script>
-    var domain_URL = "<?php echo str_replace('/install/','',$_SERVER['REQUEST_URI'])?>";
+    var domain_URL = "<?php
+                                                                                                                                                                                                                                                                           echo str_replace('/install/','',$_SERVER['REQUEST_URI'])?>";
 </script>
 </body>
 </html>

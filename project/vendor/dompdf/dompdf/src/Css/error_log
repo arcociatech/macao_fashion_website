@@ -1,0 +1,1 @@
+[11-Apr-2021 13:50:44 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home/macaofas/public_html/project/vendor/dompdf/dompdf/src/Css/Color.php on line 12

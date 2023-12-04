@@ -42,15 +42,15 @@
 					<div class="col-lg-12">
 						<div class="product-description">
 							<div class="body-area">
-		
+
 								<div class="gocover"
 									style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
 								</div>
-							
-		
-		
+
+
+
 									@include('includes.admin.form-both')
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -63,8 +63,8 @@
 												name="name" required="" value="{{ $data->name }}">
 										</div>
 									</div>
-		
-		
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -74,7 +74,7 @@
 										<div class="col-lg-12">
 											<select id="cat" name="category_id" required="">
 												<option>{{ __("Select Category") }}</option>
-		
+
 												@foreach($cats as $cat)
 												<option data-href="{{ route('admin-subcat-load',$cat->id) }}"
 													value="{{$cat->id}}" {{$cat->id == $data->category_id ? "selected":""}}>
@@ -83,7 +83,7 @@
 											</select>
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -105,12 +105,12 @@
 													{{$sub->name}}</option>
 												@endforeach
 												@endif
-		
-		
+
+
 											</select>
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -137,7 +137,7 @@
 											</select>
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -153,7 +153,7 @@
 											</select>
 										</div>
 									</div>
-		
+
 									<div class="row file {{ $data->file != null ? '':'hidden' }}">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -164,7 +164,7 @@
 											<input type="file" name="file">
 										</div>
 									</div>
-		
+
 									<div class="row link {{ $data->link != null ? '':'hidden' }}">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -176,13 +176,13 @@
 												{{ $data->link != null ? 'required':'' }}>{{ $data->link }}</textarea>
 										</div>
 									</div>
-		
-								
-		
+
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
-		
+
 											</div>
 										</div>
 										<div class="col-lg-12">
@@ -190,12 +190,12 @@
 												<div class="heading-area">
 													<h4 class="title">{{ __("Product License") }}</h4>
 												</div>
-		
+
 												<div class="feature-tag-top-filds" id="license-section">
 													@if(!empty($data->license))
-		
+
 													@foreach($data->license as $key => $data1)
-		
+
 													<div class="license-area">
 														<span class="remove license-remove"><i class="fas fa-times"></i></span>
 														<div class="row">
@@ -212,10 +212,10 @@
 															</div>
 														</div>
 													</div>
-		
+
 													@endforeach
 													@else
-		
+
 													<div class="license-area">
 														<span class="remove license-remove"><i class="fas fa-times"></i></span>
 														<div class="row">
@@ -230,17 +230,17 @@
 															</div>
 														</div>
 													</div>
-		
+
 													@endif
 												</div>
-		
+
 												<a href="javascript:;" id="license-btn" class="add-fild-btn"><i
 														class="icofont-plus"></i> {{ __("Add More Field") }}</a>
 											</div>
 										</div>
 									</div>
-		
-		
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -255,9 +255,9 @@
 											</div>
 										</div>
 									</div>
-		
-		
-		
+
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -272,8 +272,8 @@
 											</div>
 										</div>
 									</div>
-		
-		
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="checkbox-wrapper">
@@ -284,9 +284,9 @@
 											</div>
 										</div>
 									</div>
-		
-		
-		
+
+
+
 									<div
 										class="{{ ($data->meta_tag == null && strip_tags($data->meta_description) == null) ? "showbox":"" }}">
 										<div class="row">
@@ -305,7 +305,7 @@
 												</ul>
 											</div>
 										</div>
-		
+
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
@@ -322,7 +322,7 @@
 											</div>
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -335,7 +335,7 @@
 												name="platform" value="{{ $data->platform }}">
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -348,7 +348,7 @@
 												name="region" value="{{ $data->region }}">
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -361,7 +361,7 @@
 												name="licence_type" value="{{ $data->licence_type }}">
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12 text-center">
 											<button class="addProductSubmit-btn" type="submit">{{ __("Save") }}</button>
@@ -379,8 +379,8 @@
 					<div class="col-lg-12">
 						<div class="product-description">
 							<div class="body-area">
-		
-		
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -398,15 +398,15 @@
 													</div>
 												</div>
 											</div>
-		
-											
-		
-		
+
+
+
+
 										</div>
 									</div>
-		
+
 									<input type="hidden" id="feature_photo" name="photo" value="{{ $data->photo }}">
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -423,7 +423,7 @@
 											</a>
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -441,7 +441,7 @@
 												value="{{round($data->price * $sign->value , 2)}}" required="" min="0">
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -455,8 +455,8 @@
 												value="{{round($data->previous_price * $sign->value , 2)}}" min="0">
 										</div>
 									</div>
-		
-		
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -469,19 +469,19 @@
 												placeholder="Enter Youtube Video URL" value="{{$data->youtube}}">
 										</div>
 									</div>
-		
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="featured-keyword-area">
 												<div class="left-area">
 													<h4 class="heading">{{ __('Feature Tags') }}</h4>
 												</div>
-		
+
 												<div class="feature-tag-top-filds" id="feature-section">
 													@if(!empty($data->features))
-		
+
 													@foreach($data->features as $key => $data1)
-		
+
 													<div class="feature-area">
 														<span class="remove feature-remove"><i class="fas fa-times"></i></span>
 														<div class="row">
@@ -490,7 +490,7 @@
 																	placeholder="{{ __("Enter Your Keyword") }}"
 																	value="{{ $data->features[$key] }}">
 															</div>
-		
+
 															<div class="col-lg-6">
 																<div class="input-group colorpicker-component cp">
 																	<input type="text" name="colors[]"
@@ -501,11 +501,11 @@
 															</div>
 														</div>
 													</div>
-		
-		
+
+
 													@endforeach
 													@else
-		
+
 													<div class="feature-area">
 														<span class="remove feature-remove"><i class="fas fa-times"></i></span>
 														<div class="row">
@@ -513,7 +513,7 @@
 																<input type="text" name="features[]" class="input-field"
 																	placeholder="{{ __("Enter Your Keyword") }}">
 															</div>
-		
+
 															<div class="col-lg-6">
 																<div class="input-group colorpicker-component cp">
 																	<input type="text" name="colors[]" value="#000000"
@@ -523,17 +523,17 @@
 															</div>
 														</div>
 													</div>
-		
+
 													@endif
 												</div>
-		
+
 												<a href="javascript:;" id="feature-btn" class="add-fild-btn"><i
 														class="icofont-plus"></i> {{ __("Add More Field") }}</a>
 											</div>
 										</div>
 									</div>
-		
-		
+
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -550,8 +550,8 @@
 											</ul>
 										</div>
 									</div>
-		
-								
+
+
 							</div>
 						</div>
 					</div>
@@ -720,7 +720,7 @@
 	});
 
 
-	// Gallery Section Update Ends	
+	// Gallery Section Update Ends
 </script>
 
 <script src="{{asset('assets/admin/js/jquery.Jcrop.js')}}"></script>
@@ -736,7 +736,7 @@
 	$(document).ready(function () {
 
 		let html =
-			`<img src="{{ empty($data->photo) ? asset('assets/images/noimage.png') : asset('assets/images/products/'.$data->photo) }}" alt="">`;
+			`<img src="{{ empty($data->photo) ? asset('assets/images/noimage.png') : $data->photo }}" alt="">`;
 		$(".span4.cropme").html(html);
 
 		$.ajaxSetup({

@@ -5,7 +5,7 @@
 
 <!-- Breadcrumb Area Start -->
 <div class="breadcrumb-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <ul class="pages">
@@ -29,17 +29,17 @@
 
     <!-- Contact Us Area Start -->
     <section class="contact-us">
-        <div class="container">
+        <div class="container-fluid p-5 ">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="contact-section-title">
+                    <div class="contact-section-title text-center">
                             {!! $ps->contact_title !!}
                             {!! $ps->contact_text !!}
                     </div>
                 </div>
             </div>
             <div class="row justify-content-between">
-                <div class="col-xl-7 col-lg-7 col-md-6">
+                <div class="col-xl-8 col-lg-8 col-md-6">
                     <div class="left-area">
                         <div class="contact-form">
                             <div class="gocover" style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-5 col-md-6">
+                <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="right-area">
 
                         @if($ps->site != null || $ps->email != null )

@@ -76,7 +76,7 @@ class GeniusMailer
 
         }
         catch (\Exception $e){
-             //die($e->getMessage());
+            //  die($e->getMessage());
         }
 
         $files = glob('assets/temp_files/*'); //get all file names
@@ -142,9 +142,9 @@ class GeniusMailer
             // dd($objDemo,$mail);
         }
         catch (\Exception $e){
-            //die($e->getMessage());
+            die($e->getMessage());
             return $e->getMessage();
-            // dd($e->getMessage());
+            dd($e->getMessage());
         }
         return true;
     }

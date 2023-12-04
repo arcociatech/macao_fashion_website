@@ -1,0 +1,1 @@
+[11-Apr-2021 13:49:46 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home/macaofas/public_html/vendor/illuminate/contracts/Cache/Store.php on line 4

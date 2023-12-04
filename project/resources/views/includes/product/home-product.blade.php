@@ -1,4 +1,4 @@
-<div class="col-lg-4 col-md-4 col-6 remove-padding">
+<div class="col-lg-3 col-md-3 col-6 remove-padding">
 
     <a href="{{ route('front.product', $prod->slug) }}" class="item">
         <div class="item-img">
@@ -9,8 +9,19 @@
                 @endforeach
             </div>
             @endif
-            <div class="extra-list">
-                <ul>
+            
+            <img class="img-fluid img-thumbnail"
+               <img class="img-fluid img-thumbnail"
+                src="{{ $prod->thumbnail  }}"
+                alt="">
+                <div class="extra-list w-100 d-flex justify-content-between">
+                    
+                      
+                <p class="mx-3" style="color:#000; font-size:14px; font-weight:bolder;">View Product</p>
+                <!--<a href="javascript:;" id="addcrt"><i class="icofont-cart"></i>{{ $langg->lang90 }}</a>-->
+
+                    
+                <ul class="d-flex justify-content-end" styl="column-gap:2px;">
                     <li>
                         @if(Auth::guard('web')->check())
 
@@ -43,19 +54,17 @@
                     </li>
                 </ul>
             </div>
-            <img class="img-fluid img-thumbnail"
-                src="{{ $prod->thumbnail ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}"
-                alt="">
         </div>
-        <div class="info">
+        <div class="info mt-1">
             <div class="stars">
                 <div class="ratings">
                     <div class="empty-stars"></div>
                     <div class="full-stars" style="width:{{App\Models\Rating::ratings($prod->id)}}%"></div>
                 </div>
             </div>
+              <h5 class="name">{{ $prod->showName() }}</h5>
             <h4 class="price">{{ $prod->showPrice() }}</h4>
-            <h5 class="name">{{ $prod->showName() }}</h5>
+          
             <div class="item-cart-area">
                 @if($prod->product_type == "affiliate")
                 <span class="add-to-cart-btn affilate-btn" data-href="{{ route('affiliate.product', $prod->slug) }}"><i

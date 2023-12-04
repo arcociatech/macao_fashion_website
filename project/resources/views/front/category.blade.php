@@ -41,7 +41,7 @@
    <div class="container-fluid">
       <div class="row">
          @include('includes.catalog')
-         <div class="col-lg-9 order-first order-lg-last ajax-loader-parent">
+         <div class="col-lg-10 order-first order-lg-last ajax-loader-parent">
             <div class="right-area" id="app">
 
                @include('includes.filter')

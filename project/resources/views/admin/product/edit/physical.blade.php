@@ -983,7 +983,6 @@
 
                                         </div>
                                     </div>
-
                                     <input type="hidden" id="feature_photo" name="photo" value="{{ $data->photo }}"
                                         accept="image/*">
 
@@ -1317,7 +1316,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-    let html = `<img src="{{ empty($data->photo) ? asset('assets/images/noimage.png') : (filter_var($data->photo, FILTER_VALIDATE_URL) ? $data->photo : asset('assets/images/products/'.$data->photo)) }}" alt="">`;
+    let html = `<img src="{{ empty($data->photo) ? asset('assets/images/noimage.png') : (filter_var($data->photo, FILTER_VALIDATE_URL) ? $data->photo : $data->photo) }}" alt="">`;
     $(".span4.cropme").html(html);
 
     $.ajaxSetup({

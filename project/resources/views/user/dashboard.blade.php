@@ -3,10 +3,10 @@
 
 
 <section class="user-dashbord">
-    <div class="container">
+    <div class="container-fluid ">
       <div class="row">
         @include('includes.user-dashboard-sidebar')
-        <div class="col-lg-8">
+        <div class="col-lg-10">
           @include('includes.form-success')
           <div class="row mb-3">
             <div class="col-lg-6">

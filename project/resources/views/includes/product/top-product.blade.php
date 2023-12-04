@@ -1,4 +1,4 @@
-	<div class="col-lg-3 col-md-4 col-6 remove-padding">
+	<div class="col-lg-3 col-md-3 col-6 remove-padding">
 
 		<a class="item" href="{{ route('front.product', $prod->slug) }}">
 			<div class="item-img">
@@ -36,7 +36,7 @@
 							</li>
 						</ul>
 					</div>
-				<img class="img-fluid img-thumbnail" src="{{ $prod->thumbnail ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="">
+				<img class="img-fluid img-thumbnail" src="{{ $prod->thumbnail }}" alt="">
 			</div>
 			<div class="info">
 				<div class="stars">

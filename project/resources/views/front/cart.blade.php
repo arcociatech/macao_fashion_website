@@ -3,7 +3,7 @@
 
 <!-- Breadcrumb Area Start -->
 <div class="breadcrumb-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <ul class="pages">
@@ -26,14 +26,14 @@
 
 <!-- Cart Area Start -->
 <section class="cartpage">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div class="left-area">
                     <div class="cart-table">
                         <table class="table">
                             @include('includes.form-success')
-                            <thead>
+                            <thead class="table-dark ">
                                 <tr>
                                     <th>{{ $langg->lang122 }}</th>
                                     <th width="30%">{{ $langg->lang539 }}</th>
@@ -50,7 +50,7 @@
                                     class="cremove{{ $product['item']['id'].$product['size'].$product['color'].str_replace(str_split(' ,'),'',$product['values']) }}">
                                     <td class="product-img">
                                         <div class="item">
-                                            <img src="{{ $product['item']['photo'] ? asset('assets/images/products/'.$product['item']['photo']):asset('assets/images/noimage.png') }}"
+                                            <img  style="height: 130px" src="{{ $product['item']['photo'] }}"
                                                 alt="">
                                             <p class="name"><a
                                                     href="{{ route('front.product', $product['item']['slug']) }}">{{mb_strlen($product['item']['name'],'utf-8') > 35 ? mb_substr($product['item']['name'],0,35,'utf-8').'...' : $product['item']['name']}}</a>
@@ -63,7 +63,7 @@
                                         {{ $product['item']['measure'] }}{{str_replace('-',' ',$product['size'])}} <br>
                                         @endif
                                         @if(!empty($product['color']))
-                                        <div class="d-flex mt-2">
+                                        <div class="d-flex  mt-2">
                                             <b>{{ $langg->lang313 }}</b>: <span id="color-bar"
                                                 style="border: 10px solid #{{$product['color'] == "" ? "white" : $product['color']}};"></span>
                                         </div>
@@ -155,7 +155,7 @@
                 </div>
             </div>
             @if(Session::has('cart'))
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="right-area">
                     <div class="order-box">
                         <h4 class="title">

@@ -15,6 +15,7 @@
 		<link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet" />
 		<!-- Fontawesome -->
 		<link rel="stylesheet" href="{{asset('assets/admin/css/fontawesome.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/admin/css/toastr.css')}}">
 		<!-- icofont -->
 		<link rel="stylesheet" href="{{asset('assets/admin/css/icofont.min.css')}}">
 		<!-- Sidemenu Css -->
@@ -207,12 +208,12 @@
 
         <script src="{{asset('assets/admin/js/jquery.canvasjs.min.js')}}"></script>
 
+		<script src="{{ asset('assets/front/js/toastr.js') }}"></script>
 		<script src="{{asset('assets/admin/js/load.js')}}"></script>
 		<!-- Custom Js-->
 		<script src="{{asset('assets/admin/js/custom.js')}}"></script>
 		<!-- AJAX Js-->
 		<script src="{{asset('assets/admin/js/myscript.js')}}"></script>
-
 
 
 		@yield('scripts')

@@ -15,6 +15,7 @@ use App\Models\AttributeOption;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 use Validator;
 use Image;
@@ -36,12 +37,24 @@ class ProductController extends Controller
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
             ->editColumn('photo', function (Product $data) {
-                if ($data->thumbnail) {
-                    $image = asset('assets/images/thumbnails/' . $data->thumbnail);
-                } else {
-                    $image = asset('assets/images/noimage.png');
-                }
-                return  '<img src="' . $image . '" class="img-thumbnail">';
+                // // if ($data->thumbnail) {
+                // //     $image = asset('assets/images/thumbnails/' . $data->thumbnail);
+                // // } else {
+                // //     $image = asset('assets/images/noimage.png');
+                // // }
+                // // return  '<img src="' . $image . '" class="img-thumbnail">';
+                //  if ($data->thumbnail) {
+                //     if(file_exists(asset('assets/images/thumbnails/' . $data->thumbnail))){
+                //         $image = asset('assets/images/thumbnails/' . $data->thumbnail);
+                //     }else{
+                //     $image = env('APP_POS_IMAGE_URL') . $data->thumbnail;
+                //     }
+
+                    
+                // } else {
+                //     $image = asset('assets/images/noimage.png');
+                // }
+                return  '<img src="' . $data->thumbnail . '" class="img-thumbnail">';
             })
             ->editColumn('name', function (Product $data) {
                 $name =  mb_strlen($data->name, 'UTF-8') > 50 ? mb_substr($data->name, 0, 50, 'UTF-8') . '...' : $data->name;
@@ -84,14 +97,104 @@ class ProductController extends Controller
                 $catalog = $data->type == 'Physical' ? ($data->is_catalog == 1 ? '<a href="javascript:;" data-href="' . route('admin-prod-catalog', ['id1' => $data->id, 'id2' => 0]) . '" data-toggle="modal" data-target="#catalog-modal" class="delete"><i class="fas fa-trash-alt"></i> Remove Catalog</a>' : '<a href="javascript:;" data-href="' . route('admin-prod-catalog', ['id1' => $data->id, 'id2' => 1]) . '" data-toggle="modal" data-target="#catalog-modal"> <i class="fas fa-plus"></i> Add To Catalog</a>') : '';
                 return '<div class="godropdown"><button class="go-dropdown-toggle"> Actions<i class="fas fa-chevron-down"></i></button><div class="action-list"><a href="' . route('admin-prod-edit', $data->id) . '"> <i class="fas fa-edit"></i> Edit</a><a href="javascript" class="set-gallery" data-toggle="modal" data-target="#setgallery"><input type="hidden" value="' . $data->id . '"><i class="fas fa-eye"></i> View Gallery</a>' . $catalog . '<a data-href="' . route('admin-prod-feature', $data->id) . '" class="feature" data-toggle="modal" data-target="#modal2"> <i class="fas fa-star"></i> Highlight</a><a href="javascript:;" data-href="' . route('admin-prod-delete', $data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i> Delete</a></div></div>';
             })
-            ->rawColumns(['photo', 'name', 'status', 'action'])
+             ->addColumn('hot_product', function (Product $data) {
+               $check=$data->hot == 1?'checked':'';
+            return '<input type="checkbox" value=' . $data->hot . ' ' . $check . '  onchange="hotProduct(event,'.$data->id.')">';
+            })
+            ->rawColumns(['photo', 'name', 'status', 'action','hot_product'])
             ->toJson(); //--- Returning Json Data To Client Side
+    }
+    public function hotProductdatatables()
+    {
+        $datas = Product::where('product_type', '=', 'normal')->where('hot', 1)->orderBy('id', 'desc')->get();
+
+        //--- Integrating This Collection Into Datatables
+        return Datatables::of($datas)
+            ->editColumn('photo', function (Product $data) {
+                // // if ($data->thumbnail) {
+                // //     $image = asset('assets/images/thumbnails/' . $data->thumbnail);
+                // // } else {
+                // //     $image = asset('assets/images/noimage.png');
+                // // }
+                // // return  '<img src="' . $image . '" class="img-thumbnail">';
+                //  if ($data->thumbnail) {
+                //     if(file_exists(asset('assets/images/thumbnails/' . $data->thumbnail))){
+                //         $image = asset('assets/images/thumbnails/' . $data->thumbnail);
+                //     }else{
+                //     $image = env('APP_POS_IMAGE_URL') . $data->thumbnail;
+                //     }
+
+                    
+                // } else {
+                //     $image = asset('assets/images/noimage.png');
+                // }
+                return  '<img src="' . $data->thumbnail . '" class="img-thumbnail">';
+            })
+            ->editColumn('name', function (Product $data) {
+                $name =  mb_strlen($data->name, 'UTF-8') > 50 ? mb_substr($data->name, 0, 50, 'UTF-8') . '...' : $data->name;
+
+                $id = '<small>' . __("ID") . ': <a href="' . route('front.product', $data->slug) . '" target="_blank">' . sprintf("%'.08d", $data->id) . '</a></small>';
+
+                $id3 = $data->type == 'Physical' ? '<small class="ml-2"> ' . __("SKU") . ': <a href="' . route('front.product', $data->slug) . '" target="_blank">' . $data->sku . '</a>' : '';
+
+                return  $name . '<br>' . $id . $id3 . $data->checkVendor();
+            })
+            ->editColumn('price', function (Product $data) {
+                $sign = Currency::where('is_default', '=', 1)->first();
+                $price = round($data->price * $sign->value, 2);
+                $price = $sign->sign . $price;
+                return  $price;
+            })
+            ->editColumn('stock', function (Product $data) {
+                $stck = (string)$data->stock;
+                if ($stck == "0")
+                    return "Out Of Stock";
+                elseif ($stck == null)
+                    return "Unlimited";
+                else
+                    return $data->stock;
+            })
+            ->addColumn('status', function (Product $data) {
+                $class = $data->status == 1 ? 'drop-success' : 'drop-danger';
+                $s = $data->status == 1 ? 'selected' : '';
+                $ns = $data->status == 0 ? 'selected' : '';
+                $gallery_btn =  '<button href="javascript" class="set-gallery btn btn-sm btn-info" data-toggle="modal" data-target="#setgallery" title="Gallery"><input type="hidden" value="' . $data->id . '"><i class="fas fa-images"></i></button>';
+                $setMainImage = '<button href="javascript" class="set-main-image btn btn-sm btn-success" data-toggle="modal" data-target="#setMainImage" title="Main Image"><input type="hidden" value="' . $data->id . '"><i class="fas fa-images"></i></button>';
+
+                $setDescription = '<button href="javascript" class="set-description btn btn-sm btn-warning ml-1" data-toggle="modal" data-target="#setDescription" title="Main Image"><input type="hidden" value="' . $data->id . '"><i class="fas fa-list"></i></button>';
+
+
+
+                return $setMainImage . ' ' . $gallery_btn . $setDescription . '<div class="action-list"><select class="process select droplinks ' . $class . '"><option data-val="1" value="' . route('admin-prod-status', ['id1' => $data->id, 'id2' => 1]) . '" ' . $s . '>Activated</option><<option data-val="0" value="' . route('admin-prod-status', ['id1' => $data->id, 'id2' => 0]) . '" ' . $ns . '>Deactivated</option>/select></div>';
+            })
+            ->addColumn('action', function (Product $data) {
+                $catalog = $data->type == 'Physical' ? ($data->is_catalog == 1 ? '<a href="javascript:;" data-href="' . route('admin-prod-catalog', ['id1' => $data->id, 'id2' => 0]) . '" data-toggle="modal" data-target="#catalog-modal" class="delete"><i class="fas fa-trash-alt"></i> Remove Catalog</a>' : '<a href="javascript:;" data-href="' . route('admin-prod-catalog', ['id1' => $data->id, 'id2' => 1]) . '" data-toggle="modal" data-target="#catalog-modal"> <i class="fas fa-plus"></i> Add To Catalog</a>') : '';
+                return '<div class="godropdown"><button class="go-dropdown-toggle"> Actions<i class="fas fa-chevron-down"></i></button><div class="action-list"><a href="' . route('admin-prod-edit', $data->id) . '"> <i class="fas fa-edit"></i> Edit</a><a href="javascript" class="set-gallery" data-toggle="modal" data-target="#setgallery"><input type="hidden" value="' . $data->id . '"><i class="fas fa-eye"></i> View Gallery</a>' . $catalog . '<a data-href="' . route('admin-prod-feature', $data->id) . '" class="feature" data-toggle="modal" data-target="#modal2"> <i class="fas fa-star"></i> Highlight</a><a href="javascript:;" data-href="' . route('admin-prod-delete', $data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i> Delete</a></div></div>';
+            })
+             ->addColumn('hot_product', function (Product $data) {
+               $check=$data->hot == 1?'checked':'';
+            return '<input type="checkbox" value=' . $data->hot . ' ' . $check . '  onchange="hotProduct(event,'.$data->id.')">';
+            })
+            ->rawColumns(['photo', 'name', 'status', 'action','hot_product'])
+            ->toJson(); //--- Returning Json Data To Client Side
+    }
+    public function hotProductStatus(Request $request,$id){
+        $record=Product::find($id);
+        $record->update([
+            'hot'=>$request->is_hot,
+        ]);
+        if($request->is_hot == 1){
+            $message='Add in Hot Product';
+        }else{
+            $message='Remove from Hot Product';
+        }
+        return response()->json(['status',true,'message'=>$message],200);
     }
 
     //*** JSON Request
     public function deactivedatatables()
     {
-        $datas = Product::where('status', '=', 0)->orderBy('id', 'desc')->get();
+        $datas = Product::where('status', '=', 0)->orderBy('id', 'desc')->get();/*  */
 
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
@@ -198,6 +301,10 @@ class ProductController extends Controller
     {
         return view('admin.product.index');
     }
+     public function hotProduct()
+    {
+        return view('admin.product.hot_product');
+    }
 
     //*** GET Request
     public function deactive()
@@ -280,26 +387,85 @@ class ProductController extends Controller
 
         //--- Validation Section Ends
         $image = $request->image;
+         
         list($type, $image) = explode(';', $image);
         list(, $image)      = explode(',', $image);
         $image = base64_decode($image);
         $image_name = Str::random(10) . '.png';
+        // Log::info(["image: " => $image_name]);
+        
         $path = 'assets/images/products/' . $image_name;
+        // Log::info(["path: " => $path]);
         file_put_contents($path, $image);
+        // Log::info(["data: " => $data]);
         if ($data->photo != null) {
             if (file_exists(public_path() . '/assets/images/products/' . $data->photo)) {
                 unlink(public_path() . '/assets/images/products/' . $data->photo);
             }
         }
         $input['photo'] = $image_name;
-        $data->update($input);
+        // Log::info(["input Image: " => $input]);
+        
+        tap($data->update($input));
+        // dd($data);
         if ($data->thumbnail != null) {
             if (file_exists(public_path() . '/assets/images/thumbnails/' . $data->thumbnail)) {
                 unlink(public_path() . '/assets/images/thumbnails/' . $data->thumbnail);
             }
         }
+    //   dd($data->photo);
+        $img = Image::make( $data->photo)->resize(285, 285);
+        // Log::info(["Img: " => $img]);
+        $thumbnail = Str::random(10) . '.jpg';
+        $img->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
+        $data->thumbnail  = $thumbnail;
+        $data->update();
+        return response()->json(['status' => true, 'file_name' => $image_name]);
+    }
+    public function uploadUpdateOld(Request $request, $id)
+    {
+        //--- Validation Section
+        $rules = [
+            'image' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        }
 
+        $data = Product::findOrFail($id);
+
+        //--- Validation Section Ends
+        $image = $request->image;
+         
+        list($type, $image) = explode(';', $image);
+        list(, $image)      = explode(',', $image);
+        $image = base64_decode($image);
+        $image_name = Str::random(10) . '.png';
+        // Log::info(["image: " => $image_name]);
+        
+        $path = 'assets/images/products/' . $image_name;
+        // Log::info(["path: " => $path]);
+        file_put_contents($path, $image);
+        // Log::info(["data: " => $data]);
+        if ($data->photo != null) {
+            if (file_exists(public_path() . '/assets/images/products/' . $data->photo)) {
+                unlink(public_path() . '/assets/images/products/' . $data->photo);
+            }
+        }
+        $input['photo'] = $image_name;
+        // Log::info(["input Image: " => $input]);
+        
+        tap($data->update($input));
+        // dd($data);
+        if ($data->thumbnail != null) {
+            if (file_exists(public_path() . '/assets/images/thumbnails/' . $data->thumbnail)) {
+                unlink(public_path() . '/assets/images/thumbnails/' . $data->thumbnail);
+            }
+        }
+       
         $img = Image::make(public_path() . '/assets/images/products/' . $data->photo)->resize(285, 285);
+        // Log::info(["Img: " => $img]);
         $thumbnail = Str::random(10) . '.jpg';
         $img->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
         $data->thumbnail  = $thumbnail;
@@ -773,9 +939,10 @@ class ProductController extends Controller
 
         //-- Logic Section
         $data = Product::findOrFail($id);
+        // dd($data);
         $sign = Currency::where('is_default', '=', 1)->first();
-        $input = $request->all();
-
+        $input = $request->except('photo');
+        // dd($input,public_path());
         //Check Types
         if ($request->type_check == 1) {
             $input['link'] = null;
@@ -787,8 +954,6 @@ class ProductController extends Controller
             }
             $input['file'] = null;
         }
-
-
         // Check Physical
         if ($data->type == "Physical") {
 
@@ -1007,7 +1172,7 @@ class ProductController extends Controller
             $jsonAttr = json_encode($attrArr);
             $input['attributes'] = $jsonAttr;
         }
-
+       
         $data->update($input);
         //-- Logic Section Ends
 

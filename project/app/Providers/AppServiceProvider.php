@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
         $admin_lang = DB::table('admin_languages')->where('is_default','=',1)->first();
         App::setlocale($admin_lang->name);
         User::chekValidation();
-
         view()->composer('*',function($settings){
 
             $settings->with('gs', cache()->remember('generalsettings', now()->addDay(), function () {

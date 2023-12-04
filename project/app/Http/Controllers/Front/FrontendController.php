@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 use Markury\MarkuryPost;
-
+use Illuminate\Support\Collection;
 class FrontendController extends Controller
 {
     /**
@@ -159,11 +159,67 @@ class FrontendController extends Controller
             return false;
 
           });
+          $hot_products =  Product::with('user')->where('hot','=',1)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(20)->latest()->get()->reject(function($item){
 
-	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products'));
+            if($item->user_id != 0){
+              if($item->user->is_vendor != 2){
+                return true;
+              }
+            }
+            return false;
+
+          });
+
+	    return view('front.index',compact('ps','sliders','hot_products','top_small_banners','feature_products'));
 	}
 
-    public function extraIndex()
+      public function hotProduct(Request $request)
+    {
+        if(!empty($request->reff))
+         {
+            $affilate_user = User::where('affilate_code','=',$request->reff)->first();
+            if(!empty($affilate_user))
+            {
+                $gs = Generalsetting::findOrFail(1);
+                if($gs->is_affilate == 1)
+                {
+                    Session::put('affilate', $affilate_user->id);
+                    return redirect()->route('front.index');
+                }
+
+            }
+
+         }
+        $selectable = ['id','user_id','name','slug','features','colors','thumbnail','price','previous_price','attributes','size','size_price','discount_date'];
+        $sliders = DB::table('sliders')->get();
+        $top_small_banners = DB::table('banners')->where('type','=','TopSmall')->get();
+        $ps = DB::table('pagesettings')->find(1);
+        $feature_products =  Product::with('user')->where('featured','=',1)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(8)->get()->reject(function($item){
+
+            if($item->user_id != 0){
+              if($item->user->is_vendor != 2){
+                return true;
+              }
+            }
+            return false;
+
+          });
+          $prods =  Product::with('user')->where('hot','=',1)->where('status','=',1)->select($selectable)->orderBy('id','desc')->take(8)->get()->reject(function($item){
+
+            if($item->user_id != 0){
+              if($item->user->is_vendor != 2){
+                return true;
+              }
+            }
+            return false;
+
+          });
+          $prods = (new Collection(Product::filterProducts($prods)))->paginate(12);
+
+          $data['prods'] = $prods;
+	    return view('front.hot_product',compact('ps','sliders','prods','top_small_banners'));
+    }
+        public function extraIndex()
     {
         $services = DB::table('services')->where('user_id','=',0)->get();
         $bottom_small_banners = DB::table('banners')->where('type','=','BottomSmall')->get();

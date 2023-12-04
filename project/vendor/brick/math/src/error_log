@@ -1,0 +1,1 @@
+[11-Apr-2021 13:50:51 UTC] PHP Fatal error:  strict_types declaration must be the very first statement in the script in /home/macaofas/public_html/project/vendor/brick/math/src/RoundingMode.php on line 4

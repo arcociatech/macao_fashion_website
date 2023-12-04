@@ -1,0 +1,1 @@
+[11-Apr-2021 13:51:48 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home/macaofas/public_html/vendor/symfony/routing/Annotation/copy_Route.php on line 13

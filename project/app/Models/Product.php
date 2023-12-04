@@ -30,6 +30,39 @@ class Product extends Model
         return $collection;
     }
 
+      public function getThumbnailAttribute($value)
+    {
+        if ($value) {
+            if ( count($this->galleries) > 0){
+                $img=$this->galleries->last();
+                $image = asset('assets/images/galleries/' . $img->photo);
+            }else{
+                if(!file_exists(public_path().'assets/images/thumbnails/' . $value)){
+                    $image = env('APP_POS_IMAGE_URL') . $value;
+                }else{
+                    $image = asset('assets/images/thumbnails/' . $value);
+                }
+            }
+
+        } else {
+            $image = asset('assets/images/noimage.png');
+        }
+        return $image;
+    }
+     public function getPhotoAttribute($value)
+    {
+        if ($value) {
+            if(!file_exists(public_path().'assets/images/products/' . $value)){
+                $image = env('APP_POS_IMAGE_URL') . $value;
+                
+            }else{
+                $image = asset('assets/images/products/' . $value);
+            }
+        } else {
+            $image = asset('assets/images/noimage.png');
+        }
+        return $image;
+    }
     public function category()
     {
         return $this->belongsTo('App\Models\Category')->withDefault(function ($data) {
