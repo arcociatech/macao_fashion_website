@@ -860,7 +860,8 @@
 
                                     {{-- Packeging Area Start --}}
                                     <div class="packeging-area">
-                                        <h4 class="title">{{ $langg->lang766 }}</h4>
+                                        {{-- <h4 class="title">{{ $langg->lang766 }}</h4> --}}
+                                        <h4 class="title">Shipping is free for orders above €100</h4>
 
                                         @foreach ($package_data as $data)
                                             <div class="radio-design">
