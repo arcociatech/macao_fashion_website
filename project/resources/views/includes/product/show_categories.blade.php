@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-md-3 col-6 remove-padding" style="height: 353px !important">
+<div class="col-lg-3 col-md-3 col-12 remove-padding" style="height: 353px !important">
     <a href="{{ route('front.subcat', ['slug1' => 'women', 'slug2' => 'robe']) }}" class="item" style="height: 100% !important">
         <div class="item-img ">
             <img class="img-fluid img-thumbnail" src="{{ asset('assets/category/robe.jpg') }}" alt="">
@@ -8,7 +8,7 @@
         </div>
     </a>
 </div>
-<div class="col-lg-3 col-md-3 col-6 remove-padding">
+<div class="col-lg-3 col-md-3 col-12 remove-padding">
     <a href="{{ route('front.childcat', ['slug1' => 'women', 'slug2' => 'bas', 'slug3' => 'denim-jeans']) }}" class="item" style="height: 100% !important">
         <div class="item-img">
             <img class="img-fluid img-thumbnail" src="{{ asset('assets/category/Jeans.jpg') }}" alt="">
@@ -29,7 +29,7 @@
 <!--        </div>-->
 <!--    </a>-->
 <!--</div>-->
-<div class="col-lg-3 col-md-3 col-6 remove-padding">
+<div class="col-lg-3 col-md-3 col-12 remove-padding">
     <a href="{{ route('front.subcat', ['slug1' => 'women', 'slug2' => 'top']) }}" class="item" style="height: 100% !important">
         <div class="item-img">
             <img class="img-fluid img-thumbnail" src="{{ asset('assets/category/Top.jpg') }}" alt="">
@@ -39,7 +39,7 @@
         </div>
     </a>
 </div>
-<div class="col-lg-3 col-md-3 col-6 remove-padding">
+<div class="col-lg-3 col-md-3 col-12 remove-padding">
     <a href="{{ route('front.childcat', ['slug1' => 'women', 'slug2' => 'veste', 'slug3' => 'blazer']) }}" class="item" style="height: 100% !important">
         <div class="item-img">
             <img class="img-fluid img-thumbnail" src="{{ asset('assets/category/Blazer.jpg') }}" alt="">

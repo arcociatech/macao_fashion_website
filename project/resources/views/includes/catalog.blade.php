@@ -1,4 +1,4 @@
-        <div class="col-lg-2 col-md-12">
+        <div class="col-lg-2 col-md-6">
             <div class="left-area">
                 <div class="filter-result-area">
                     <div class="header-area">
