@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-md-3 col-6 remove-padding">
+<div class="col-lg-3 col-md-3 col-12 remove-padding">
 
     <a href="{{ route('front.product', $prod->slug) }}" class="item">
         <div class="item-img">
@@ -9,18 +9,18 @@
                 @endforeach
             </div>
             @endif
-            
+
             <img class="img-fluid img-thumbnail"
                <img class="img-fluid img-thumbnail"
                 src="{{ $prod->thumbnail  }}"
                 alt="">
                 <div class="extra-list w-100 d-flex justify-content-between">
-                    
-                      
+
+
                 <p class="mx-3" style="color:#000; font-size:14px; font-weight:bolder;">View Product</p>
                 <!--<a href="javascript:;" id="addcrt"><i class="icofont-cart"></i>{{ $langg->lang90 }}</a>-->
 
-                    
+
                 <ul class="d-flex justify-content-end" styl="column-gap:2px;">
                     <li>
                         @if(Auth::guard('web')->check())
@@ -64,7 +64,7 @@
             </div>
               <h5 class="name">{{ $prod->showName() }}</h5>
             <h4 class="price">{{ $prod->showPrice() }}</h4>
-          
+
             <div class="item-cart-area">
                 @if($prod->product_type == "affiliate")
                 <span class="add-to-cart-btn affilate-btn" data-href="{{ route('affiliate.product', $prod->slug) }}"><i
