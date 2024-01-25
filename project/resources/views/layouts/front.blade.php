@@ -481,7 +481,7 @@
                                     </div>
                                 </a>
                             </li>
-                            
+
                             @if (!Auth::guard('web')->check())
                             {{-- <li class="compare" data-toggle="tooltip" data-placement="top">
                                 <a href="{{ route('user.login') }}" class="sign-log">
@@ -513,34 +513,42 @@
                             </li>
                         @else
                             <li class="profilearea my-dropdown">
-                                <a href="javascript: ;" id="profile-icon" class="profile carticon">
+                                <a href="javascript: ;" id="profile-icon" class="profile carticon mt-3">
                                     <span class="text">
                                         <i class="far fa-user"></i> {{ $langg->lang11 }} <i
                                             class="fas fa-chevron-down"></i>
                                     </span>
                                 </a>
-                                <div class="my-dropdown-menu profile-dropdown">
+                                <div class="my-dropdown-menu profile-dropdown w-50">
                                     <ul class="profile-links">
-                                        <li>
+                                        <li class="my-2" style="display: block !important;
+
+                                        margin-right: 20px; !important">
                                             <a href="{{ route('user-dashboard') }}"><i
                                                     class="fas fa-angle-double-right"></i>
                                                 {{ $langg->lang221 }}</a>
                                         </li>
                                         @if (Auth::user()->IsVendor())
-                                            <li>
+                                            <li class="my-2" style="display: block !important;
+
+                                            margin-right: 20px; !important">
                                                 <a href="{{ route('vendor-dashboard') }}"><i
                                                         class="fas fa-angle-double-right"></i>
                                                     {{ $langg->lang222 }}</a>
                                             </li>
                                         @endif
 
-                                        <li>
+                                        <li class="my-2" style="display: block !important;
+
+                                        margin-right: 20px; !important">
                                             <a href="{{ route('user-profile') }}"><i
                                                     class="fas fa-angle-double-right"></i>
                                                 {{ $langg->lang205 }}</a>
                                         </li>
 
-                                        <li>
+                                        <li class="my-2" style="display: block !important;
+
+                                        margin-right: 20px; !important">
                                             <a href="{{ route('user-logout') }}"><i
                                                     class="fas fa-angle-double-right"></i>
                                                 {{ $langg->lang223 }}</a>
@@ -551,7 +559,7 @@
                         @endif
                         </ul>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </section>
