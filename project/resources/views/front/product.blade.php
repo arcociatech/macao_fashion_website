@@ -5,6 +5,11 @@
             /* border: 4px solid #11e53f !important; */
             border: 4px solid #1175e5 !important;
         }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
     </style>
 @endsection
 @section('content')
@@ -44,7 +49,7 @@
             <div class="row">
                 <div class="col-lg-{{ $gs->reg_vendor == 1 ? '9' : '12' }}">
                     <div class="row">
-               
+
                         <div class="col-lg-4 col-md-12">
 
                             <div class="xzoom-container">
@@ -59,7 +64,7 @@
                                         <a
                                             href="{{ filter_var($productt->photo, FILTER_VALIDATE_URL) ? $productt->photo : $productt->photo }}">
                                             <img class="xzoom-gallery5" width="80"
-                                                src="{{ filter_var($productt->photo, FILTER_VALIDATE_URL) ? $productt->photo :  $productt->photo }}"
+                                                src="{{ filter_var($productt->photo, FILTER_VALIDATE_URL) ? $productt->photo : $productt->photo }}"
                                                 title="Product Image">
                                         </a>
 
@@ -222,14 +227,13 @@
                                                 @php
                                                     $is_first = true;
                                                     $sizes = $productt->size;
-                                                    $ordered_sizes = collect($sizes)
-                                                        ->reverse()
-                                                        ->toArray();
+                                                    $ordered_sizes = collect($sizes)->reverse()->toArray();
                                                     // dd();
                                                     // $sizes = rsort($productt->size);
                                                 @endphp
                                                 @foreach ($ordered_sizes as $key => $data1)
                                                     {{-- <li > --}}
+                                                    {{-- @if ($productt->size_qty[$key] > 0)
                                                     <li class="{{ $is_first ? 'active' : '' }}">
                                                         <span class="box">{{ $data1 }}
                                                             <input type="hidden" class="size"
@@ -240,13 +244,38 @@
                                                                 value="{{ $key }}">
                                                             <input type="hidden" class="size_price"
                                                                 value="{{ round($productt->size_price[$key] * $curr->value, 2) }}">
-                                                            {{-- <input type="hidden" class="size_price"
-                                                           value="{{ round($productt->size_price[$key] * $curr->value,2) }}"> --}}
+
                                                         </span>
                                                     </li>
                                                     @php
                                                         $is_first = false;
                                                     @endphp
+                                                    @endif --}}
+                                                    @if ($productt->size_qty[$key] <= 0)
+                                                        <li class="disabled">
+                                                            <span class="box"
+                                                                style="color: red;">{{ $data1 }}</span>
+                                                        </li>
+                                                        @php
+                                                            $is_first = false;
+                                                        @endphp
+                                                    @else
+                                                        <li class="{{ $is_first ? 'active' : '' }}">
+                                                            <span class="box">{{ $data1 }}
+                                                                <input type="hidden" class="size"
+                                                                    value="{{ $data1 }}">
+                                                                <input type="hidden" class="size_qty"
+                                                                    value="{{ $productt->size_qty[$key] }}">
+                                                                <input type="hidden" class="size_key"
+                                                                    value="{{ $key }}">
+                                                                <input type="hidden" class="size_price"
+                                                                    value="{{ round($productt->size_price[$key] * $curr->value, 2) }}">
+                                                            </span>
+                                                        </li>
+                                                        @php
+                                                            $is_first = false;
+                                                        @endphp
+                                                    @endif
                                                 @endforeach
                                                 <li>
                                             </ul>
@@ -913,8 +942,8 @@
                     <div class="col-lg-12 remove-padding">
                         <div class="trending-item-slider">
                             @foreach ($productt->category->products()->where('status', '=', 1)->where('id', '!=', $productt->id)->take(8)->get() as $prod)
-                                @include('includes.product.slider-product')
-                            @endforeach
+@include('includes.product.slider-product')
+@endforeach
                         </div>
                     </div>
 
@@ -974,8 +1003,8 @@
 
 
         @if (Auth::guard('web')->check())
-            @if ($productt->user_id != 0)
-                {{-- MESSAGE VENDOR MODAL --}}
+@if ($productt->user_id != 0)
+{{-- MESSAGE VENDOR MODAL --}}
 
 
                 <div class="modal" id="vendorform1" tabindex="-1" role="dialog" aria-labelledby="vendorformLabel1"
@@ -1038,15 +1067,15 @@
 
 
                 {{-- MESSAGE VENDOR MODAL ENDS --}}
-            @endif
-        @endif
+@endif
+@endif
 
     </div>
 
 
     @if ($gs->is_report)
-        @if (Auth::check())
-            {{-- REPORT MODAL SECTION --}}
+@if (Auth::check())
+{{-- REPORT MODAL SECTION --}}
 
             <div class="modal fade" id="report-modal" tabindex="-1" role="dialog"
                 aria-labelledby="report-modal-Title" aria-hidden="true">
@@ -1097,8 +1126,8 @@
             </div>
 
             {{-- REPORT MODAL SECTION ENDS --}}
-        @endif
-    @endif
+@endif
+@endif
 
 @endsection
 
@@ -1141,41 +1170,41 @@
     </script>
 
 
-    <script type="text/javascript">
-        $(document).on("submit", "#emailreply", function() {
-            var token = $(this).find('input[name=_token]').val();
-            var subject = $(this).find('input[name=subject]').val();
-            var message = $(this).find('textarea[name=message]').val();
-            var email = $(this).find('input[name=email]').val();
-            var name = $(this).find('input[name=name]').val();
-            var user_id = $(this).find('input[name=user_id]').val();
-            var vendor_id = $(this).find('input[name=vendor_id]').val();
-            $('#subj').prop('disabled', true);
-            $('#msg').prop('disabled', true);
-            $('#emlsub').prop('disabled', true);
-            $.ajax({
-                type: 'post',
-                url: "{{ URL::to('/vendor/contact') }}",
-                data: {
-                    '_token': token,
-                    'subject': subject,
-                    'message': message,
-                    'email': email,
-                    'name': name,
-                    'user_id': user_id,
-                    'vendor_id': vendor_id
-                },
-                success: function() {
-                    $('#subj').prop('disabled', false);
-                    $('#msg').prop('disabled', false);
-                    $('#subj').val('');
-                    $('#msg').val('');
-                    $('#emlsub').prop('disabled', false);
-                    toastr.success("{{ $langg->message_sent }}");
-                    $('.ti-close').click();
-                }
+        <script type="text/javascript">
+            $(document).on("submit", "#emailreply", function() {
+                var token = $(this).find('input[name=_token]').val();
+                var subject = $(this).find('input[name=subject]').val();
+                var message = $(this).find('textarea[name=message]').val();
+                var email = $(this).find('input[name=email]').val();
+                var name = $(this).find('input[name=name]').val();
+                var user_id = $(this).find('input[name=user_id]').val();
+                var vendor_id = $(this).find('input[name=vendor_id]').val();
+                $('#subj').prop('disabled', true);
+                $('#msg').prop('disabled', true);
+                $('#emlsub').prop('disabled', true);
+                $.ajax({
+                    type: 'post',
+                    url: "{{ URL::to('/vendor/contact') }}",
+                    data: {
+                        '_token': token,
+                        'subject': subject,
+                        'message': message,
+                        'email': email,
+                        'name': name,
+                        'user_id': user_id,
+                        'vendor_id': vendor_id
+                    },
+                    success: function() {
+                        $('#subj').prop('disabled', false);
+                        $('#msg').prop('disabled', false);
+                        $('#subj').val('');
+                        $('#msg').val('');
+                        $('#emlsub').prop('disabled', false);
+                        toastr.success("{{ $langg->message_sent }}");
+                        $('.ti-close').click();
+                    }
+                });
+                return false;
             });
-            return false;
-        });
-    </script>
-@endsection
+        </script>
+@endsection)
